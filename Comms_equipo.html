@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNODC Colombia — Equipo Técnico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#c8d8c0;--sage-l:#eef4eb;--sage-d:#3a5832;
+  --peach:#e4c4a8;--peach-l:#faf0e6;--peach-d:#7a4520;
+  --sky:#a8c8dc;--sky-l:#e4f0f7;--sky-d:#1a4f6a;
+  --lav:#c4b8dc;--lav-l:#ede8f7;--lav-d:#3e2e6c;
+  --rose:#dcb8c0;--rose-l:#f7eaed;--rose-d:#6c2e38;
+  --butter:#e4d8a8;--butter-l:#faf5e4;--butter-d:#5c4a10;
+  --cream:#f8f4ee;--sand:#e0d8cc;
+  --ink:#1e1e18;--ink2:#52524a;--ink3:#8e8e84;--white:#ffffff;
+  --r:14px;--rs:8px;
+  --shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 32px rgba(0,0,0,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+.app{display:flex;min-height:100vh}
+.sidebar{width:220px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
+.sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-logo .org{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:3px}
+.sidebar-logo h1{font-size:15px;font-weight:700;color:#fff;line-height:1.3}
+.sidebar-nav{flex:1;padding:1rem 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 1.25rem;cursor:pointer;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;transition:all .15s;border-left:3px solid transparent;user-select:none}
+.nav-item:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--sky);background:rgba(168,200,220,.1)}
+.nav-icon{font-size:16px;width:20px;text-align:center}
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.25)}
+.main{margin-left:220px;flex:1;padding:2rem 2.5rem;max-width:1100px}
+.card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--sand);padding:1.25rem 1.5rem;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-sage{background:var(--sage-l);border-color:var(--sage)}
+.card-sky{background:var(--sky-l);border-color:var(--sky)}
+.card-peach{background:var(--peach-l);border-color:var(--peach)}
+.card-rose{background:var(--rose-l);border-color:var(--rose)}
+.card-butter{background:var(--butter-l);border-color:var(--butter)}
+.card-lav{background:var(--lav-l);border-color:var(--lav)}
+.page-title{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--ink3);margin-bottom:1.5rem}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.b-sage{background:var(--sage-l);color:var(--sage-d);border:1px solid var(--sage)}
+.b-sky{background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky)}
+.b-peach{background:var(--peach-l);color:var(--peach-d);border:1px solid var(--peach)}
+.b-rose{background:var(--rose-l);color:var(--rose-d);border:1px solid var(--rose)}
+.b-lav{background:var(--lav-l);color:var(--lav-d);border:1px solid var(--lav)}
+.b-butter{background:var(--butter-l);color:var(--butter-d);border:1px solid var(--butter)}
+.b-sand{background:var(--cream);color:var(--ink2);border:1px solid var(--sand)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.metric{border-radius:var(--r);padding:1.1rem 1.25rem}
+.metric-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.65;margin-bottom:5px}
+.metric-val{font-size:28px;font-weight:700}
+.tbl-wrap{overflow-x:auto;border-radius:var(--rs)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 12px;border-bottom:2px solid var(--sand);text-align:left;white-space:nowrap;background:var(--white)}
+tbody td{padding:10px 12px;border-bottom:1.5px solid var(--cream);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--cream)}
+.eq-tag{display:inline-block;background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky);border-radius:20px;font-size:11px;font-weight:700;padding:2px 8px;margin:2px 2px 2px 0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.time-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.form-group input,.form-group textarea,.form-group select{border:1.5px solid var(--sand);border-radius:var(--rs);padding:8px 11px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .15s;width:100%;font-family:'DM Sans',sans-serif;font-size:13px}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--sky);background:var(--white)}
+textarea{resize:vertical;min-height:54px}
+.search-wrap{position:relative}
+.search-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--sky);border-radius:var(--rs);max-height:230px;overflow-y:auto;z-index:400;display:none;box-shadow:var(--shadow-lg)}
+.drop-item{padding:9px 13px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--cream)}
+.drop-item:last-child{border-bottom:none}
+.drop-item:hover{background:var(--sky-l)}
+.drop-empty{padding:9px 13px;font-size:12px;color:var(--ink3);font-style:italic}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:700;margin:3px 3px 3px 0;border:1.5px solid var(--sky);background:var(--sky-l);color:var(--sky-d)}
+.chip-colab{border-color:var(--lav);background:var(--lav-l);color:var(--lav-d)}
+.chip-x{background:none;border:none;cursor:pointer;padding:0;font-size:14px;line-height:1;opacity:.6;color:inherit}
+.chip-x:hover{opacity:1}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:var(--rs);padding:8px 16px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;transition:all .15s;border:1.5px solid transparent}
+.btn-pri{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
+.btn-pri:hover{background:var(--sky);color:var(--white)}
+.btn-sec{background:var(--cream);border-color:var(--sand);color:var(--ink2);font-weight:400}
+.btn-sec:hover{border-color:var(--ink3)}
+.btn-sm{font-size:12px;padding:4px 10px;border-radius:var(--rs);border:1.5px solid var(--sand);background:var(--cream);color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:400;transition:all .12s}
+.btn-sm:hover{border-color:var(--sky);color:var(--sky-d)}
+.btn-del{font-size:13px;padding:4px 8px;border-radius:var(--rs);border:none;background:none;color:var(--rose-d);cursor:pointer;opacity:.5}
+.btn-del:hover{opacity:1}
+.alert{border-radius:var(--rs);padding:10px 14px;font-size:13px;margin-bottom:12px}
+.alert-warn{background:var(--peach-l);border:1.5px solid var(--peach);color:var(--peach-d)}
+.alert-ok{background:var(--sage-l);border:1.5px solid var(--sage);color:var(--sage-d)}
+.alert-info{background:var(--sky-l);border:1.5px solid var(--sky);color:var(--sky-d)}
+.inv-row{display:grid;grid-template-columns:1.2fr .9fr 1fr 90px auto;gap:10px;padding:9px 0;border-bottom:1.5px solid var(--cream);align-items:center;font-size:13px}
+.inv-row:last-child{border-bottom:none}
+.inv-head{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);border-bottom:2px solid var(--sand)!important;padding-bottom:8px}
+.colab-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1.5px solid var(--cream);font-size:13px}
+.colab-row:last-child{border-bottom:none}
+.colab-avatar{width:32px;height:32px;border-radius:50%;background:var(--lav-l);border:1.5px solid var(--lav);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--lav-d);flex-shrink:0}
+.eq-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--rs);margin-bottom:5px;border:1.5px solid var(--sand);background:var(--white);font-size:13px;flex-wrap:wrap;transition:background .1s}
+.eq-row:hover{background:var(--cream)}
+.eq-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.conflict-item{display:flex;gap:10px;padding:8px 0;border-bottom:1.5px solid var(--peach);font-size:13px;color:var(--peach-d)}
+.conflict-item:last-child{border-bottom:none}
+.upcoming-item{display:flex;gap:14px;padding:10px 0;border-bottom:1.5px solid var(--cream);cursor:pointer;align-items:flex-start;transition:padding .1s;border-radius:4px}
+.upcoming-item:last-child{border-bottom:none}
+.upcoming-item:hover{padding-left:4px}
+.active-item{display:flex;gap:10px;padding:9px 0;border-bottom:1.5px solid var(--butter);align-items:flex-start}
+.active-item:last-child{border-bottom:none}
+.save-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.save-ok{background:var(--sage-l);color:var(--sage-d);border:1px solid var(--sage)}
+.save-err{background:var(--rose-l);color:var(--rose-d);border:1px solid var(--rose)}
+.save-ing{background:var(--butter-l);color:var(--butter-d);border:1px solid var(--butter)}
+.time-hint{font-size:11px;color:var(--ink3);font-style:italic;margin-bottom:14px}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:var(--white);border-radius:var(--r);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1.5px solid var(--sand);position:sticky;top:0;background:var(--white);z-index:10}
+.modal-header h2{font-size:16px;font-weight:700}
+.modal-body{padding:1.5rem}
+@media(max-width:768px){
+  .sidebar{width:60px}
+  .nav-item span:not(.nav-icon),.sidebar-logo .org,.sidebar-logo h1,.sidebar-footer{display:none}
+  .main{margin-left:60px;padding:1.25rem}
+  .metrics{grid-template-columns:1fr 1fr}
+  .form-grid,.time-row{grid-template-columns:1fr 1fr}
+  .inv-row{grid-template-columns:1fr auto}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="org">UNODC Colombia</div>
+    <h1>Equipo<br>Técnico</h1>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item active" onclick="showPage('panel',this)"><span class="nav-icon">◈</span><span>Panel</span></div>
+    <div class="nav-item" onclick="showPage('misiones',this)"><span class="nav-icon">◎</span><span>Misiones</span></div>
+    <div class="nav-item" onclick="showPage('inventario',this)"><span class="nav-icon">◻</span><span>Inventario</span></div>
+    <div class="nav-item" onclick="showPage('gestion',this)"><span class="nav-icon">◇</span><span>Gestión</span></div>
+  </nav>
+  <div class="sidebar-footer">v1.0 · UNODC 2026</div>
+</aside>
+
+<main class="main">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:10px">
+    <div>
+      <div id="page-title" class="page-title">Panel</div>
+      <div id="page-sub" class="page-sub">Vista general de operaciones</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <div id="save-status"></div>
+      <button class="btn btn-sec" style="font-size:11px;padding:5px 12px" onclick="exportData()">↓ Exportar</button>
+      <button class="btn btn-sec" style="font-size:11px;padding:5px 12px" onclick="document.getElementById('imp').click()">↑ Importar</button>
+      <input type="file" id="imp" accept=".json" style="display:none" onchange="importData(event)">
+      <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace" id="today-lbl"></div>
+    </div>
+  </div>
+
+  <section id="page-panel">
+    <div class="metrics" id="metrics"></div>
+    <div id="cfx-block"></div>
+    <div id="active-block"></div>
+    <div class="card" id="upcoming-block"></div>
+  </section>
+
+  <section id="page-misiones" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-label" style="margin:0">Todas las misiones</div>
+      <button class="btn btn-pri" onclick="openModal()">+ Nueva misión</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="tbl-wrap"><table id="mission-table"></table></div>
+    </div>
+  </section>
+
+  <section id="page-inventario" style="display:none">
+    <div id="inv-board"></div>
+  </section>
+
+  <section id="page-gestion" style="display:none">
+    <div class="card" style="margin-bottom:16px">
+      <div class="sec-label">Colaboradores</div>
+      <div id="colab-list"></div>
+      <div style="display:flex;gap:8px;align-items:flex-end;margin-top:14px;border-top:1.5px solid var(--cream);padding-top:14px">
+        <div class="form-group" style="flex:1"><label>Nombre</label><input id="new-colab" placeholder="Nombre completo"></div>
+        <button class="btn btn-pri" onclick="addColab()" style="height:38px">Añadir</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sec-label">Equipo de oficina</div>
+      <div id="inv-list-g"></div>
+      <div style="border-top:1.5px solid var(--cream);padding-top:14px;margin-top:14px">
+        <div class="sec-label" style="margin-bottom:12px">Añadir ítem</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Nombre</label><input id="new-eq-n" placeholder="Ej. Sony 3"></div>
+          <div class="form-group"><label>Categoría</label><select id="new-eq-c"><option value="">Seleccionar...</option></select></div>
+          <div class="form-group"><label>N° de serie</label><input id="new-eq-s" placeholder="Opcional"></div>
+          <div class="form-group"><label>Estado</label>
+            <select id="new-eq-e"><option value="bueno">Bueno</option><option value="regular">Regular</option><option value="dañado">Dañado</option></select>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-pri" onclick="addItem()">Añadir ítem</button>
+          <div id="new-cat-wrap" style="display:none;flex:1;gap:8px;align-items:center">
+            <input id="new-cat-n" placeholder="Nueva categoría..." style="flex:1;border:1.5px solid var(--sand);border-radius:var(--rs);padding:8px 11px;background:var(--cream);font-family:'DM Sans',sans-serif;font-size:13px;min-width:0">
+            <button class="btn btn-pri" onclick="addCat()">Crear</button>
+            <button class="btn btn-sec" onclick="cancelCat()">✕</button>
+          </div>
+          <button class="btn btn-sec" id="btn-nc" onclick="showNewCat()">+ Nueva categoría</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
+<div class="modal-bg" id="modal-bg" onclick="bgClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Nueva misión</h2>
+      <button class="btn-del" style="font-size:20px;opacity:.4" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const SK="unodc_equipo_v1";
+const M=["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const CC={"Cámaras":"sky","Tarjetas SD":"lav","Lentes":"butter","Micrófonos":"peach","Trípodes":"sage"};
+const fmt=f=>{if(!f)return"—";const[y,m,d]=f.split("-");return`${+d} ${M[+m]}`};
+const fT=t=>t||"—";
+const td=()=>new Date().toISOString().slice(0,10);
+const tdF=()=>{const d=new Date();return`${d.getDate()} ${M[d.getMonth()+1]} ${d.getFullYear()}`};
+const uid=()=>"m"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const dt=(d,t)=>d+"T"+(t||"00:00");
+const cc=c=>CC[c]||"sand";
+const ini=n=>n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+
+// Overlap: mission A and B overlap if A's departure < B's arrival AND A's arrival > B's departure
+function overlap(a,b){
+  return dt(a.fi,a.hs)<dt(b.ff,b.hl||"23:59") && dt(a.ff,a.hl||"23:59")>dt(b.fi,b.hs);
+}
+// Item availability for a given datetime window
+function avail(nombre,fi,hs,ff,hl,skip){
+  const ts=dt(fi,hs),te=dt(ff,hl||"23:59");
+  const c=misiones.filter(m=>m.id!==skip&&m.equipo.includes(nombre)&&ts<dt(m.ff,m.hl||"23:59")&&te>dt(m.fi,m.hs));
+  return{libre:!c.length,donde:c.map(u=>u.lugar)};
+}
+// Same-day handoff: item in mission ending on fi day with arrival before hs
+function handoffs(nombre,fi,hs){
+  return misiones.filter(m=>m.equipo.includes(nombre)&&m.ff===fi&&m.hl&&hs&&m.hl<hs);
+}
+
+const DM=[
+  {id:"m01",lugar:"Pereira",fi:"2026-03-17",hs:"06:00",ff:"2026-03-19",hl:"21:00",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","Hollyland 3","Trípode 3","SD 128GB·2","70-200mm"],notas:""},
+  {id:"m02",lugar:"Quibdó",fi:"2026-03-19",hs:"07:00",ff:"2026-03-20",hl:"20:00",proyecto:"MI",colabs:["Laura Rodríguez"],equipo:["Hollyland 1"],notas:"Laura usa equipo personal"},
+  {id:"m03",lugar:"Tumaco",fi:"2026-03-19",hs:"06:00",ff:"2026-03-20",hl:"21:00",proyecto:"CCP",colabs:["Diego Cuervo"],equipo:["Trípode 1","SD 128GB·3","Sennheiser 1"],notas:"Cuervo usa equipo personal"},
+  {id:"m04",lugar:"Leticia",fi:"2026-03-19",hs:"",ff:"2026-03-20",hl:"",proyecto:"ICBF",colabs:["Katherine Montoya"],equipo:["Sony 1","SD 128GB·1","18-200mm","Trípode 2","Hollyland 2"],notas:""},
+  {id:"m05",lugar:"Buenaventura",fi:"2026-03-20",hs:"07:00",ff:"2026-03-24",hl:"20:00",proyecto:"Trata",colabs:["Nicolás Castiblanco"],equipo:["Hollyland 3"],notas:"Nicolás usa equipo personal"},
+  {id:"m06",lugar:"Caloto",fi:"2026-03-21",hs:"05:00",ff:"2026-03-22",hl:"22:00",proyecto:"MI",colabs:["Katherine Montoya","Diego Ardila","Camilo Romero","John Vásquez"],equipo:["Sony 1","70-200mm","18-200mm","Trípode 2","50mm","SD 128GB·1"],notas:"Misión grupal (4 personas)"},
+  {id:"m07",lugar:"Río de Janeiro",fi:"2026-03-22",hs:"08:00",ff:"2026-04-27",hl:"23:00",proyecto:"SIMCI",colabs:["Laura Rodríguez"],equipo:["24-70mm","Hollyland 1","SD 128GB·3"],notas:"Diego Ardila le entrega el 24-70mm a Laura"},
+  {id:"m08",lugar:"Armenia",fi:"2026-03-23",hs:"",ff:"2026-03-25",hl:"",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","SD 128GB·1","Trípode 1","Hollyland 2"],notas:""},
+  {id:"m09",lugar:"Tumaco",fi:"2026-03-24",hs:"06:00",ff:"2026-03-25",hl:"21:00",proyecto:"—",colabs:["John Vásquez"],equipo:["Sennheiser 1","Trípode 2"],notas:"Se lleva la Canon y 2 SDs viejas"},
+  {id:"m10",lugar:"Cauca Bo Mathiasen",fi:"2026-03-24",hs:"14:00",ff:"2026-03-25",hl:"20:00",proyecto:"MI",colabs:["Camilo Romero"],equipo:["Sony 1","SD 128GB·2","18-200mm","Trípode 3"],notas:""},
+  {id:"m11",lugar:"TBC Trata c/Daniel",fi:"2026-04-16",hs:"07:00",ff:"2026-04-24",hl:"20:00",proyecto:"Trata",colabs:["Camilo Romero"],equipo:["Sony 1","18-200mm","Sennheiser 2","Trípode 2","SD 128GB·1"],notas:""},
+];
+const DI=[
+  {id:"i01",nombre:"Sony 1",categoria:"Cámaras",serie:"",estado:"bueno"},
+  {id:"i02",nombre:"Sony 2",categoria:"Cámaras",serie:"",estado:"bueno"},
+  {id:"i03",nombre:"SD 128GB·1",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
+  {id:"i04",nombre:"SD 128GB·2",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
+  {id:"i05",nombre:"SD 128GB·3",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
+  {id:"i06",nombre:"50mm",categoria:"Lentes",serie:"",estado:"bueno"},
+  {id:"i07",nombre:"70-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
+  {id:"i08",nombre:"24-70mm",categoria:"Lentes",serie:"",estado:"bueno"},
+  {id:"i09",nombre:"18-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
+  {id:"i0a",nombre:"Hollyland 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
+  {id:"i0b",nombre:"Hollyland 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
+  {id:"i0c",nombre:"Hollyland 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
+  {id:"i0d",nombre:"Sennheiser 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
+  {id:"i0e",nombre:"Sennheiser 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
+  {id:"i0f",nombre:"Sennheiser 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
+  {id:"i0g",nombre:"Trípode 1",categoria:"Trípodes",serie:"",estado:"bueno"},
+  {id:"i0h",nombre:"Trípode 2",categoria:"Trípodes",serie:"",estado:"bueno"},
+  {id:"i0i",nombre:"Trípode 3",categoria:"Trípodes",serie:"",estado:"bueno"},
+];
+const DC=["Laura Rodríguez","Diego Ardila","Camilo Romero","Diego Cuervo","Nicolás Castiblanco","John Vásquez","Katherine Montoya"];
+
+let misiones=[],inventario=[],colaboradores=[],categorias=[];
+let editId=null,fC=[],fE=[];
+
+function setSS(s){
+  const el=document.getElementById("save-status");if(!el)return;
+  const m={saving:["save-ing","Guardando…"],ok:["save-ok","✓ Guardado"],error:["save-err","Error"]};
+  const[c,t]=m[s]||m.saving;
+  el.innerHTML=`<span class="save-pill ${c}">${t}</span>`;
+  if(s==="ok")setTimeout(()=>{if(el)el.innerHTML=""},2500);
+}
+function saveData(){
+  setSS("saving");
+  try{localStorage.setItem(SK,JSON.stringify({misiones,inventario,colaboradores,categorias}));setSS("ok")}
+  catch{setSS("error")}
+}
+function loadData(){
+  try{
+    const r=localStorage.getItem(SK);
+    if(r){const d=JSON.parse(r);misiones=d.misiones||[];inventario=d.inventario||[];colaboradores=d.colaboradores||[];categorias=d.categorias||[];}
+    else loadDef();
+  }catch{loadDef()}
+}
+function loadDef(){
+  misiones=DM.map(m=>({...m}));inventario=DI.map(i=>({...i}));
+  colaboradores=[...DC];categorias=[...new Set(DI.map(i=>i.categoria))];
+}
+function exportData(){
+  const b=new Blob([JSON.stringify({misiones,inventario,colaboradores,categorias},null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="unodc_equipo_"+td()+".json";a.click();
+}
+function importData(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(d.misiones){misiones=d.misiones;inventario=d.inventario||inventario;colaboradores=d.colaboradores||colaboradores;categorias=d.categorias||categorias;saveData();renderAll();alert("Datos importados.")}
+      else alert("Archivo no válido.");
+    }catch{alert("Error al leer el archivo.")}
+  };r.readAsText(f);e.target.value="";
+}
+
+function getCfx(){
+  const o=[];
+  for(let i=0;i<misiones.length;i++)for(let j=i+1;j<misiones.length;j++){
+    const a=misiones[i],b=misiones[j];if(!overlap(a,b))continue;
+    const s=a.equipo.filter(e=>b.equipo.includes(e));if(s.length)o.push({a,b,shared:s});
+  }
+  return o;
+}
+
+function renderAll(){renderPanel();renderMisiones();renderInventario();renderGestion();populateCatSelect()}
+
+function renderPanel(){
+  const hoy=td(),now=hoy+"T"+new Date().toTimeString().slice(0,5);
+  const sorted=[...misiones].sort((a,b)=>a.fi.localeCompare(b.fi));
+  const activas=misiones.filter(m=>dt(m.fi,m.hs)<=now&&now<=dt(m.ff,m.hl||"23:59"));
+  const proximas=sorted.filter(m=>dt(m.fi,m.hs)>now);
+  const cfx=getCfx();
+  document.getElementById("metrics").innerHTML=[
+    {l:"Misiones",v:misiones.length,c:"sky"},{l:"En campo ahora",v:activas.length,c:"sage"},
+    {l:"Conflictos",v:cfx.length,c:cfx.length?"rose":"sage"},{l:"Próximas",v:proximas.length,c:"lav"},
+  ].map(m=>`<div class="metric card-${m.c}"><div class="metric-label">${m.l}</div><div class="metric-val">${m.v}</div></div>`).join("");
+
+  document.getElementById("cfx-block").innerHTML=cfx.length?`<div class="card card-peach" style="margin-bottom:14px">
+    <div class="sec-label">Conflictos de equipo</div>
+    ${cfx.map(c=>`<div class="conflict-item"><span>⚠</span><div>
+      <strong>${c.a.lugar}</strong> (${fmt(c.a.fi)} ${fT(c.a.hs)}–${fmt(c.a.ff)} ${fT(c.a.hl)}) &amp;
+      <strong>${c.b.lugar}</strong> (${fmt(c.b.fi)} ${fT(c.b.hs)}–${fmt(c.b.ff)} ${fT(c.b.hl)})<br>
+      <span style="font-size:12px">Comparten: ${c.shared.join(", ")}</span>
+    </div></div>`).join("")}</div>`:"";
+
+  document.getElementById("active-block").innerHTML=activas.length?`<div class="card card-butter" style="margin-bottom:14px">
+    <div class="sec-label">En campo ahora</div>
+    ${activas.map(m=>`<div class="active-item">
+      <div style="flex:1"><strong>${m.lugar}</strong> <span class="badge b-butter" style="margin-left:4px">${m.proyecto}</span><br>
+      <span style="font-size:12px;color:var(--ink2)">${m.colabs.join(", ")}</span><br>
+      <span style="font-size:11px;color:var(--ink3)">Sale ${fT(m.hs)} · Regresa ${fmt(m.ff)} ${fT(m.hl)}</span></div>
+      <div style="font-size:12px;color:var(--ink3);text-align:right;max-width:200px">${m.equipo.join(", ")||"solo equipo personal"}</div>
+    </div>`).join("")}</div>`:"";
+
+  document.getElementById("upcoming-block").innerHTML=`<div class="sec-label">Próximas misiones</div>`+
+    (proximas.length?proximas.slice(0,6).map(m=>`<div class="upcoming-item" onclick="editM('${m.id}')">
+      <div style="min-width:100px;font-size:12px;color:var(--ink3);font-family:'DM Mono',monospace">${fmt(m.fi)} ${fT(m.hs)}<br>${fmt(m.ff)} ${fT(m.hl)}</div>
+      <div style="flex:1"><div style="font-weight:700">${m.lugar}</div><div style="font-size:12px;color:var(--ink2)">${m.colabs.join(", ")}</div></div>
+      ${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}
+    </div>`).join(""):`<p style="font-size:13px;color:var(--ink3);padding-top:6px">No hay misiones próximas.</p>`);
+}
+
+function renderMisiones(){
+  const cfx=getCfx(),cfxIds=new Set(cfx.flatMap(c=>[c.a.id,c.b.id]));
+  const sorted=[...misiones].sort((a,b)=>a.fi.localeCompare(b.fi));
+  document.getElementById("mission-table").innerHTML=`
+    <thead><tr><th>Lugar / Colaborador</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead>
+    <tbody>${sorted.map(m=>`<tr>
+      <td><div style="font-weight:700">${m.lugar}</div><div style="font-size:12px;color:var(--ink3)">${m.colabs.join(", ")}</div>${cfxIds.has(m.id)?`<span class="badge b-rose" style="font-size:10px;margin-top:3px">conflicto</span>`:""}</td>
+      <td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap">${fmt(m.fi)}<br><strong>${fT(m.hs)}</strong></td>
+      <td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap">${fmt(m.ff)}<br><strong>${fT(m.hl)}</strong></td>
+      <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}</td>
+      <td>${m.equipo.length?m.equipo.map(e=>`<span class="eq-tag">${e}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
+      <td style="font-size:12px;color:var(--ink2);max-width:160px">${m.notas||""}</td>
+      <td style="white-space:nowrap"><button class="btn-sm" onclick="editM('${m.id}')">Editar</button> <button class="btn-del" onclick="delM('${m.id}')">✕</button></td>
+    </tr>`).join("")}</tbody>`;
+}
+
+function renderInventario(){
+  const hoy=td(),now=hoy+"T"+new Date().toTimeString().slice(0,5);
+  const byCat={};
+  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it)}
+  let html="";
+  for(const[cat,items]of Object.entries(byCat)){
+    const col=cc(cat);
+    html+=`<div class="sec-label" style="margin-top:${html?"22px":"0"};color:var(--${col}-d)">${cat}</div>`;
+    for(const it of items){
+      const enC=misiones.filter(m=>m.equipo.includes(it.nombre)&&dt(m.fi,m.hs)<=now&&now<=dt(m.ff,m.hl||"23:59"));
+      const prox=[...misiones].filter(m=>m.equipo.includes(it.nombre)&&dt(m.fi,m.hs)>now).sort((a,b)=>dt(a.fi,a.hs).localeCompare(dt(b.fi,b.hs)))[0];
+      const eM={bueno:"b-sage",regular:"b-butter","dañado":"b-rose"};
+      html+=`<div class="eq-row">
+        <div class="eq-dot" style="background:${enC.length?"var(--rose)":"var(--sage)"}"></div>
+        <span style="font-weight:700;min-width:130px">${it.nombre}</span>
+        <span class="badge ${eM[it.estado]||"b-sand"}" style="font-size:11px">${it.estado}</span>
+        <span class="badge ${enC.length?"b-rose":"b-sage"}" style="margin-left:6px">${enC.length?`En campo — ${enC.map(u=>u.lugar).join(", ")}`:"Disponible"}</span>
+        <span style="font-size:12px;color:var(--ink3);margin-left:auto;text-align:right">${prox?`Próximo: ${prox.lugar} (${fmt(prox.fi)} ${fT(prox.hs)})`:"Sin uso programado"}</span>
+      </div>`;
+    }
+  }
+  document.getElementById("inv-board").innerHTML=html;
+}
+
+function renderGestion(){
+  document.getElementById("colab-list").innerHTML=colaboradores.length
+    ?colaboradores.map((c,i)=>`<div class="colab-row"><div class="colab-avatar">${ini(c)}</div><span style="flex:1">${c}</span><button class="btn-del" onclick="delC(${i})">✕</button></div>`).join("")
+    :`<p style="font-size:13px;color:var(--ink3)">No hay colaboradores.</p>`;
+  const byCat={};
+  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it)}
+  const eM={bueno:"b-sage",regular:"b-butter","dañado":"b-rose"};
+  let html=`<div class="inv-row inv-head"><span>Nombre</span><span>Categoría</span><span>N° de serie</span><span>Estado</span><span></span></div>`;
+  for(const[cat,items]of Object.entries(byCat)){
+    const col=cc(cat);
+    html+=items.map(it=>`<div class="inv-row">
+      <span style="font-weight:700">${it.nombre}</span>
+      <span><span class="badge b-${col}" style="font-size:11px">${it.categoria}</span></span>
+      <span style="font-size:12px;color:var(--ink3);font-family:'DM Mono',monospace">${it.serie||"—"}</span>
+      <span><span class="badge ${eM[it.estado]||"b-sand"}" style="font-size:11px">${it.estado}</span></span>
+      <div style="display:flex;gap:4px"><button class="btn-sm" onclick="cyE('${it.id}')">Estado</button><button class="btn-del" onclick="delI('${it.id}')">✕</button></div>
+    </div>`).join("");
+  }
+  document.getElementById("inv-list-g").innerHTML=html;
+  populateCatSelect();
+}
+
+function populateCatSelect(){
+  const s=document.getElementById("new-eq-c");if(!s)return;
+  s.innerHTML=`<option value="">Seleccionar...</option>`+categorias.map(c=>`<option value="${c}">${c}</option>`).join("");
+}
+function addColab(){const n=document.getElementById("new-colab").value.trim();if(!n||colaboradores.includes(n))return;colaboradores.push(n);saveData();renderGestion();document.getElementById("new-colab").value=""}
+function delC(i){if(!confirm("¿Eliminar?"))return;colaboradores.splice(i,1);saveData();renderGestion()}
+function addItem(){
+  const n=document.getElementById("new-eq-n").value.trim(),c=document.getElementById("new-eq-c").value,s=document.getElementById("new-eq-s").value.trim(),e=document.getElementById("new-eq-e").value;
+  if(!n||!c){alert("Nombre y categoría son obligatorios.");return}
+  inventario.push({id:uid(),nombre:n,categoria:c,serie:s,estado:e});saveData();renderGestion();renderInventario();
+  document.getElementById("new-eq-n").value="";document.getElementById("new-eq-s").value="";document.getElementById("new-eq-c").value="";
+}
+function delI(id){if(!confirm("¿Eliminar ítem?"))return;inventario=inventario.filter(i=>i.id!==id);saveData();renderGestion();renderInventario()}
+function cyE(id){const it=inventario.find(i=>i.id===id);if(!it)return;const e=["bueno","regular","dañado"];it.estado=e[(e.indexOf(it.estado)+1)%3];saveData();renderGestion();renderInventario()}
+function showNewCat(){document.getElementById("new-cat-wrap").style.display="flex";document.getElementById("btn-nc").style.display="none"}
+function cancelCat(){document.getElementById("new-cat-wrap").style.display="none";document.getElementById("btn-nc").style.display="";document.getElementById("new-cat-n").value=""}
+function addCat(){const n=document.getElementById("new-cat-n").value.trim();if(!n||categorias.includes(n)){cancelCat();return}categorias.push(n);saveData();populateCatSelect();cancelCat()}
+
+const PM={panel:["Panel","Vista general de operaciones"],misiones:["Misiones","Cronograma y asignación de equipo"],inventario:["Inventario","Estado actual del equipo de oficina"],gestion:["Gestión","Colaboradores e inventario"]};
+function showPage(n,el){
+  document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active"));el.classList.add("active");
+  ["panel","misiones","inventario","gestion"].forEach(p=>document.getElementById("page-"+p).style.display=p===n?"block":"none");
+  const[t,s]=PM[n]||["",""];
+  document.getElementById("page-title").textContent=t;document.getElementById("page-sub").textContent=s;
+  if(n==="inventario")renderInventario();if(n==="gestion")renderGestion();
+}
+
+function openModal(m){
+  editId=m?m.id:null;
+  const f=m||{lugar:"",fi:"",hs:"",ff:"",hl:"",proyecto:"",colabs:[],equipo:[],notas:""};
+  fC=[...(f.colabs||[])];fE=[...(f.equipo||[])];
+  document.getElementById("modal-title").textContent=editId?"Editar misión":"Nueva misión";
+  document.getElementById("modal-body").innerHTML=`
+    <div class="form-grid" style="margin-bottom:12px">
+      <div class="form-group"><label>Lugar</label><input id="f-l" value="${f.lugar||""}"></div>
+      <div class="form-group"><label>Proyecto</label><input id="f-p" value="${f.proyecto||""}"></div>
+    </div>
+    <div class="time-row">
+      <div class="form-group"><label>Fecha salida</label><input type="date" id="f-fi" value="${f.fi||""}" oninput="rED()"></div>
+      <div class="form-group"><label>Hora salida</label><input type="time" id="f-hs" value="${f.hs||""}" oninput="rED()"></div>
+      <div class="form-group"><label>Fecha llegada</label><input type="date" id="f-ff" value="${f.ff||""}" oninput="rED()"></div>
+      <div class="form-group"><label>Hora llegada</label><input type="time" id="f-hl" value="${f.hl||""}" oninput="rED()"></div>
+    </div>
+    <p class="time-hint">Los horarios permiten detectar si es posible el intercambio de equipo el mismo día.</p>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Colaboradores</label>
+      <div id="fc-chips" style="margin-bottom:6px"></div>
+      <div class="search-wrap">
+        <input id="cs" placeholder="Buscar colaborador..." autocomplete="off" oninput="fCD()" onfocus="fCD()" onblur="hD('cd')">
+        <div id="cd" class="search-drop"></div>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Equipo de oficina asignado</label>
+      <div id="fe-chips" style="margin-bottom:6px"></div>
+      <div class="search-wrap">
+        <input id="es" placeholder="Buscar equipo — muestra disponibilidad según fechas..." autocomplete="off" oninput="fED()" onfocus="fED()" onblur="hD('ed')">
+        <div id="ed" class="search-drop"></div>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:16px"><label>Notas</label><textarea id="f-n">${f.notas||""}</textarea></div>
+    <div id="cfx-prev"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button class="btn btn-sec" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-pri" onclick="saveForm()">Guardar misión</button>
+    </div>`;
+  document.getElementById("modal-bg").classList.add("open");
+  rCC();rEC();
+}
+function editM(id){const m=misiones.find(x=>x.id===id);if(!m)return;openModal(m)}
+function closeModal(){document.getElementById("modal-bg").classList.remove("open");editId=null;fC=[];fE=[]}
+function bgClick(e){if(e.target===document.getElementById("modal-bg"))closeModal()}
+
+function rCC(){const el=document.getElementById("fc-chips");if(!el)return;el.innerHTML=fC.map(c=>`<span class="chip chip-colab">${c}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmC(this)">×</button></span>`).join("")}
+function rEC(){const el=document.getElementById("fe-chips");if(!el)return;el.innerHTML=fE.map(e=>`<span class="chip">${e}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmE(this)">×</button></span>`).join("");cPrev()}
+function rmC(b){const c=b.closest(".chip").textContent.slice(0,-1).trim();fC=fC.filter(x=>x!==c);rCC()}
+function rmE(b){const e=b.closest(".chip").textContent.slice(0,-1).trim();fE=fE.filter(x=>x!==e);rEC()}
+function hD(id){setTimeout(()=>{const d=document.getElementById(id);if(d)d.style.display="none"},180)}
+function gFD(){return{fi:document.getElementById("f-fi")?.value||"",hs:document.getElementById("f-hs")?.value||"",ff:document.getElementById("f-ff")?.value||"",hl:document.getElementById("f-hl")?.value||""}}
+
+function fCD(){
+  const q=document.getElementById("cs").value.toLowerCase(),d=document.getElementById("cd");if(!d)return;
+  const f=colaboradores.filter(c=>c.toLowerCase().includes(q)&&!fC.includes(c));
+  d.style.display="block";
+  d.innerHTML=f.length?f.map(c=>`<div class="drop-item" onmousedown="event.preventDefault()" onclick="selC(this)"><span>${c}</span></div>`).join(""):`<div class="drop-empty">No encontrado</div>`;
+}
+function selC(el){const c=el.querySelector("span").textContent;if(!fC.includes(c)){fC.push(c);rCC()}document.getElementById("cs").value="";document.getElementById("cd").style.display="none"}
+
+function fED(){
+  const q=document.getElementById("es").value.toLowerCase(),d=document.getElementById("ed");if(!d)return;
+  const{fi,hs,ff,hl}=gFD();
+  const f=inventario.filter(it=>it.nombre.toLowerCase().includes(q)&&!fE.includes(it.nombre));
+  d.style.display="block";
+  d.innerHTML=f.length?f.map(it=>{
+    let badge="";
+    if(fi&&ff){
+      const av=avail(it.nombre,fi,hs,ff,hl,editId);
+      if(av.libre){
+        const ho=handoffs(it.nombre,fi,hs);
+        badge=ho.length&&hs?`<span class="badge b-info" style="font-size:11px;background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky)">Intercambio posible</span>`:`<span class="badge b-sage" style="font-size:11px">Libre</span>`;
+      }else{
+        badge=`<span class="badge b-rose" style="font-size:11px">Ocupado — ${av.donde.join(", ")}</span>`;
+      }
+    }
+    return`<div class="drop-item" onmousedown="event.preventDefault()" onclick="selE(this)"><span>${it.nombre}</span>${badge}</div>`;
+  }).join(""):`<div class="drop-empty">No encontrado</div>`;
+}
+function selE(el){const n=el.querySelector("span").textContent;if(!fE.includes(n)){fE.push(n);rEC()}document.getElementById("es").value="";document.getElementById("ed").style.display="none"}
+function rED(){const s=document.getElementById("es");if(s&&s.value)fED();cPrev()}
+
+function cPrev(){
+  const{fi,hs,ff,hl}=gFD(),p=document.getElementById("cfx-prev");if(!p||!fi||!ff)return;
+  const ts=dt(fi,hs),te=dt(ff,hl||"23:59");
+  const overlapping=misiones.filter(m=>m.id!==editId&&ts<dt(m.ff,m.hl||"23:59")&&te>dt(m.fi,m.hs));
+  const hard=[],ho=[];
+  for(const eq of fE)for(const m of overlapping){
+    if(!m.equipo.includes(eq))continue;
+    if(m.ff===fi&&m.hl&&hs&&m.hl<hs)ho.push({item:eq,lugar:m.lugar,llega:m.hl});
+    else hard.push({item:eq,lugar:m.lugar});
+  }
+  let html="";
+  if(!hard.length&&!ho.length)html=`<div class="alert alert-ok">Sin conflictos en el rango seleccionado.</div>`;
+  if(hard.length)html+=`<div class="alert alert-warn"><strong>Conflicto:</strong> ${hard.map(c=>`${c.item} ocupado en ${c.lugar}`).join(" · ")}</div>`;
+  if(ho.length)html+=`<div class="alert alert-info"><strong>Intercambio posible:</strong> ${ho.map(h=>`${h.item} regresa de ${h.lugar} a las ${h.llega}, antes de la salida a las ${hs}`).join(" · ")}</div>`;
+  p.innerHTML=html;
+}
+
+function saveForm(){
+  const l=document.getElementById("f-l").value.trim(),{fi,hs,ff,hl}=gFD();
+  if(!l||!fi||!ff){alert("Lugar y fechas son obligatorios.");return}
+  const n={id:editId||uid(),lugar:l,fi,hs,ff,hl,proyecto:document.getElementById("f-p").value.trim()||"—",colabs:[...fC],equipo:[...fE],notas:document.getElementById("f-n").value.trim()};
+  misiones=editId?misiones.map(m=>m.id===editId?n:m):[...misiones,n];
+  saveData();closeModal();renderAll();
+}
+function delM(id){if(!confirm("¿Eliminar esta misión?"))return;misiones=misiones.filter(m=>m.id!==id);saveData();renderAll()}
+
+document.getElementById("today-lbl").textContent=tdF();
+loadData();renderAll();
+</script>
+</body>
+</html>
