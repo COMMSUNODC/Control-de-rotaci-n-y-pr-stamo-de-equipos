@@ -5,45 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UNODC Colombia — Equipo Técnico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --sage:#c8d8c0;--sage-l:#eef4eb;--sage-d:#3a5832;
-  --peach:#e4c4a8;--peach-l:#faf0e6;--peach-d:#7a4520;
-  --sky:#a8c8dc;--sky-l:#e4f0f7;--sky-d:#1a4f6a;
-  --lav:#c4b8dc;--lav-l:#ede8f7;--lav-d:#3e2e6c;
-  --rose:#dcb8c0;--rose-l:#f7eaed;--rose-d:#6c2e38;
-  --butter:#e4d8a8;--butter-l:#faf5e4;--butter-d:#5c4a10;
-  --cream:#f8f4ee;--sand:#e0d8cc;
-  --ink:#1e1e18;--ink2:#52524a;--ink3:#8e8e84;--white:#ffffff;
-  --r:14px;--rs:8px;
-  --shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 32px rgba(0,0,0,.12);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--sage:#c8d8c0;--sage-l:#eef4eb;--sage-d:#3a5830;--peach:#e4c4a8;--peach-l:#faf0e6;--peach-d:#7a4520;--sky:#a8c8dc;--sky-l:#e4f0f7;--sky-d:#1b4f6a;--lav:#c4b8dc;--lav-l:#ede8f7;--lav-d:#3e2e6c;--rose:#dcb8c0;--rose-l:#f7eaed;--rose-d:#6c2e38;--butter:#e4d8a8;--butter-l:#faf5e4;--butter-d:#5c4a10;--ink:#22221a;--ink2:#52524a;--ink3:#909088;--cream:#f8f4ee;--sand:#e4ddd0;--white:#ffffff;--navy:#1a2e44;--teal:#1b6b72;--r:14px;--rs:8px;--sh:0 2px 12px rgba(0,0,0,.07);--sh-lg:0 8px 32px rgba(0,0,0,.13)}
+*{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+input,select,textarea,button{font-family:'DM Sans',sans-serif}
+textarea{resize:vertical}
+button{cursor:pointer}
 .app{display:flex;min-height:100vh}
-.sidebar{width:220px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
+.sidebar{width:220px;flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
+.main{margin-left:220px;flex:1;min-height:100vh}
+.topbar{background:var(--white);border-bottom:1px solid var(--sand);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--sh)}
+.content{padding:2rem;max-width:1100px}
 .sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.sidebar-logo .org{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:3px}
-.sidebar-logo h1{font-size:15px;font-weight:700;color:#fff;line-height:1.3}
-.sidebar-nav{flex:1;padding:1rem 0}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 1.25rem;cursor:pointer;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;transition:all .15s;border-left:3px solid transparent;user-select:none}
-.nav-item:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.05)}
-.nav-item.active{color:#fff;border-left-color:var(--sky);background:rgba(168,200,220,.1)}
-.nav-icon{font-size:16px;width:20px;text-align:center}
-.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.25)}
-.main{margin-left:220px;flex:1;padding:2rem 2.5rem;max-width:1100px}
-.card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--sand);padding:1.25rem 1.5rem;margin-bottom:14px;box-shadow:var(--shadow)}
+.sidebar-logo .org{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:3px}
+.sidebar-logo .app-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.3}
+.nav-section{padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:.25rem 1.25rem .5rem;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.6rem 1.25rem;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
+.nav-item.active{background:rgba(255,255,255,.1);color:var(--white);border-left-color:var(--sky);font-weight:500}
+.nav-item .ico{font-size:15px;width:18px;text-align:center;flex-shrink:0}
+.sidebar-bottom{margin-top:auto;padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)}
+.sync-pill{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.5)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .4s;flex-shrink:0}
+.sync-dot.live{background:#7ec87a;box-shadow:0 0 6px #7ec87a88}
+.sync-dot.saving{background:#e8c87a;animation:blink 1s infinite}
+.sync-dot.err{background:#e87a7a}
+.sync-dot.local{background:#a8c8dc}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.topbar-title{font-size:15px;font-weight:600;color:var(--ink)}
+.topbar-sub{font-size:11px;color:var(--ink3);margin-top:1px}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.today-b{font-size:12px;color:var(--ink3);font-family:'DM Mono',monospace}
+.card{background:var(--white);border-radius:var(--r);border:1px solid var(--sand);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--sh)}
 .card-sage{background:var(--sage-l);border-color:var(--sage)}
 .card-sky{background:var(--sky-l);border-color:var(--sky)}
 .card-peach{background:var(--peach-l);border-color:var(--peach)}
 .card-rose{background:var(--rose-l);border-color:var(--rose)}
 .card-butter{background:var(--butter-l);border-color:var(--butter)}
 .card-lav{background:var(--lav-l);border-color:var(--lav)}
-.page-title{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.page-sub{font-size:13px;color:var(--ink3);margin-bottom:1.5rem}
-.sec-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
-.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.metric{border-radius:var(--r);padding:1.25rem 1.5rem}
+.metric-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:.4rem}
+.metric-val{font-size:32px;font-weight:600;line-height:1}
+.btn{border-radius:var(--rs);padding:8px 18px;font-size:13px;font-weight:500;border:1.5px solid transparent;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-pri{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
+.btn-pri:hover{background:var(--sky);color:var(--white)}
+.btn-sec{background:var(--white);border-color:var(--sand);color:var(--ink2)}
+.btn-sec:hover{border-color:var(--ink3)}
+.btn-sm{font-size:12px;padding:4px 10px;border-radius:6px;border:1px solid var(--sand);background:var(--white);color:var(--ink2)}
+.btn-sm:hover{border-color:var(--sky);color:var(--sky-d)}
+.btn-del{font-size:13px;padding:4px 8px;border-radius:6px;border:none;background:none;color:var(--rose-d);opacity:.5}
+.btn-del:hover{opacity:1}
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600}
 .b-sage{background:var(--sage-l);color:var(--sage-d);border:1px solid var(--sage)}
 .b-sky{background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky)}
 .b-peach{background:var(--peach-l);color:var(--peach-d);border:1px solid var(--peach)}
@@ -51,536 +67,582 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .b-lav{background:var(--lav-l);color:var(--lav-d);border:1px solid var(--lav)}
 .b-butter{background:var(--butter-l);color:var(--butter-d);border:1px solid var(--butter)}
 .b-sand{background:var(--cream);color:var(--ink2);border:1px solid var(--sand)}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
-.metric{border-radius:var(--r);padding:1.1rem 1.25rem}
-.metric-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.65;margin-bottom:5px}
-.metric-val{font-size:28px;font-weight:700}
-.tbl-wrap{overflow-x:auto;border-radius:var(--rs)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 12px;border-bottom:2px solid var(--sand);text-align:left;white-space:nowrap;background:var(--white)}
-tbody td{padding:10px 12px;border-bottom:1.5px solid var(--cream);vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:var(--cream)}
-.eq-tag{display:inline-block;background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky);border-radius:20px;font-size:11px;font-weight:700;padding:2px 8px;margin:2px 2px 2px 0}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.time-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
-.form-group{display:flex;flex-direction:column;gap:5px}
-.form-group label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
-.form-group input,.form-group textarea,.form-group select{border:1.5px solid var(--sand);border-radius:var(--rs);padding:8px 11px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .15s;width:100%;font-family:'DM Sans',sans-serif;font-size:13px}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--sky);background:var(--white)}
-textarea{resize:vertical;min-height:54px}
-.search-wrap{position:relative}
-.search-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--sky);border-radius:var(--rs);max-height:230px;overflow-y:auto;z-index:400;display:none;box-shadow:var(--shadow-lg)}
-.drop-item{padding:9px 13px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--cream)}
-.drop-item:last-child{border-bottom:none}
-.drop-item:hover{background:var(--sky-l)}
-.drop-empty{padding:9px 13px;font-size:12px;color:var(--ink3);font-style:italic}
-.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:700;margin:3px 3px 3px 0;border:1.5px solid var(--sky);background:var(--sky-l);color:var(--sky-d)}
-.chip-colab{border-color:var(--lav);background:var(--lav-l);color:var(--lav-d)}
-.chip-x{background:none;border:none;cursor:pointer;padding:0;font-size:14px;line-height:1;opacity:.6;color:inherit}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;border:1.5px solid var(--sky);background:var(--sky-l);color:var(--sky-d)}
+.chip-x{background:none;border:none;cursor:pointer;color:inherit;font-size:14px;padding:0;line-height:1;opacity:.5}
 .chip-x:hover{opacity:1}
-.btn{display:inline-flex;align-items:center;gap:6px;border-radius:var(--rs);padding:8px 16px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;transition:all .15s;border:1.5px solid transparent}
-.btn-pri{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
-.btn-pri:hover{background:var(--sky);color:var(--white)}
-.btn-sec{background:var(--cream);border-color:var(--sand);color:var(--ink2);font-weight:400}
-.btn-sec:hover{border-color:var(--ink3)}
-.btn-sm{font-size:12px;padding:4px 10px;border-radius:var(--rs);border:1.5px solid var(--sand);background:var(--cream);color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:400;transition:all .12s}
-.btn-sm:hover{border-color:var(--sky);color:var(--sky-d)}
-.btn-del{font-size:13px;padding:4px 8px;border-radius:var(--rs);border:none;background:none;color:var(--rose-d);cursor:pointer;opacity:.5}
-.btn-del:hover{opacity:1}
-.alert{border-radius:var(--rs);padding:10px 14px;font-size:13px;margin-bottom:12px}
-.alert-warn{background:var(--peach-l);border:1.5px solid var(--peach);color:var(--peach-d)}
-.alert-ok{background:var(--sage-l);border:1.5px solid var(--sage);color:var(--sage-d)}
-.alert-info{background:var(--sky-l);border:1.5px solid var(--sky);color:var(--sky-d)}
-.inv-row{display:grid;grid-template-columns:1.2fr .9fr 1fr 90px auto;gap:10px;padding:9px 0;border-bottom:1.5px solid var(--cream);align-items:center;font-size:13px}
-.inv-row:last-child{border-bottom:none}
-.inv-head{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);border-bottom:2px solid var(--sand)!important;padding-bottom:8px}
-.colab-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1.5px solid var(--cream);font-size:13px}
+.chip-c{border-color:var(--lav);background:var(--lav-l);color:var(--lav-d)}
+.eq-tag{display:inline-block;background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky);border-radius:20px;font-size:11px;font-weight:600;padding:2px 8px;margin:2px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
+.sec-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--sand)}
+table.mt{width:100%;border-collapse:collapse;font-size:13px}
+table.mt th{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 14px;border-bottom:1.5px solid var(--sand);background:var(--cream);text-align:left;white-space:nowrap}
+table.mt td{padding:10px 14px;border-bottom:1px solid var(--cream);vertical-align:top}
+table.mt tr:last-child td{border-bottom:none}
+table.mt tr:hover td{background:#fdfcf9}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.form-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.fg input,.fg textarea,.fg select{border:1.5px solid var(--sand);border-radius:var(--rs);padding:9px 12px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .15s;width:100%;font-size:13px}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--sky);background:var(--white);box-shadow:0 0 0 3px rgba(168,200,220,.18)}
+.fg textarea{min-height:68px}
+.form-hint{font-size:11px;color:var(--ink3);font-style:italic;margin-bottom:12px;line-height:1.5}
+/* FIXED SMART DROPDOWN */
+.sw{position:relative}
+.sw-inp{border:1.5px solid var(--sand);border-radius:var(--rs);padding:9px 12px;background:var(--cream);color:var(--ink);outline:none;width:100%;font-size:13px;transition:border-color .15s}
+.sw-inp:focus{border-color:var(--sky);background:var(--white);box-shadow:0 0 0 3px rgba(168,200,220,.18)}
+.sdrop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--sky);border-radius:var(--rs);max-height:240px;overflow-y:auto;z-index:500;box-shadow:var(--sh-lg);display:none}
+.sdrop.open{display:block}
+.di{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--cream)}
+.di:last-child{border-bottom:none}
+.di:hover{background:var(--sky-l)}
+.di-empty{padding:10px 14px;font-size:12px;color:var(--ink3);font-style:italic}
+.alert{border-radius:var(--rs);padding:10px 14px;font-size:13px;margin-bottom:12px;border:1.5px solid transparent}
+.alert-warn{background:var(--peach-l);border-color:var(--peach);color:var(--peach-d)}
+.alert-ok{background:var(--sage-l);border-color:var(--sage);color:var(--sage-d)}
+.alert-info{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
+.inv-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--rs);margin-bottom:5px;border:1px solid var(--sand);background:var(--white);font-size:13px;flex-wrap:wrap}
+.inv-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.colab-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--cream);font-size:13px}
 .colab-row:last-child{border-bottom:none}
-.colab-avatar{width:32px;height:32px;border-radius:50%;background:var(--lav-l);border:1.5px solid var(--lav);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--lav-d);flex-shrink:0}
-.eq-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--rs);margin-bottom:5px;border:1.5px solid var(--sand);background:var(--white);font-size:13px;flex-wrap:wrap;transition:background .1s}
-.eq-row:hover{background:var(--cream)}
-.eq-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.conflict-item{display:flex;gap:10px;padding:8px 0;border-bottom:1.5px solid var(--peach);font-size:13px;color:var(--peach-d)}
-.conflict-item:last-child{border-bottom:none}
-.upcoming-item{display:flex;gap:14px;padding:10px 0;border-bottom:1.5px solid var(--cream);cursor:pointer;align-items:flex-start;transition:padding .1s;border-radius:4px}
-.upcoming-item:last-child{border-bottom:none}
-.upcoming-item:hover{padding-left:4px}
-.active-item{display:flex;gap:10px;padding:9px 0;border-bottom:1.5px solid var(--butter);align-items:flex-start}
-.active-item:last-child{border-bottom:none}
-.save-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.save-ok{background:var(--sage-l);color:var(--sage-d);border:1px solid var(--sage)}
-.save-err{background:var(--rose-l);color:var(--rose-d);border:1px solid var(--rose)}
-.save-ing{background:var(--butter-l);color:var(--butter-d);border:1px solid var(--butter)}
-.time-hint{font-size:11px;color:var(--ink3);font-style:italic;margin-bottom:14px}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-bg.open{display:flex}
-.modal{background:var(--white);border-radius:var(--r);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
-.modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1.5px solid var(--sand);position:sticky;top:0;background:var(--white);z-index:10}
-.modal-header h2{font-size:16px;font-weight:700}
-.modal-body{padding:1.5rem}
-@media(max-width:768px){
-  .sidebar{width:60px}
-  .nav-item span:not(.nav-icon),.sidebar-logo .org,.sidebar-logo h1,.sidebar-footer{display:none}
-  .main{margin-left:60px;padding:1.25rem}
-  .metrics{grid-template-columns:1fr 1fr}
-  .form-grid,.time-row{grid-template-columns:1fr 1fr}
-  .inv-row{grid-template-columns:1fr auto}
-}
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;background:var(--lav-l);border:1.5px solid var(--lav);color:var(--lav-d)}
+.tl-item{display:flex;gap:14px;padding:10px 8px;border-bottom:1px solid var(--cream);cursor:pointer;border-radius:var(--rs);transition:background .1s}
+.tl-item:hover{background:var(--cream)}
+.tl-item:last-child{border-bottom:none}
+.tl-dates{min-width:90px;font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);padding-top:2px;flex-shrink:0}
+.tl-lugar{font-weight:600;font-size:14px}
+.tl-meta{font-size:12px;color:var(--ink3);margin-top:1px}
+.cfx-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--peach);font-size:13px;color:var(--peach-d);align-items:flex-start}
+.cfx-item:last-child{border-bottom:none}
+.cfx-dot{width:6px;height:6px;border-radius:50%;background:var(--peach-d);margin-top:5px;flex-shrink:0}
+.cat-div{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:12px 0 6px;color:var(--ink3);margin-top:4px}
+.page{display:none}.page.active{display:block}
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto}
+.mbg.open{display:flex}
+.modal{background:var(--white);border-radius:var(--r);width:100%;max-width:640px;box-shadow:var(--sh-lg);animation:sIn .2s ease;margin:auto}
+@keyframes sIn{from{transform:translateY(-16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mhead{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--sand)}
+.mhead h2{font-size:15px;font-weight:600}
+.mbody{padding:1.5rem}
+.mfoot{padding:1rem 1.5rem;border-top:1px solid var(--sand);display:flex;gap:8px;justify-content:flex-end}
+.cfg-banner{background:var(--butter-l);border:1.5px solid var(--butter);border-radius:var(--r);padding:1rem 1.5rem;margin-bottom:1.5rem;font-size:13px;color:var(--butter-d);line-height:1.6}
+@media(max-width:900px){.sidebar{width:56px}.sidebar-logo,.nav-label,.nav-item span:not(.ico),.sync-pill span{display:none}.nav-item{justify-content:center;padding:.75rem}.main{margin-left:56px}.metrics{grid-template-columns:1fr 1fr}.form-grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.metrics{grid-template-columns:1fr}.form-grid,.form-grid-4{grid-template-columns:1fr}.content{padding:1rem}.topbar{padding:0 1rem}}
 </style>
 </head>
 <body>
 <div class="app">
-
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="org">UNODC Colombia</div>
-    <h1>Equipo<br>Técnico</h1>
+    <div class="app-title">Equipo<br>Técnico</div>
   </div>
-  <nav class="sidebar-nav">
-    <div class="nav-item active" onclick="showPage('panel',this)"><span class="nav-icon">◈</span><span>Panel</span></div>
-    <div class="nav-item" onclick="showPage('misiones',this)"><span class="nav-icon">◎</span><span>Misiones</span></div>
-    <div class="nav-item" onclick="showPage('inventario',this)"><span class="nav-icon">◻</span><span>Inventario</span></div>
-    <div class="nav-item" onclick="showPage('gestion',this)"><span class="nav-icon">◇</span><span>Gestión</span></div>
+  <nav>
+    <div class="nav-section">
+      <div class="nav-label">Principal</div>
+      <div class="nav-item active" onclick="goTo('panel',this)"><span class="ico">◈</span><span>Panel</span></div>
+      <div class="nav-item" onclick="goTo('misiones',this)"><span class="ico">◎</span><span>Misiones</span></div>
+      <div class="nav-item" onclick="goTo('inventario',this)"><span class="ico">◻</span><span>Inventario</span></div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Ajustes</div>
+      <div class="nav-item" onclick="goTo('gestion',this)"><span class="ico">◑</span><span>Gestión</span></div>
+    </div>
   </nav>
-  <div class="sidebar-footer">v1.0 · UNODC 2026</div>
+  <div class="sidebar-bottom">
+    <div class="sync-pill">
+      <div class="sync-dot local" id="sync-dot"></div>
+      <span id="sync-txt">Local</span>
+    </div>
+  </div>
 </aside>
-
-<main class="main">
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:10px">
+<div class="main">
+  <header class="topbar">
     <div>
-      <div id="page-title" class="page-title">Panel</div>
-      <div id="page-sub" class="page-sub">Vista general de operaciones</div>
+      <div class="topbar-title" id="page-title">Panel</div>
+      <div class="topbar-sub" id="sync-status">Guardado local · Configura Firebase para sincronización en tiempo real</div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <div id="save-status"></div>
-      <button class="btn btn-sec" style="font-size:11px;padding:5px 12px" onclick="exportData()">↓ Exportar</button>
-      <button class="btn btn-sec" style="font-size:11px;padding:5px 12px" onclick="document.getElementById('imp').click()">↑ Importar</button>
-      <input type="file" id="imp" accept=".json" style="display:none" onchange="importData(event)">
-      <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace" id="today-lbl"></div>
+    <div class="topbar-right"><div class="today-b" id="today-lbl"></div></div>
+  </header>
+  <div class="content">
+    <div id="page-panel" class="page active">
+      <div id="fb-banner"></div>
+      <div class="metrics" id="metrics"></div>
+      <div id="cfx-block"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="card" id="active-block"></div>
+        <div class="card" id="upcoming-block"></div>
+      </div>
+    </div>
+    <div id="page-misiones" class="page">
+      <div class="sec-head">
+        <div class="sec-title">Todas las misiones</div>
+        <button class="btn btn-pri" onclick="openModal()">+ Nueva misión</button>
+      </div>
+      <div class="tbl-wrap"><table class="mt" id="mission-tbl"></table></div>
+    </div>
+    <div id="page-inventario" class="page">
+      <div class="sec-head"><div class="sec-title">Estado del inventario</div></div>
+      <div id="inv-board"></div>
+    </div>
+    <div id="page-gestion" class="page">
+      <div class="card" style="margin-bottom:1rem">
+        <div class="sec-head"><div class="sec-title">Colaboradores</div></div>
+        <div id="colab-list"></div>
+        <div style="display:flex;gap:8px;align-items:flex-end;border-top:1px solid var(--cream);padding-top:1rem;margin-top:1rem;flex-wrap:wrap">
+          <div class="fg" style="flex:1"><label>Nombre</label><input id="new-colab" placeholder="Nombre completo"></div>
+          <button class="btn btn-pri" onclick="addColab()" style="height:40px">Añadir</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sec-head"><div class="sec-title">Equipo de oficina</div></div>
+        <div id="inv-gestion"></div>
+        <div style="border-top:1px solid var(--cream);padding-top:1rem;margin-top:1rem">
+          <div class="sec-title" style="margin-bottom:12px">Añadir ítem</div>
+          <div class="form-grid">
+            <div class="fg"><label>Nombre</label><input id="ni-nom" placeholder="Ej. Sony 3"></div>
+            <div class="fg"><label>Categoría</label><select id="ni-cat"><option value="">Seleccionar...</option></select></div>
+            <div class="fg"><label>N° de serie</label><input id="ni-ser" placeholder="Opcional"></div>
+            <div class="fg"><label>Estado</label><select id="ni-est"><option value="bueno">Bueno</option><option value="regular">Regular</option><option value="dañado">Dañado</option></select></div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-pri" onclick="addItem()">Añadir ítem</button>
+            <div id="new-cat-row" style="display:none;gap:8px;align-items:center;flex:1">
+              <input id="nc-nom" placeholder="Nueva categoría..." style="flex:1;border:1.5px solid var(--sand);border-radius:var(--rs);padding:8px 12px;background:var(--cream);color:var(--ink);font-size:13px;outline:none;min-width:0">
+              <button class="btn btn-sec" onclick="addCat()">Crear</button>
+              <button class="btn btn-sec" onclick="cancelCat()">&#10005;</button>
+            </div>
+            <button class="btn btn-sec" id="btn-nc" onclick="showNewCat()">+ Categoría</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <section id="page-panel">
-    <div class="metrics" id="metrics"></div>
-    <div id="cfx-block"></div>
-    <div id="active-block"></div>
-    <div class="card" id="upcoming-block"></div>
-  </section>
-
-  <section id="page-misiones" style="display:none">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-      <div class="sec-label" style="margin:0">Todas las misiones</div>
-      <button class="btn btn-pri" onclick="openModal()">+ Nueva misión</button>
-    </div>
-    <div class="card" style="padding:0;overflow:hidden">
-      <div class="tbl-wrap"><table id="mission-table"></table></div>
-    </div>
-  </section>
-
-  <section id="page-inventario" style="display:none">
-    <div id="inv-board"></div>
-  </section>
-
-  <section id="page-gestion" style="display:none">
-    <div class="card" style="margin-bottom:16px">
-      <div class="sec-label">Colaboradores</div>
-      <div id="colab-list"></div>
-      <div style="display:flex;gap:8px;align-items:flex-end;margin-top:14px;border-top:1.5px solid var(--cream);padding-top:14px">
-        <div class="form-group" style="flex:1"><label>Nombre</label><input id="new-colab" placeholder="Nombre completo"></div>
-        <button class="btn btn-pri" onclick="addColab()" style="height:38px">Añadir</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sec-label">Equipo de oficina</div>
-      <div id="inv-list-g"></div>
-      <div style="border-top:1.5px solid var(--cream);padding-top:14px;margin-top:14px">
-        <div class="sec-label" style="margin-bottom:12px">Añadir ítem</div>
-        <div class="form-grid">
-          <div class="form-group"><label>Nombre</label><input id="new-eq-n" placeholder="Ej. Sony 3"></div>
-          <div class="form-group"><label>Categoría</label><select id="new-eq-c"><option value="">Seleccionar...</option></select></div>
-          <div class="form-group"><label>N° de serie</label><input id="new-eq-s" placeholder="Opcional"></div>
-          <div class="form-group"><label>Estado</label>
-            <select id="new-eq-e"><option value="bueno">Bueno</option><option value="regular">Regular</option><option value="dañado">Dañado</option></select>
-          </div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <button class="btn btn-pri" onclick="addItem()">Añadir ítem</button>
-          <div id="new-cat-wrap" style="display:none;flex:1;gap:8px;align-items:center">
-            <input id="new-cat-n" placeholder="Nueva categoría..." style="flex:1;border:1.5px solid var(--sand);border-radius:var(--rs);padding:8px 11px;background:var(--cream);font-family:'DM Sans',sans-serif;font-size:13px;min-width:0">
-            <button class="btn btn-pri" onclick="addCat()">Crear</button>
-            <button class="btn btn-sec" onclick="cancelCat()">✕</button>
-          </div>
-          <button class="btn btn-sec" id="btn-nc" onclick="showNewCat()">+ Nueva categoría</button>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
 </div>
-
-<div class="modal-bg" id="modal-bg" onclick="bgClick(event)">
+<div class="mbg" id="mbg" onclick="closeMbg(event)">
   <div class="modal">
-    <div class="modal-header">
-      <h2 id="modal-title">Nueva misión</h2>
-      <button class="btn-del" style="font-size:20px;opacity:.4" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
+    <div class="mhead"><h2 id="modal-title">Nueva misión</h2><button class="btn-del" onclick="closeModal()" style="font-size:18px;opacity:.6">&#10005;</button></div>
+    <div class="mbody" id="mbody"></div>
+    <div class="mfoot" id="mfoot"></div>
   </div>
 </div>
+</div>
+
+<!-- FIREBASE MODULE -->
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,doc,getDoc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+/* ▼▼▼ REEMPLAZA ESTOS VALORES CON TU CONFIGURACION DE FIREBASE ▼▼▼ */
+const CFG={apiKey:"AIzaSyBc8WeJf4anA4L7fQuKvCWoYHKKca5VkLA",authDomain:"equipos-comms.firebaseapp.com",projectId:"equipos-comms",storageBucket:"equipos-comms.firebasestorage.app",messagingSenderId:"983083494008",appId:"1:983083494008:web:d51833bd7ca3d548369b8d"};
+/* ▲▲▲ */
+const READY=CFG.projectId!=="equipos-comms";
+window._fbReady=READY;
+if(READY){
+  try{
+    const app=initializeApp(CFG);
+    const db=getFirestore(app);
+    window._fbSave=async(data)=>{
+      window._setSyncStatus("saving");
+      try{await setDoc(doc(db,"equipo","principal"),data);window._setSyncStatus("live");}
+      catch(e){window._setSyncStatus("err");console.error(e);}
+    };
+    window._fbListen=async(onData)=>{
+      const ref=doc(db,"equipo","principal");
+      const snap=await getDoc(ref);
+      if(!snap.exists()){await setDoc(ref,window._getData());}
+      onSnapshot(ref,(s)=>{if(s.exists()){onData(s.data());window._setSyncStatus("live");}});
+    };
+  }catch(e){window._fbReady=false;console.error(e);}
+}
+</script>
 
 <script>
-const SK="unodc_equipo_v1";
-const M=["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-const CC={"Cámaras":"sky","Tarjetas SD":"lav","Lentes":"butter","Micrófonos":"peach","Trípodes":"sage"};
-const fmt=f=>{if(!f)return"—";const[y,m,d]=f.split("-");return`${+d} ${M[+m]}`};
-const fT=t=>t||"—";
-const td=()=>new Date().toISOString().slice(0,10);
-const tdF=()=>{const d=new Date();return`${d.getDate()} ${M[d.getMonth()+1]} ${d.getFullYear()}`};
-const uid=()=>"m"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
-const dt=(d,t)=>d+"T"+(t||"00:00");
-const cc=c=>CC[c]||"sand";
-const ini=n=>n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+const MESES=["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const fmt=f=>{if(!f)return"—";const[y,m,d]=f.split("-");return`${+d} ${MESES[+m]}`;};
+const fmtT=t=>t||"";
+const today=()=>new Date().toISOString().slice(0,10);
+const todayFmt=()=>{const d=new Date();return`${d.getDate()} ${MESES[d.getMonth()+1]} ${d.getFullYear()}`;};
+const uid=()=>"x"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const dtStr=(d,t)=>d+"T"+(t||"00:00");
+function overlapDt(a,b){return dtStr(a.fi,a.hs)<dtStr(b.ff,b.hl||"23:59")&&dtStr(a.ff,a.hl||"23:59")>dtStr(b.fi,b.hs);}
+function itemAvailDt(n,fi,hs,ff,hl,skip){
+  const ts=dtStr(fi,hs),te=dtStr(ff,hl||"23:59");
+  const u=misiones.filter(m=>m.id!==skip&&m.equipo.includes(n)&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs));
+  return{libre:!u.length,donde:u.map(x=>x.lugar)};
+}
+const CAT_CLR={"Cámaras":"sky","Tarjetas SD":"lav","Lentes":"butter","Micrófonos":"peach","Trípodes":"sage"};
+const catClr=c=>CAT_CLR[c]||"sand";
+const eClr={bueno:"b-sage",regular:"b-butter","dañado":"b-rose",respaldo:"b-sand"};
 
-// Overlap: mission A and B overlap if A's departure < B's arrival AND A's arrival > B's departure
-function overlap(a,b){
-  return dt(a.fi,a.hs)<dt(b.ff,b.hl||"23:59") && dt(a.ff,a.hl||"23:59")>dt(b.fi,b.hs);
-}
-// Item availability for a given datetime window
-function avail(nombre,fi,hs,ff,hl,skip){
-  const ts=dt(fi,hs),te=dt(ff,hl||"23:59");
-  const c=misiones.filter(m=>m.id!==skip&&m.equipo.includes(nombre)&&ts<dt(m.ff,m.hl||"23:59")&&te>dt(m.fi,m.hs));
-  return{libre:!c.length,donde:c.map(u=>u.lugar)};
-}
-// Same-day handoff: item in mission ending on fi day with arrival before hs
-function handoffs(nombre,fi,hs){
-  return misiones.filter(m=>m.equipo.includes(nombre)&&m.ff===fi&&m.hl&&hs&&m.hl<hs);
-}
-
-const DM=[
-  {id:"m01",lugar:"Pereira",fi:"2026-03-17",hs:"06:00",ff:"2026-03-19",hl:"21:00",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","Hollyland 3","Trípode 3","SD 128GB·2","70-200mm"],notas:""},
-  {id:"m02",lugar:"Quibdó",fi:"2026-03-19",hs:"07:00",ff:"2026-03-20",hl:"20:00",proyecto:"MI",colabs:["Laura Rodríguez"],equipo:["Hollyland 1"],notas:"Laura usa equipo personal"},
-  {id:"m03",lugar:"Tumaco",fi:"2026-03-19",hs:"06:00",ff:"2026-03-20",hl:"21:00",proyecto:"CCP",colabs:["Diego Cuervo"],equipo:["Trípode 1","SD 128GB·3","Sennheiser 1"],notas:"Cuervo usa equipo personal"},
-  {id:"m04",lugar:"Leticia",fi:"2026-03-19",hs:"",ff:"2026-03-20",hl:"",proyecto:"ICBF",colabs:["Katherine Montoya"],equipo:["Sony 1","SD 128GB·1","18-200mm","Trípode 2","Hollyland 2"],notas:""},
-  {id:"m05",lugar:"Buenaventura",fi:"2026-03-20",hs:"07:00",ff:"2026-03-24",hl:"20:00",proyecto:"Trata",colabs:["Nicolás Castiblanco"],equipo:["Hollyland 3"],notas:"Nicolás usa equipo personal"},
-  {id:"m06",lugar:"Caloto",fi:"2026-03-21",hs:"05:00",ff:"2026-03-22",hl:"22:00",proyecto:"MI",colabs:["Katherine Montoya","Diego Ardila","Camilo Romero","John Vásquez"],equipo:["Sony 1","70-200mm","18-200mm","Trípode 2","50mm","SD 128GB·1"],notas:"Misión grupal (4 personas)"},
-  {id:"m07",lugar:"Río de Janeiro",fi:"2026-03-22",hs:"08:00",ff:"2026-04-27",hl:"23:00",proyecto:"SIMCI",colabs:["Laura Rodríguez"],equipo:["24-70mm","Hollyland 1","SD 128GB·3"],notas:"Diego Ardila le entrega el 24-70mm a Laura"},
-  {id:"m08",lugar:"Armenia",fi:"2026-03-23",hs:"",ff:"2026-03-25",hl:"",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","SD 128GB·1","Trípode 1","Hollyland 2"],notas:""},
-  {id:"m09",lugar:"Tumaco",fi:"2026-03-24",hs:"06:00",ff:"2026-03-25",hl:"21:00",proyecto:"—",colabs:["John Vásquez"],equipo:["Sennheiser 1","Trípode 2"],notas:"Se lleva la Canon y 2 SDs viejas"},
-  {id:"m10",lugar:"Cauca Bo Mathiasen",fi:"2026-03-24",hs:"14:00",ff:"2026-03-25",hl:"20:00",proyecto:"MI",colabs:["Camilo Romero"],equipo:["Sony 1","SD 128GB·2","18-200mm","Trípode 3"],notas:""},
-  {id:"m11",lugar:"TBC Trata c/Daniel",fi:"2026-04-16",hs:"07:00",ff:"2026-04-24",hl:"20:00",proyecto:"Trata",colabs:["Camilo Romero"],equipo:["Sony 1","18-200mm","Sennheiser 2","Trípode 2","SD 128GB·1"],notas:""},
-];
-const DI=[
-  {id:"i01",nombre:"Sony 1",categoria:"Cámaras",serie:"",estado:"bueno"},
-  {id:"i02",nombre:"Sony 2",categoria:"Cámaras",serie:"",estado:"bueno"},
-  {id:"i03",nombre:"SD 128GB·1",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
-  {id:"i04",nombre:"SD 128GB·2",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
-  {id:"i05",nombre:"SD 128GB·3",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
-  {id:"i06",nombre:"50mm",categoria:"Lentes",serie:"",estado:"bueno"},
-  {id:"i07",nombre:"70-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
-  {id:"i08",nombre:"24-70mm",categoria:"Lentes",serie:"",estado:"bueno"},
-  {id:"i09",nombre:"18-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
-  {id:"i0a",nombre:"Hollyland 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
-  {id:"i0b",nombre:"Hollyland 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
-  {id:"i0c",nombre:"Hollyland 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
-  {id:"i0d",nombre:"Sennheiser 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
-  {id:"i0e",nombre:"Sennheiser 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
-  {id:"i0f",nombre:"Sennheiser 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
-  {id:"i0g",nombre:"Trípode 1",categoria:"Trípodes",serie:"",estado:"bueno"},
-  {id:"i0h",nombre:"Trípode 2",categoria:"Trípodes",serie:"",estado:"bueno"},
-  {id:"i0i",nombre:"Trípode 3",categoria:"Trípodes",serie:"",estado:"bueno"},
-];
-const DC=["Laura Rodríguez","Diego Ardila","Camilo Romero","Diego Cuervo","Nicolás Castiblanco","John Vásquez","Katherine Montoya"];
+const DEF={
+  misiones:[
+    {id:"m01",lugar:"Pereira",fi:"2026-03-17",hs:"06:00",ff:"2026-03-19",hl:"21:00",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","Hollyland 3","Trípode 3","SD 128GB·2","24-70mm"],notas:""},
+    {id:"m02",lugar:"Quibdó",fi:"2026-03-19",hs:"07:00",ff:"2026-03-20",hl:"20:00",proyecto:"MI",colabs:["Laura Rodríguez"],equipo:["Hollyland 1"],notas:"Laura usa equipo personal"},
+    {id:"m03",lugar:"Tumaco",fi:"2026-03-19",hs:"06:00",ff:"2026-03-20",hl:"21:00",proyecto:"CCP",colabs:["Diego Cuervo"],equipo:["Trípode 1","SD 128GB·3","Sennheiser 1"],notas:"Cuervo usa equipo personal"},
+    {id:"m04",lugar:"Leticia",fi:"2026-03-19",hs:"",ff:"2026-03-20",hl:"",proyecto:"ICBF",colabs:["Katherine Montoya"],equipo:["Sony 1","SD 128GB·1","18-200mm","Trípode 2","Hollyland 2"],notas:""},
+    {id:"m05",lugar:"Buenaventura",fi:"2026-03-20",hs:"07:00",ff:"2026-03-24",hl:"20:00",proyecto:"Trata",colabs:["Nicolás Castiblanco"],equipo:["Hollyland 3"],notas:"Nicolás usa equipo personal"},
+    {id:"m06",lugar:"Caloto",fi:"2026-03-21",hs:"05:00",ff:"2026-03-22",hl:"22:00",proyecto:"MI",colabs:["Katherine Montoya","Diego Ardila","Camilo Romero","John Vásquez"],equipo:["Sony 1","70-200mm","18-200mm","Trípode 2","50mm","SD 128GB·1","Hollyland 2"],notas:"Misión grupal (4 personas)"},
+    {id:"m07",lugar:"Río de Janeiro",fi:"2026-03-22",hs:"08:00",ff:"2026-04-27",hl:"23:00",proyecto:"SIMCI",colabs:["Laura Rodríguez"],equipo:["24-70mm","Hollyland 1","SD 128GB·3"],notas:"Diego Ardila le entrega el 24-70mm a Laura"},
+    {id:"m08",lugar:"Armenia",fi:"2026-03-23",hs:"",ff:"2026-03-25",hl:"",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","Trípode 3","Hollyland 2","18-200mm","SD 128GB·2"],notas:""},
+    {id:"m09",lugar:"Tumaco",fi:"2026-03-24",hs:"06:00",ff:"2026-03-25",hl:"21:00",proyecto:"—",colabs:["John Vásquez"],equipo:["Sennheiser 1","Trípode 2"],notas:"Se lleva la Canon y 2 SDs viejas"},
+    {id:"m10",lugar:"Cauca Bo Mathiasen",fi:"2026-03-24",hs:"14:00",ff:"2026-03-25",hl:"20:00",proyecto:"MI",colabs:["Camilo Romero"],equipo:["Sony 1","Trípode 1","70-200mm","50mm","SD 128GB·1","Sennheiser 2"],notas:""},
+    {id:"m11",lugar:"TBC Trata c/Daniel",fi:"2026-04-16",hs:"07:00",ff:"2026-04-24",hl:"20:00",proyecto:"Trata",colabs:["Camilo Romero"],equipo:["Sony 1","18-200mm","Sennheiser 2","Trípode 2","SD 128GB·1"],notas:""}
+  ],
+  inventario:[
+    {id:"i01",nombre:"Sony 1",categoria:"Cámaras",serie:"",estado:"bueno"},
+    {id:"i02",nombre:"Sony 2",categoria:"Cámaras",serie:"",estado:"bueno"},
+    {id:"i03",nombre:"SD 128GB·1",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
+    {id:"i04",nombre:"SD 128GB·2",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
+    {id:"i05",nombre:"SD 128GB·3",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
+    {id:"i06",nombre:"50mm",categoria:"Lentes",serie:"",estado:"bueno"},
+    {id:"i07",nombre:"70-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
+    {id:"i08",nombre:"24-70mm",categoria:"Lentes",serie:"",estado:"bueno"},
+    {id:"i09",nombre:"18-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
+    {id:"i0a",nombre:"Hollyland 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
+    {id:"i0b",nombre:"Hollyland 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
+    {id:"i0c",nombre:"Hollyland 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
+    {id:"i0d",nombre:"Sennheiser 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
+    {id:"i0e",nombre:"Sennheiser 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
+    {id:"i0f",nombre:"Sennheiser 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
+    {id:"i0g",nombre:"Trípode 1",categoria:"Trípodes",serie:"",estado:"bueno"},
+    {id:"i0h",nombre:"Trípode 2",categoria:"Trípodes",serie:"",estado:"bueno"},
+    {id:"i0i",nombre:"Trípode 3",categoria:"Trípodes",serie:"",estado:"bueno"}
+  ],
+  colaboradores:["Laura Rodríguez","Diego Ardila","Camilo Romero","Diego Cuervo","Nicolás Castiblanco","John Vásquez","Katherine Montoya"],
+  categorias:["Cámaras","Tarjetas SD","Lentes","Micrófonos","Trípodes"]
+};
 
 let misiones=[],inventario=[],colaboradores=[],categorias=[];
-let editId=null,fC=[],fE=[];
+let editId=null,fColabs=[],fEquipo=[];
+const SK="unodc_v8";
 
-function setSS(s){
-  const el=document.getElementById("save-status");if(!el)return;
-  const m={saving:["save-ing","Guardando…"],ok:["save-ok","✓ Guardado"],error:["save-err","Error"]};
-  const[c,t]=m[s]||m.saving;
-  el.innerHTML=`<span class="save-pill ${c}">${t}</span>`;
-  if(s==="ok")setTimeout(()=>{if(el)el.innerHTML=""},2500);
+/* SYNC STATUS */
+window._setSyncStatus=function(s){
+  const dot=document.getElementById("sync-dot");
+  const txt=document.getElementById("sync-txt");
+  const sub=document.getElementById("sync-status");
+  if(!dot)return;
+  const map={live:["live","En vivo","Sincronizado · todos ven los cambios en tiempo real"],saving:["saving","Guardando…","Sincronizando…"],err:["err","Error","Error de sincronización · revisa la config de Firebase"],local:["local","Local","Guardado local · configura Firebase para sync en tiempo real"]};
+  const[cls,lbl,desc]=map[s]||map.local;
+  dot.className="sync-dot "+cls;txt.textContent=lbl;if(sub)sub.textContent=desc;
+};
+window._getData=()=>({misiones,inventario,colaboradores,categorias});
+
+function applyData(d){
+  if(d.misiones)misiones=d.misiones;
+  if(d.inventario)inventario=d.inventario;
+  if(d.colaboradores)colaboradores=d.colaboradores;
+  if(d.categorias)categorias=d.categorias;
+  render();
 }
 function saveData(){
-  setSS("saving");
-  try{localStorage.setItem(SK,JSON.stringify({misiones,inventario,colaboradores,categorias}));setSS("ok")}
-  catch{setSS("error")}
+  const data={misiones,inventario,colaboradores,categorias};
+  try{localStorage.setItem(SK,JSON.stringify(data));}catch(e){}
+  if(window._fbReady&&window._fbSave)window._fbSave(data);
 }
 function loadData(){
-  try{
-    const r=localStorage.getItem(SK);
-    if(r){const d=JSON.parse(r);misiones=d.misiones||[];inventario=d.inventario||[];colaboradores=d.colaboradores||[];categorias=d.categorias||[];}
-    else loadDef();
-  }catch{loadDef()}
-}
-function loadDef(){
-  misiones=DM.map(m=>({...m}));inventario=DI.map(i=>({...i}));
-  colaboradores=[...DC];categorias=[...new Set(DI.map(i=>i.categoria))];
-}
-function exportData(){
-  const b=new Blob([JSON.stringify({misiones,inventario,colaboradores,categorias},null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="unodc_equipo_"+td()+".json";a.click();
-}
-function importData(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    try{
-      const d=JSON.parse(ev.target.result);
-      if(d.misiones){misiones=d.misiones;inventario=d.inventario||inventario;colaboradores=d.colaboradores||colaboradores;categorias=d.categorias||categorias;saveData();renderAll();alert("Datos importados.")}
-      else alert("Archivo no válido.");
-    }catch{alert("Error al leer el archivo.")}
-  };r.readAsText(f);e.target.value="";
+  try{const r=localStorage.getItem(SK);if(r)applyData(JSON.parse(r));else applyData(DEF);}
+  catch{applyData(DEF);}
 }
 
-function getCfx(){
-  const o=[];
-  for(let i=0;i<misiones.length;i++)for(let j=i+1;j<misiones.length;j++){
-    const a=misiones[i],b=misiones[j];if(!overlap(a,b))continue;
-    const s=a.equipo.filter(e=>b.equipo.includes(e));if(s.length)o.push({a,b,shared:s});
+/* SMART DROPDOWN — fixed reopen */
+let _openDrop=null;
+function openDrop(el){if(_openDrop&&_openDrop!==el)closeDrop(_openDrop);el.classList.add("open");_openDrop=el;}
+function closeDrop(el){if(!el)return;el.classList.remove("open");if(_openDrop===el)_openDrop=null;}
+document.addEventListener("click",e=>{if(_openDrop&&!_openDrop.closest(".sw").contains(e.target))closeDrop(_openDrop);});
+
+function setupDrop(inpId,dropId,getItems){
+  const inp=document.getElementById(inpId);
+  const drop=document.getElementById(dropId);
+  if(!inp||!drop)return;
+  function populate(){
+    const q=inp.value.toLowerCase();
+    const items=getItems(q);
+    drop.innerHTML=items.length
+      ?items.map(it=>`<div class="di" onmousedown="event.preventDefault()">${it.html}</div>`).join("")
+      :`<div class="di-empty">No encontrado</div>`;
+    drop.querySelectorAll(".di").forEach((el,i)=>{if(items[i])el.addEventListener("click",()=>{items[i].onSelect();closeDrop(drop);inp.value="";setTimeout(()=>inp.focus(),10);});});
   }
-  return o;
+  inp.addEventListener("focus",()=>{populate();openDrop(drop);});
+  inp.addEventListener("click",()=>{populate();openDrop(drop);});
+  inp.addEventListener("input",()=>{populate();openDrop(drop);});
+  drop._populate=populate;
 }
 
-function renderAll(){renderPanel();renderMisiones();renderInventario();renderGestion();populateCatSelect()}
+/* NAV */
+const PAGE_TITLES={panel:"Panel",misiones:"Misiones",inventario:"Inventario",gestion:"Gestión"};
+function goTo(name,el){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-"+name).classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+  if(el)el.classList.add("active");
+  document.getElementById("page-title").textContent=PAGE_TITLES[name]||name;
+  if(name==="inventario")renderInv();
+  if(name==="gestion")renderGestion();
+}
 
+/* CONFLICTS */
+function getConflicts(){
+  const out=[];
+  for(let i=0;i<misiones.length;i++)for(let j=i+1;j<misiones.length;j++){
+    const a=misiones[i],b=misiones[j];
+    if(!overlapDt(a,b))continue;
+    const s=a.equipo.filter(e=>b.equipo.includes(e));
+    if(s.length)out.push({a,b,shared:s});
+  }
+  return out;
+}
+
+/* RENDER PANEL */
 function renderPanel(){
-  const hoy=td(),now=hoy+"T"+new Date().toTimeString().slice(0,5);
+  const hoy=today();
   const sorted=[...misiones].sort((a,b)=>a.fi.localeCompare(b.fi));
-  const activas=misiones.filter(m=>dt(m.fi,m.hs)<=now&&now<=dt(m.ff,m.hl||"23:59"));
-  const proximas=sorted.filter(m=>dt(m.fi,m.hs)>now);
-  const cfx=getCfx();
+  const activas=misiones.filter(m=>m.fi<=hoy&&m.ff>=hoy);
+  const proximas=sorted.filter(m=>m.fi>hoy);
+  const cfx=getConflicts();
+  const banner=document.getElementById("fb-banner");
+  if(banner&&!window._fbReady){
+    banner.innerHTML=`<div class="cfg-banner"><strong>Sincronización en tiempo real no activa.</strong> Los datos se guardan solo en este navegador. Para que todos vean los cambios, <a href="#" onclick="showFbInstructions();return false" style="color:var(--butter-d);font-weight:600">configura Firebase →</a></div>`;
+  }else if(banner)banner.innerHTML="";
   document.getElementById("metrics").innerHTML=[
-    {l:"Misiones",v:misiones.length,c:"sky"},{l:"En campo ahora",v:activas.length,c:"sage"},
-    {l:"Conflictos",v:cfx.length,c:cfx.length?"rose":"sage"},{l:"Próximas",v:proximas.length,c:"lav"},
+    {l:"Total misiones",v:misiones.length,c:"sky"},
+    {l:"Activas hoy",v:activas.length,c:"sage"},
+    {l:"Conflictos",v:cfx.length,c:cfx.length?"rose":"sage"},
+    {l:"Próximas",v:proximas.length,c:"lav"}
   ].map(m=>`<div class="metric card-${m.c}"><div class="metric-label">${m.l}</div><div class="metric-val">${m.v}</div></div>`).join("");
-
-  document.getElementById("cfx-block").innerHTML=cfx.length?`<div class="card card-peach" style="margin-bottom:14px">
-    <div class="sec-label">Conflictos de equipo</div>
-    ${cfx.map(c=>`<div class="conflict-item"><span>⚠</span><div>
-      <strong>${c.a.lugar}</strong> (${fmt(c.a.fi)} ${fT(c.a.hs)}–${fmt(c.a.ff)} ${fT(c.a.hl)}) &amp;
-      <strong>${c.b.lugar}</strong> (${fmt(c.b.fi)} ${fT(c.b.hs)}–${fmt(c.b.ff)} ${fT(c.b.hl)})<br>
-      <span style="font-size:12px">Comparten: ${c.shared.join(", ")}</span>
-    </div></div>`).join("")}</div>`:"";
-
-  document.getElementById("active-block").innerHTML=activas.length?`<div class="card card-butter" style="margin-bottom:14px">
-    <div class="sec-label">En campo ahora</div>
-    ${activas.map(m=>`<div class="active-item">
-      <div style="flex:1"><strong>${m.lugar}</strong> <span class="badge b-butter" style="margin-left:4px">${m.proyecto}</span><br>
-      <span style="font-size:12px;color:var(--ink2)">${m.colabs.join(", ")}</span><br>
-      <span style="font-size:11px;color:var(--ink3)">Sale ${fT(m.hs)} · Regresa ${fmt(m.ff)} ${fT(m.hl)}</span></div>
-      <div style="font-size:12px;color:var(--ink3);text-align:right;max-width:200px">${m.equipo.join(", ")||"solo equipo personal"}</div>
-    </div>`).join("")}</div>`:"";
-
-  document.getElementById("upcoming-block").innerHTML=`<div class="sec-label">Próximas misiones</div>`+
-    (proximas.length?proximas.slice(0,6).map(m=>`<div class="upcoming-item" onclick="editM('${m.id}')">
-      <div style="min-width:100px;font-size:12px;color:var(--ink3);font-family:'DM Mono',monospace">${fmt(m.fi)} ${fT(m.hs)}<br>${fmt(m.ff)} ${fT(m.hl)}</div>
-      <div style="flex:1"><div style="font-weight:700">${m.lugar}</div><div style="font-size:12px;color:var(--ink2)">${m.colabs.join(", ")}</div></div>
-      ${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}
-    </div>`).join(""):`<p style="font-size:13px;color:var(--ink3);padding-top:6px">No hay misiones próximas.</p>`);
+  document.getElementById("cfx-block").innerHTML=cfx.length
+    ?`<div class="card card-peach" style="margin-bottom:1rem"><div class="sec-title" style="margin-bottom:.75rem">Conflictos detectados</div>${cfx.map(c=>`<div class="cfx-item"><div class="cfx-dot"></div><div><strong>${c.a.lugar}</strong> (${fmt(c.a.fi)} ${fmtT(c.a.hs)} → ${fmt(c.a.ff)} ${fmtT(c.a.hl)}) &amp; <strong>${c.b.lugar}</strong> (${fmt(c.b.fi)} ${fmtT(c.b.hs)} → ${fmt(c.b.ff)} ${fmtT(c.b.hl)})<br><span style="font-size:12px">Comparten: ${c.shared.join(", ")}</span></div></div>`).join("")}</div>`:"";
+  const ab=document.getElementById("active-block");
+  ab.innerHTML=`<div class="sec-title" style="margin-bottom:.75rem">En campo hoy</div>`;
+  ab.innerHTML+=activas.length?activas.map(m=>`<div class="tl-item" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'><div class="tl-dates">${fmtT(m.hs)||"—"}<br>${fmtT(m.hl)||"—"}</div><div><div class="tl-lugar">${m.lugar} <span class="badge b-butter" style="font-size:10px">${m.proyecto}</span></div><div class="tl-meta">${m.colabs.join(", ")}</div></div></div>`).join(""):`<p style="font-size:13px;color:var(--ink3)">Ninguna misión activa hoy.</p>`;
+  const ub=document.getElementById("upcoming-block");
+  ub.innerHTML=`<div class="sec-title" style="margin-bottom:.75rem">Próximas misiones</div>`;
+  ub.innerHTML+=proximas.length?proximas.slice(0,6).map(m=>`<div class="tl-item" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'><div class="tl-dates">${fmt(m.fi)}<br><span style="font-family:'DM Mono',monospace">${fmtT(m.hs)||"—"}</span></div><div><div class="tl-lugar">${m.lugar} ${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand" style="font-size:10px">${m.proyecto}</span>`:""}</div><div class="tl-meta">${m.colabs.join(", ")}</div></div></div>`).join(""):`<p style="font-size:13px;color:var(--ink3)">No hay misiones próximas.</p>`;
 }
 
+/* RENDER MISIONES */
 function renderMisiones(){
-  const cfx=getCfx(),cfxIds=new Set(cfx.flatMap(c=>[c.a.id,c.b.id]));
+  const cfx=getConflicts();
+  const cfxIds=new Set(cfx.flatMap(c=>[c.a.id,c.b.id]));
   const sorted=[...misiones].sort((a,b)=>a.fi.localeCompare(b.fi));
-  document.getElementById("mission-table").innerHTML=`
-    <thead><tr><th>Lugar / Colaborador</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead>
-    <tbody>${sorted.map(m=>`<tr>
-      <td><div style="font-weight:700">${m.lugar}</div><div style="font-size:12px;color:var(--ink3)">${m.colabs.join(", ")}</div>${cfxIds.has(m.id)?`<span class="badge b-rose" style="font-size:10px;margin-top:3px">conflicto</span>`:""}</td>
-      <td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap">${fmt(m.fi)}<br><strong>${fT(m.hs)}</strong></td>
-      <td style="font-size:12px;font-family:'DM Mono',monospace;white-space:nowrap">${fmt(m.ff)}<br><strong>${fT(m.hl)}</strong></td>
+  document.getElementById("mission-tbl").innerHTML=
+    `<thead><tr><th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead><tbody>`+
+    sorted.map(m=>`<tr>
+      <td><div style="font-weight:600">${m.lugar}</div><div style="font-size:12px;color:var(--ink3)">${m.colabs.join(", ")}</div>${cfxIds.has(m.id)?`<span class="badge b-rose" style="font-size:10px;margin-top:4px">conflicto</span>`:""}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
       <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}</td>
-      <td>${m.equipo.length?m.equipo.map(e=>`<span class="eq-tag">${e}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
-      <td style="font-size:12px;color:var(--ink2);max-width:160px">${m.notas||""}</td>
-      <td style="white-space:nowrap"><button class="btn-sm" onclick="editM('${m.id}')">Editar</button> <button class="btn-del" onclick="delM('${m.id}')">✕</button></td>
-    </tr>`).join("")}</tbody>`;
+      <td style="max-width:260px">${m.equipo.length?m.equipo.map(e=>`<span class="eq-tag">${e}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
+      <td style="font-size:12px;color:var(--ink2);max-width:180px">${m.notas||""}</td>
+      <td style="white-space:nowrap"><button class="btn-sm" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'>Editar</button> <button class="btn-del" onclick='delMision("${m.id}")'>&#10005;</button></td>
+    </tr>`).join("")+"</tbody>";
 }
 
-function renderInventario(){
-  const hoy=td(),now=hoy+"T"+new Date().toTimeString().slice(0,5);
+/* RENDER INVENTARIO */
+function renderInv(){
+  const hoy=today(),hn=new Date().toTimeString().slice(0,5),now=hoy+"T"+hn;
   const byCat={};
-  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it)}
+  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it);}
   let html="";
   for(const[cat,items]of Object.entries(byCat)){
-    const col=cc(cat);
-    html+=`<div class="sec-label" style="margin-top:${html?"22px":"0"};color:var(--${col}-d)">${cat}</div>`;
+    html+=`<div class="cat-div">${cat}</div>`;
     for(const it of items){
-      const enC=misiones.filter(m=>m.equipo.includes(it.nombre)&&dt(m.fi,m.hs)<=now&&now<=dt(m.ff,m.hl||"23:59"));
-      const prox=[...misiones].filter(m=>m.equipo.includes(it.nombre)&&dt(m.fi,m.hs)>now).sort((a,b)=>dt(a.fi,a.hs).localeCompare(dt(b.fi,b.hs)))[0];
-      const eM={bueno:"b-sage",regular:"b-butter","dañado":"b-rose"};
-      html+=`<div class="eq-row">
-        <div class="eq-dot" style="background:${enC.length?"var(--rose)":"var(--sage)"}"></div>
-        <span style="font-weight:700;min-width:130px">${it.nombre}</span>
-        <span class="badge ${eM[it.estado]||"b-sand"}" style="font-size:11px">${it.estado}</span>
-        <span class="badge ${enC.length?"b-rose":"b-sage"}" style="margin-left:6px">${enC.length?`En campo — ${enC.map(u=>u.lugar).join(", ")}`:"Disponible"}</span>
-        <span style="font-size:12px;color:var(--ink3);margin-left:auto;text-align:right">${prox?`Próximo: ${prox.lugar} (${fmt(prox.fi)} ${fT(prox.hs)})`:"Sin uso programado"}</span>
-      </div>`;
+      const ahora=misiones.filter(m=>m.equipo.includes(it.nombre)&&dtStr(m.fi,m.hs)<=now&&now<=dtStr(m.ff,m.hl||"23:59"));
+      const prox=[...misiones].filter(m=>m.equipo.includes(it.nombre)&&dtStr(m.fi,m.hs)>now).sort((a,b)=>dtStr(a.fi,a.hs).localeCompare(dtStr(b.fi,b.hs)))[0];
+      html+=`<div class="inv-item"><div class="inv-dot" style="background:${ahora.length?"var(--rose)":"var(--sage)"}"></div><span style="font-weight:600;min-width:120px">${it.nombre}</span><span class="badge ${eClr[it.estado]||"b-sand"}">${it.estado}</span><span class="badge ${ahora.length?"b-rose":"b-sage"}" style="margin-left:4px">${ahora.length?`En campo — ${ahora.map(u=>u.lugar).join(", ")}`:"Disponible"}</span><span style="font-size:12px;color:var(--ink3);margin-left:auto">${prox?`Próximo: ${prox.lugar} (${fmt(prox.fi)} ${fmtT(prox.hs)})`:"Sin uso programado"}</span></div>`;
     }
   }
   document.getElementById("inv-board").innerHTML=html;
 }
 
+/* RENDER GESTION */
 function renderGestion(){
   document.getElementById("colab-list").innerHTML=colaboradores.length
-    ?colaboradores.map((c,i)=>`<div class="colab-row"><div class="colab-avatar">${ini(c)}</div><span style="flex:1">${c}</span><button class="btn-del" onclick="delC(${i})">✕</button></div>`).join("")
-    :`<p style="font-size:13px;color:var(--ink3)">No hay colaboradores.</p>`;
+    ?colaboradores.map((c,i)=>`<div class="colab-row"><div class="avatar">${c.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase()}</div><span style="flex:1">${c}</span><button class="btn-del" onclick="delColab(${i})">&#10005;</button></div>`).join("")
+    :`<p style="font-size:13px;color:var(--ink3)">Sin colaboradores.</p>`;
   const byCat={};
-  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it)}
-  const eM={bueno:"b-sage",regular:"b-butter","dañado":"b-rose"};
-  let html=`<div class="inv-row inv-head"><span>Nombre</span><span>Categoría</span><span>N° de serie</span><span>Estado</span><span></span></div>`;
+  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it);}
+  let html="";
   for(const[cat,items]of Object.entries(byCat)){
-    const col=cc(cat);
-    html+=items.map(it=>`<div class="inv-row">
-      <span style="font-weight:700">${it.nombre}</span>
-      <span><span class="badge b-${col}" style="font-size:11px">${it.categoria}</span></span>
-      <span style="font-size:12px;color:var(--ink3);font-family:'DM Mono',monospace">${it.serie||"—"}</span>
-      <span><span class="badge ${eM[it.estado]||"b-sand"}" style="font-size:11px">${it.estado}</span></span>
-      <div style="display:flex;gap:4px"><button class="btn-sm" onclick="cyE('${it.id}')">Estado</button><button class="btn-del" onclick="delI('${it.id}')">✕</button></div>
-    </div>`).join("");
+    html+=`<div class="cat-div">${cat}</div>`;
+    html+=items.map(it=>`<div class="inv-item"><span style="font-weight:600;flex:1">${it.nombre}</span><span class="badge b-${catClr(cat)}" style="font-size:11px">${it.categoria}</span><span style="font-size:12px;color:var(--ink3);min-width:80px;text-align:right">${it.serie||"—"}</span><span class="badge ${eClr[it.estado]||"b-sand"}">${it.estado}</span><button class="btn-sm" onclick="cycleEstado('${it.id}')">Estado</button><button class="btn-del" onclick="delItem('${it.id}')">&#10005;</button></div>`).join("");
   }
-  document.getElementById("inv-list-g").innerHTML=html;
-  populateCatSelect();
+  document.getElementById("inv-gestion").innerHTML=html;
+  populateCatSel();
 }
+function populateCatSel(){const s=document.getElementById("ni-cat");if(!s)return;s.innerHTML=`<option value="">Seleccionar...</option>`+categorias.map(c=>`<option value="${c}">${c}</option>`).join("");}
 
-function populateCatSelect(){
-  const s=document.getElementById("new-eq-c");if(!s)return;
-  s.innerHTML=`<option value="">Seleccionar...</option>`+categorias.map(c=>`<option value="${c}">${c}</option>`).join("");
-}
-function addColab(){const n=document.getElementById("new-colab").value.trim();if(!n||colaboradores.includes(n))return;colaboradores.push(n);saveData();renderGestion();document.getElementById("new-colab").value=""}
-function delC(i){if(!confirm("¿Eliminar?"))return;colaboradores.splice(i,1);saveData();renderGestion()}
-function addItem(){
-  const n=document.getElementById("new-eq-n").value.trim(),c=document.getElementById("new-eq-c").value,s=document.getElementById("new-eq-s").value.trim(),e=document.getElementById("new-eq-e").value;
-  if(!n||!c){alert("Nombre y categoría son obligatorios.");return}
-  inventario.push({id:uid(),nombre:n,categoria:c,serie:s,estado:e});saveData();renderGestion();renderInventario();
-  document.getElementById("new-eq-n").value="";document.getElementById("new-eq-s").value="";document.getElementById("new-eq-c").value="";
-}
-function delI(id){if(!confirm("¿Eliminar ítem?"))return;inventario=inventario.filter(i=>i.id!==id);saveData();renderGestion();renderInventario()}
-function cyE(id){const it=inventario.find(i=>i.id===id);if(!it)return;const e=["bueno","regular","dañado"];it.estado=e[(e.indexOf(it.estado)+1)%3];saveData();renderGestion();renderInventario()}
-function showNewCat(){document.getElementById("new-cat-wrap").style.display="flex";document.getElementById("btn-nc").style.display="none"}
-function cancelCat(){document.getElementById("new-cat-wrap").style.display="none";document.getElementById("btn-nc").style.display="";document.getElementById("new-cat-n").value=""}
-function addCat(){const n=document.getElementById("new-cat-n").value.trim();if(!n||categorias.includes(n)){cancelCat();return}categorias.push(n);saveData();populateCatSelect();cancelCat()}
+/* GESTION ACTIONS */
+function addColab(){const n=document.getElementById("new-colab").value.trim();if(!n||colaboradores.includes(n))return;colaboradores.push(n);saveData();renderGestion();document.getElementById("new-colab").value="";}
+function delColab(i){if(!confirm("¿Eliminar colaborador?"))return;colaboradores.splice(i,1);saveData();renderGestion();}
+function addItem(){const nombre=document.getElementById("ni-nom").value.trim(),categoria=document.getElementById("ni-cat").value,serie=document.getElementById("ni-ser").value.trim(),estado=document.getElementById("ni-est").value;if(!nombre||!categoria){alert("Nombre y categoría son obligatorios.");return;}inventario.push({id:uid(),nombre,categoria,serie,estado});saveData();renderGestion();renderInv();document.getElementById("ni-nom").value="";document.getElementById("ni-ser").value="";document.getElementById("ni-cat").value="";}
+function delItem(id){if(!confirm("¿Eliminar ítem?"))return;inventario=inventario.filter(i=>i.id!==id);saveData();renderGestion();renderInv();}
+function cycleEstado(id){const it=inventario.find(i=>i.id===id);if(!it)return;const e=["bueno","regular","dañado"];it.estado=e[(e.indexOf(it.estado)+1)%3];saveData();renderGestion();renderInv();}
+function showNewCat(){document.getElementById("new-cat-row").style.display="flex";document.getElementById("btn-nc").style.display="none";}
+function cancelCat(){document.getElementById("new-cat-row").style.display="none";document.getElementById("btn-nc").style.display="";document.getElementById("nc-nom").value="";}
+function addCat(){const n=document.getElementById("nc-nom").value.trim();if(!n||categorias.includes(n)){cancelCat();return;}categorias.push(n);saveData();populateCatSel();cancelCat();}
 
-const PM={panel:["Panel","Vista general de operaciones"],misiones:["Misiones","Cronograma y asignación de equipo"],inventario:["Inventario","Estado actual del equipo de oficina"],gestion:["Gestión","Colaboradores e inventario"]};
-function showPage(n,el){
-  document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active"));el.classList.add("active");
-  ["panel","misiones","inventario","gestion"].forEach(p=>document.getElementById("page-"+p).style.display=p===n?"block":"none");
-  const[t,s]=PM[n]||["",""];
-  document.getElementById("page-title").textContent=t;document.getElementById("page-sub").textContent=s;
-  if(n==="inventario")renderInventario();if(n==="gestion")renderGestion();
-}
-
+/* MODAL */
 function openModal(m){
   editId=m?m.id:null;
   const f=m||{lugar:"",fi:"",hs:"",ff:"",hl:"",proyecto:"",colabs:[],equipo:[],notas:""};
-  fC=[...(f.colabs||[])];fE=[...(f.equipo||[])];
+  fColabs=[...(f.colabs||[])];fEquipo=[...(f.equipo||[])];
   document.getElementById("modal-title").textContent=editId?"Editar misión":"Nueva misión";
-  document.getElementById("modal-body").innerHTML=`
-    <div class="form-grid" style="margin-bottom:12px">
-      <div class="form-group"><label>Lugar</label><input id="f-l" value="${f.lugar||""}"></div>
-      <div class="form-group"><label>Proyecto</label><input id="f-p" value="${f.proyecto||""}"></div>
-    </div>
-    <div class="time-row">
-      <div class="form-group"><label>Fecha salida</label><input type="date" id="f-fi" value="${f.fi||""}" oninput="rED()"></div>
-      <div class="form-group"><label>Hora salida</label><input type="time" id="f-hs" value="${f.hs||""}" oninput="rED()"></div>
-      <div class="form-group"><label>Fecha llegada</label><input type="date" id="f-ff" value="${f.ff||""}" oninput="rED()"></div>
-      <div class="form-group"><label>Hora llegada</label><input type="time" id="f-hl" value="${f.hl||""}" oninput="rED()"></div>
-    </div>
-    <p class="time-hint">Los horarios permiten detectar si es posible el intercambio de equipo el mismo día.</p>
-    <div class="form-group" style="margin-bottom:14px">
-      <label>Colaboradores</label>
-      <div id="fc-chips" style="margin-bottom:6px"></div>
-      <div class="search-wrap">
-        <input id="cs" placeholder="Buscar colaborador..." autocomplete="off" oninput="fCD()" onfocus="fCD()" onblur="hD('cd')">
-        <div id="cd" class="search-drop"></div>
-      </div>
-    </div>
-    <div class="form-group" style="margin-bottom:14px">
-      <label>Equipo de oficina asignado</label>
-      <div id="fe-chips" style="margin-bottom:6px"></div>
-      <div class="search-wrap">
-        <input id="es" placeholder="Buscar equipo — muestra disponibilidad según fechas..." autocomplete="off" oninput="fED()" onfocus="fED()" onblur="hD('ed')">
-        <div id="ed" class="search-drop"></div>
-      </div>
-    </div>
-    <div class="form-group" style="margin-bottom:16px"><label>Notas</label><textarea id="f-n">${f.notas||""}</textarea></div>
-    <div id="cfx-prev"></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-      <button class="btn btn-sec" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-pri" onclick="saveForm()">Guardar misión</button>
-    </div>`;
-  document.getElementById("modal-bg").classList.add("open");
-  rCC();rEC();
+  document.getElementById("mbody").innerHTML=buildModalBody(f);
+  document.getElementById("mfoot").innerHTML=`<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" onclick="saveForm()">Guardar misión</button>`;
+  document.getElementById("mbg").classList.add("open");
+  renderFColabs();renderFEquipo();
+  /* Setup dropdowns AFTER DOM is ready */
+  setTimeout(()=>{
+    setupDrop("fc-search","fc-drop",q=>
+      colaboradores.filter(c=>c.toLowerCase().includes(q)&&!fColabs.includes(c))
+        .map(c=>({html:`<span>${c}</span>`,onSelect:()=>{fColabs.push(c);renderFColabs();}}))
+    );
+    setupEquipoDrop();
+  },0);
 }
-function editM(id){const m=misiones.find(x=>x.id===id);if(!m)return;openModal(m)}
-function closeModal(){document.getElementById("modal-bg").classList.remove("open");editId=null;fC=[];fE=[]}
-function bgClick(e){if(e.target===document.getElementById("modal-bg"))closeModal()}
+function closeModal(){document.getElementById("mbg").classList.remove("open");editId=null;fColabs=[];fEquipo=[];closeDrop(_openDrop);}
+function closeMbg(e){if(e.target===document.getElementById("mbg"))closeModal();}
 
-function rCC(){const el=document.getElementById("fc-chips");if(!el)return;el.innerHTML=fC.map(c=>`<span class="chip chip-colab">${c}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmC(this)">×</button></span>`).join("")}
-function rEC(){const el=document.getElementById("fe-chips");if(!el)return;el.innerHTML=fE.map(e=>`<span class="chip">${e}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmE(this)">×</button></span>`).join("");cPrev()}
-function rmC(b){const c=b.closest(".chip").textContent.slice(0,-1).trim();fC=fC.filter(x=>x!==c);rCC()}
-function rmE(b){const e=b.closest(".chip").textContent.slice(0,-1).trim();fE=fE.filter(x=>x!==e);rEC()}
-function hD(id){setTimeout(()=>{const d=document.getElementById(id);if(d)d.style.display="none"},180)}
-function gFD(){return{fi:document.getElementById("f-fi")?.value||"",hs:document.getElementById("f-hs")?.value||"",ff:document.getElementById("f-ff")?.value||"",hl:document.getElementById("f-hl")?.value||""}}
-
-function fCD(){
-  const q=document.getElementById("cs").value.toLowerCase(),d=document.getElementById("cd");if(!d)return;
-  const f=colaboradores.filter(c=>c.toLowerCase().includes(q)&&!fC.includes(c));
-  d.style.display="block";
-  d.innerHTML=f.length?f.map(c=>`<div class="drop-item" onmousedown="event.preventDefault()" onclick="selC(this)"><span>${c}</span></div>`).join(""):`<div class="drop-empty">No encontrado</div>`;
+function buildModalBody(f){
+  return`<div class="form-grid" style="margin-bottom:14px">
+    <div class="fg"><label>Lugar</label><input id="f-lugar" value="${f.lugar||""}"></div>
+    <div class="fg"><label>Proyecto</label><input id="f-proyecto" value="${f.proyecto||""}"></div>
+  </div>
+  <div class="form-grid-4">
+    <div class="fg"><label>Fecha salida</label><input type="date" id="f-fi" value="${f.fi||""}" oninput="onDatesChange()"></div>
+    <div class="fg"><label>Hora salida</label><input type="time" id="f-hs" value="${f.hs||""}" oninput="onDatesChange()"></div>
+    <div class="fg"><label>Fecha llegada</label><input type="date" id="f-ff" value="${f.ff||""}" oninput="onDatesChange()"></div>
+    <div class="fg"><label>Hora llegada</label><input type="time" id="f-hl" value="${f.hl||""}" oninput="onDatesChange()"></div>
+  </div>
+  <p class="form-hint">Los horarios permiten detectar intercambios el mismo día: si el equipo llega de otra misión antes de tu hora de salida, se marca como intercambiable.</p>
+  <div class="fg" style="margin-bottom:14px">
+    <label>Colaboradores</label>
+    <div id="fc-chips" style="margin-bottom:6px;min-height:6px"></div>
+    <div class="sw"><input class="sw-inp" id="fc-search" placeholder="Buscar colaborador…" autocomplete="off"><div class="sdrop" id="fc-drop"></div></div>
+  </div>
+  <div class="fg" style="margin-bottom:14px">
+    <label>Equipo de oficina asignado</label>
+    <div id="fe-chips" style="margin-bottom:6px;min-height:6px"></div>
+    <div class="sw"><input class="sw-inp" id="fe-search" placeholder="Buscar equipo…" autocomplete="off"><div class="sdrop" id="fe-drop"></div></div>
+  </div>
+  <div class="fg" style="margin-bottom:14px"><label>Notas</label><textarea id="f-notas">${f.notas||""}</textarea></div>
+  <div id="cfx-prev"></div>`;
 }
-function selC(el){const c=el.querySelector("span").textContent;if(!fC.includes(c)){fC.push(c);rCC()}document.getElementById("cs").value="";document.getElementById("cd").style.display="none"}
 
-function fED(){
-  const q=document.getElementById("es").value.toLowerCase(),d=document.getElementById("ed");if(!d)return;
-  const{fi,hs,ff,hl}=gFD();
-  const f=inventario.filter(it=>it.nombre.toLowerCase().includes(q)&&!fE.includes(it.nombre));
-  d.style.display="block";
-  d.innerHTML=f.length?f.map(it=>{
-    let badge="";
-    if(fi&&ff){
-      const av=avail(it.nombre,fi,hs,ff,hl,editId);
-      if(av.libre){
-        const ho=handoffs(it.nombre,fi,hs);
-        badge=ho.length&&hs?`<span class="badge b-info" style="font-size:11px;background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky)">Intercambio posible</span>`:`<span class="badge b-sage" style="font-size:11px">Libre</span>`;
-      }else{
-        badge=`<span class="badge b-rose" style="font-size:11px">Ocupado — ${av.donde.join(", ")}</span>`;
+function setupEquipoDrop(){
+  const inp=document.getElementById("fe-search");
+  const drop=document.getElementById("fe-drop");
+  if(!inp||!drop)return;
+  function populate(){
+    const q=inp.value.toLowerCase();
+    const fi=document.getElementById("f-fi")?.value||"";
+    const hs=document.getElementById("f-hs")?.value||"";
+    const ff=document.getElementById("f-ff")?.value||"";
+    const hl=document.getElementById("f-hl")?.value||"";
+    const items=inventario.filter(it=>it.nombre.toLowerCase().includes(q)&&!fEquipo.includes(it.nombre));
+    drop.innerHTML=items.length?items.map(it=>{
+      let badge="";
+      if(fi&&ff){
+        const av=itemAvailDt(it.nombre,fi,hs,ff,hl,editId);
+        if(av.libre){
+          const ix=misiones.filter(m=>m.id!==editId&&m.equipo.includes(it.nombre)&&m.ff===fi&&m.hl&&hs&&m.hl<=hs);
+          badge=ix.length?`<span class="badge b-sky" style="font-size:10px">Intercambio ${ix[0].hl}</span>`:`<span class="badge b-sage" style="font-size:10px">Libre</span>`;
+        }else{
+          badge=`<span class="badge b-rose" style="font-size:10px">Ocupado — ${av.donde.join(", ")}</span>`;
+        }
       }
-    }
-    return`<div class="drop-item" onmousedown="event.preventDefault()" onclick="selE(this)"><span>${it.nombre}</span>${badge}</div>`;
-  }).join(""):`<div class="drop-empty">No encontrado</div>`;
-}
-function selE(el){const n=el.querySelector("span").textContent;if(!fE.includes(n)){fE.push(n);rEC()}document.getElementById("es").value="";document.getElementById("ed").style.display="none"}
-function rED(){const s=document.getElementById("es");if(s&&s.value)fED();cPrev()}
-
-function cPrev(){
-  const{fi,hs,ff,hl}=gFD(),p=document.getElementById("cfx-prev");if(!p||!fi||!ff)return;
-  const ts=dt(fi,hs),te=dt(ff,hl||"23:59");
-  const overlapping=misiones.filter(m=>m.id!==editId&&ts<dt(m.ff,m.hl||"23:59")&&te>dt(m.fi,m.hs));
-  const hard=[],ho=[];
-  for(const eq of fE)for(const m of overlapping){
-    if(!m.equipo.includes(eq))continue;
-    if(m.ff===fi&&m.hl&&hs&&m.hl<hs)ho.push({item:eq,lugar:m.lugar,llega:m.hl});
-    else hard.push({item:eq,lugar:m.lugar});
+      return`<div class="di" onmousedown="event.preventDefault()"><span>${it.nombre}</span>${badge}</div>`;
+    }).join(""):`<div class="di-empty">No encontrado</div>`;
+    drop.querySelectorAll(".di").forEach((el,i)=>{
+      if(items[i])el.addEventListener("click",()=>{
+        fEquipo.push(items[i].nombre);renderFEquipo();
+        closeDrop(drop);inp.value="";setTimeout(()=>inp.focus(),10);
+      });
+    });
   }
-  let html="";
-  if(!hard.length&&!ho.length)html=`<div class="alert alert-ok">Sin conflictos en el rango seleccionado.</div>`;
-  if(hard.length)html+=`<div class="alert alert-warn"><strong>Conflicto:</strong> ${hard.map(c=>`${c.item} ocupado en ${c.lugar}`).join(" · ")}</div>`;
-  if(ho.length)html+=`<div class="alert alert-info"><strong>Intercambio posible:</strong> ${ho.map(h=>`${h.item} regresa de ${h.lugar} a las ${h.llega}, antes de la salida a las ${hs}`).join(" · ")}</div>`;
-  p.innerHTML=html;
+  inp.addEventListener("focus",()=>{populate();openDrop(drop);});
+  inp.addEventListener("click",()=>{populate();openDrop(drop);});
+  inp.addEventListener("input",()=>{populate();openDrop(drop);});
+  drop._populate=populate;
+}
+
+function onDatesChange(){
+  const drop=document.getElementById("fe-drop");
+  if(drop&&drop._populate&&drop.classList.contains("open"))drop._populate();
+  checkCfx();
+}
+
+function renderFColabs(){const el=document.getElementById("fc-chips");if(!el)return;el.innerHTML=fColabs.map(c=>`<span class="chip chip-c">${c}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmColab(this)">×</button></span>`).join("");}
+function renderFEquipo(){const el=document.getElementById("fe-chips");if(!el)return;el.innerHTML=fEquipo.map(e=>`<span class="chip">${e}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmEquipo(this)">×</button></span>`).join("");checkCfx();}
+function rmColab(btn){const c=btn.closest(".chip").textContent.slice(0,-1).trim();fColabs=fColabs.filter(x=>x!==c);renderFColabs();}
+function rmEquipo(btn){const e=btn.closest(".chip").textContent.slice(0,-1).trim();fEquipo=fEquipo.filter(x=>x!==e);renderFEquipo();}
+
+function gfd(){return{fi:document.getElementById("f-fi")?.value||"",hs:document.getElementById("f-hs")?.value||"",ff:document.getElementById("f-ff")?.value||"",hl:document.getElementById("f-hl")?.value||""};}
+
+function checkCfx(){
+  const{fi,hs,ff,hl}=gfd();
+  const p=document.getElementById("cfx-prev");if(!p||!fi||!ff){if(p)p.innerHTML="";return;}
+  const ts=dtStr(fi,hs),te=dtStr(ff,hl||"23:59");
+  const over=misiones.filter(m=>m.id!==editId&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs));
+  const cfx=over.flatMap(m=>fEquipo.filter(e=>m.equipo.includes(e)).map(e=>({lugar:m.lugar,item:e,ff:m.ff,hl:m.hl})));
+  if(!cfx.length){p.innerHTML=`<div class="alert alert-ok">Sin conflictos en el rango seleccionado.</div>`;return;}
+  const ix=cfx.filter(c=>c.ff===fi&&c.hl&&hs&&c.hl<=hs);
+  const hard=cfx.filter(c=>!ix.includes(c));
+  p.innerHTML=(hard.length?`<div class="alert alert-warn">Conflicto: ${hard.map(c=>`<strong>${c.item}</strong> ocupado en ${c.lugar}`).join(" · ")}</div>`:"")+(ix.length?`<div class="alert alert-info">Intercambio posible: ${ix.map(c=>`<strong>${c.item}</strong> llega de ${c.lugar} a las ${c.hl}`).join(" · ")}</div>`:"");
 }
 
 function saveForm(){
-  const l=document.getElementById("f-l").value.trim(),{fi,hs,ff,hl}=gFD();
-  if(!l||!fi||!ff){alert("Lugar y fechas son obligatorios.");return}
-  const n={id:editId||uid(),lugar:l,fi,hs,ff,hl,proyecto:document.getElementById("f-p").value.trim()||"—",colabs:[...fC],equipo:[...fE],notas:document.getElementById("f-n").value.trim()};
-  misiones=editId?misiones.map(m=>m.id===editId?n:m):[...misiones,n];
-  saveData();closeModal();renderAll();
+  const lugar=document.getElementById("f-lugar").value.trim();
+  const{fi,hs,ff,hl}=gfd();
+  if(!lugar||!fi||!ff){alert("Lugar y fechas son obligatorios.");return;}
+  const nuevo={id:editId||uid(),lugar,fi,hs,ff,hl,proyecto:document.getElementById("f-proyecto").value.trim()||"—",colabs:[...fColabs],equipo:[...fEquipo],notas:document.getElementById("f-notas").value.trim()};
+  misiones=editId?misiones.map(m=>m.id===editId?nuevo:m):[...misiones,nuevo];
+  saveData();closeModal();render();
 }
-function delM(id){if(!confirm("¿Eliminar esta misión?"))return;misiones=misiones.filter(m=>m.id!==id);saveData();renderAll()}
+function delMision(id){if(!confirm("¿Eliminar esta misión?"))return;misiones=misiones.filter(m=>m.id!==id);saveData();render();}
 
-document.getElementById("today-lbl").textContent=tdF();
-loadData();renderAll();
+/* FIREBASE INSTRUCTIONS */
+function showFbInstructions(){
+  document.getElementById("modal-title").textContent="Activar sincronización en tiempo real";
+  document.getElementById("mbody").innerHTML=`<div style="font-size:13px;line-height:1.7;color:var(--ink2)">
+    <p style="margin-bottom:1rem">Sigue estos pasos <strong>una sola vez</strong> para que todos vean y editen en tiempo real desde cualquier dispositivo:</p>
+    <ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.75rem">
+      <li>Ve a <a href="https://console.firebase.google.com" target="_blank" style="color:var(--sky-d);font-weight:600">console.firebase.google.com</a> e inicia sesión con una cuenta Google.</li>
+      <li>Clic en <strong>"Crear un proyecto"</strong> → nombre (ej. <code style="background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace">unodc-equipo</code>) → crear.</li>
+      <li>Menú izquierdo → <strong>Firestore Database</strong> → <strong>"Crear base de datos"</strong> → <em>Modo de prueba</em> → elige región → crear.</li>
+      <li>Menú izquierdo → ícono engranaje → <strong>Configuración del proyecto</strong> → <strong>"Tus apps"</strong> → ícono Web <strong>&lt;/&gt;</strong> → registrar app.</li>
+      <li>Aparece un bloque de código con tu configuración. Copia esos valores.</li>
+      <li>Abre <code style="background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace">index.html</code> en un editor de texto. Busca <code style="background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace">REEMPLAZAR</code> y sustituye cada campo con tu configuración.</li>
+      <li>Sube el archivo actualizado a GitHub Pages. Listo — cambios en tiempo real para todos.</li>
+    </ol>
+    <div class="alert alert-info" style="margin-top:1rem">El plan gratuito de Firebase (Spark) es más que suficiente para este uso.</div>
+  </div>`;
+  document.getElementById("mfoot").innerHTML=`<button class="btn btn-sec" onclick="closeModal()">Cerrar</button>`;
+  document.getElementById("mbg").classList.add("open");
+}
+
+/* RENDER ALL */
+function render(){
+  renderPanel();renderMisiones();
+  if(document.getElementById("page-inventario")?.classList.contains("active"))renderInv();
+  if(document.getElementById("page-gestion")?.classList.contains("active"))renderGestion();
+}
+
+/* INIT */
+document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("today-lbl").textContent=todayFmt();
+  loadData();
+  render();
+  setTimeout(()=>{
+    if(window._fbReady&&window._fbListen){
+      window._fbListen(d=>{applyData(d);});
+    }else{
+      window._setSyncStatus("local");
+    }
+  },600);
+});
 </script>
 </body>
 </html>
