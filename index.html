@@ -71,7 +71,12 @@ button{cursor:pointer}
 .chip-x{background:none;border:none;cursor:pointer;color:inherit;font-size:14px;padding:0;line-height:1;opacity:.5}
 .chip-x:hover{opacity:1}
 .chip-c{border-color:var(--lav);background:var(--lav-l);color:var(--lav-d)}
-.eq-tag{display:inline-block;background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky);border-radius:20px;font-size:11px;font-weight:600;padding:2px 8px;margin:2px}
+.eq-tag{display:inline-block;border-radius:20px;font-size:11px;font-weight:600;padding:2px 8px;margin:2px;border:1px solid var(--sand);background:var(--cream);color:var(--ink2)}
+.eq-cam{background:var(--sky-l);color:var(--sky-d);border-color:var(--sky)}
+.eq-sd{background:var(--lav-l);color:var(--lav-d);border-color:var(--lav)}
+.eq-len{background:var(--butter-l);color:var(--butter-d);border-color:var(--butter)}
+.eq-mic{background:var(--peach-l);color:var(--peach-d);border-color:var(--peach)}
+.eq-tri{background:var(--sage-l);color:var(--sage-d);border-color:var(--sage)}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
 .sec-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
 .tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--sand)}
@@ -234,7 +239,7 @@ table.mt tr:hover td{background:#fdfcf9}
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getFirestore,doc,getDoc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 /* ▼▼▼ REEMPLAZA ESTOS VALORES CON TU CONFIGURACION DE FIREBASE ▼▼▼ */
-const CFG={apiKey:"AIzaSyBc8WeJf4anA4L7fQuKvCWoYHKKca5VkLA",authDomain:"equipos-comms.firebaseapp.com",projectId:"equipos-comms",storageBucket:"equipos-comms.firebasestorage.app",messagingSenderId:"983083494008",appId:"1:983083494008:web:d51833bd7ca3d548369b8d"};
+const CFG={apiKey:"REEMPLAZAR",authDomain:"REEMPLAZAR",projectId:"REEMPLAZAR",storageBucket:"REEMPLAZAR",messagingSenderId:"REEMPLAZAR",appId:"REEMPLAZAR"};
 /* ▲▲▲ */
 const READY=CFG.projectId!=="REEMPLAZAR";
 window._fbReady=READY;
@@ -274,6 +279,33 @@ function itemAvailDt(n,fi,hs,ff,hl,skip){
 const CAT_CLR={"Cámaras":"sky","Tarjetas SD":"lav","Lentes":"butter","Micrófonos":"peach","Trípodes":"sage"};
 const catClr=c=>CAT_CLR[c]||"sand";
 const eClr={bueno:"b-sage",regular:"b-butter","dañado":"b-rose",respaldo:"b-sand"};
+function eqCat(nombre){
+  const it=inventario.find(i=>i.nombre===nombre);
+  if(!it)return "";
+  const m={"Cámaras":"eq-cam","Tarjetas SD":"eq-sd","Lentes":"eq-len","Micrófonos":"eq-mic","Trípodes":"eq-tri"};
+  return m[it.categoria]||"";
+}
+function autoNotas(m){
+  // For each item in this mission, find the immediately preceding mission that had it
+  const handoffs=[];
+  for(const item of m.equipo){
+    // Find missions that end before or on m.fi and have this item
+    const prev=misiones.filter(x=>
+      x.id!==m.id &&
+      x.equipo.includes(item) &&
+      dtStr(x.ff,x.hl||"23:59") <= dtStr(m.fi,m.hs||"23:59")
+    ).sort((a,b)=>dtStr(b.ff,b.hl||"23:59").localeCompare(dtStr(a.ff,a.hl||"23:59")));
+    if(prev.length){
+      const from=prev[0];
+      const fromName=from.colabs.length===1?from.colabs[0]:from.lugar;
+      const toName=m.colabs.length===1?m.colabs[0]:m.lugar;
+      if(fromName!==toName){
+        handoffs.push(`${item}: ${fromName} → ${toName}`);
+      }
+    }
+  }
+  return handoffs.join(" · ");
+}
 
 const DEF={
   misiones:[
@@ -433,8 +465,8 @@ function renderMisiones(){
       <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
       <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
       <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}</td>
-      <td style="max-width:260px">${m.equipo.length?m.equipo.map(e=>`<span class="eq-tag">${e}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
-      <td style="font-size:12px;color:var(--ink2);max-width:180px">${m.notas||""}</td>
+      <td style="max-width:280px">${m.equipo.length?m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${e}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
+      <td style="font-size:12px;color:var(--ink2);max-width:200px">${(()=>{const auto=autoNotas(m);const manual=m.notas||"";if(auto&&manual)return`<span style="color:var(--ink3)">${auto}</span><br>${manual}`;if(auto)return`<span style="color:var(--ink3)">${auto}</span>`;return manual;})()}</td>
       <td style="white-space:nowrap"><button class="btn-sm" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'>Editar</button> <button class="btn-del" onclick='delMision("${m.id}")'>&#10005;</button></td>
     </tr>`).join("")+"</tbody>";
 }
