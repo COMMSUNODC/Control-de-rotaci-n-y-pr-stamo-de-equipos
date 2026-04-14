@@ -77,6 +77,23 @@ button{cursor:pointer}
 .eq-len{background:var(--butter-l);color:var(--butter-d);border-color:var(--butter)}
 .eq-mic{background:var(--peach-l);color:var(--peach-d);border-color:var(--peach)}
 .eq-tri{background:var(--sage-l);color:var(--sage-d);border-color:var(--sage)}
+/* Calendar */
+.cal-grid{display:grid;grid-template-columns:90px repeat(7,1fr);gap:2px;margin-bottom:1.5rem}
+.cal-hdr{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:6px 4px;text-align:center}
+.cal-label{font-size:11px;color:var(--ink3);padding:4px 6px;display:flex;align-items:flex-start;justify-content:flex-end;padding-top:6px;font-family:"DM Mono",monospace}
+.cal-cell{min-height:52px;background:var(--white);border-radius:6px;border:1px solid var(--cream);padding:3px;position:relative;overflow:hidden}
+.cal-cell.today{border-color:var(--sky);background:var(--sky-l)}
+.cal-bar{border-radius:4px;padding:2px 5px;font-size:10px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:opacity .12s}
+.cal-bar:hover{opacity:.8}
+.cal-nav{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.cal-nav button{background:var(--white);border:1px solid var(--sand);border-radius:var(--rs);padding:6px 14px;font-size:13px;cursor:pointer;transition:all .15s}
+.cal-nav button:hover{border-color:var(--sky);color:var(--sky-d)}
+.cal-month{font-size:16px;font-weight:600;min-width:160px}
+/* Archive badge */
+.arc-badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;background:var(--cream);color:var(--ink3);border:1px solid var(--sand)}
+.filter-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
+.filter-tab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1.5px solid var(--sand);background:var(--white);color:var(--ink2);cursor:pointer;transition:all .15s}
+.filter-tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
 .sec-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
 .tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--sand)}
@@ -149,6 +166,8 @@ table.mt tr:hover td{background:#fdfcf9}
       <div class="nav-item active" onclick="goTo('panel',this)"><span class="ico">◈</span><span>Panel</span></div>
       <div class="nav-item" onclick="goTo('misiones',this)"><span class="ico">◎</span><span>Misiones</span></div>
       <div class="nav-item" onclick="goTo('inventario',this)"><span class="ico">◻</span><span>Inventario</span></div>
+      <div class="nav-item" onclick="goTo('calendario',this)"><span class="ico">◫</span><span>Calendario</span></div>
+      <div class="nav-item" onclick="goTo('historial',this)"><span class="ico">◷</span><span>Historial</span></div>
     </div>
     <div class="nav-section">
       <div class="nav-label">Ajustes</div>
@@ -185,7 +204,20 @@ table.mt tr:hover td{background:#fdfcf9}
         <div class="sec-title">Todas las misiones</div>
         <button class="btn btn-pri" onclick="openModal()">+ Nueva misión</button>
       </div>
-      <div class="tbl-wrap"><table class="mt" id="mission-tbl"></table></div>
+      <div id="arc-note"></div><div class="tbl-wrap"><table class="mt" id="mission-tbl"></table></div>
+    </div>
+    <div id="page-calendario" class="page">
+      <div class="sec-head" style="margin-bottom:.5rem">
+        <div class="sec-title">Calendario de misiones</div>
+      </div>
+      <div id="cal-root"></div>
+    </div>
+    <div id="page-historial" class="page">
+      <div class="sec-head">
+        <div class="sec-title">Historial de misiones</div>
+      </div>
+      <div class="filter-tabs" id="hist-tabs"></div>
+      <div class="tbl-wrap"><table class="mt" id="hist-tbl"></table></div>
     </div>
     <div id="page-inventario" class="page">
       <div class="sec-head"><div class="sec-title">Estado del inventario</div></div>
@@ -241,7 +273,7 @@ import{getFirestore,doc,getDoc,setDoc,onSnapshot}from"https://www.gstatic.com/fi
 /* ▼▼▼ REEMPLAZA ESTOS VALORES CON TU CONFIGURACION DE FIREBASE ▼▼▼ */
 const CFG={apiKey:"AIzaSyBc8WeJf4anA4L7fQuKvCWoYHKKca5VkLA",authDomain:"equipos-comms.firebaseapp.com",projectId:"equipos-comms",storageBucket:"equipos-comms.firebasestorage.app",messagingSenderId:"983083494008",appId:"1:983083494008:web:d51833bd7ca3d548369b8d"};
 /* ▲▲▲ */
-const READY=CFG.projectId!=="REEMPLAZAR";
+const READY=CFG.projectId!=="__NOT_CONFIGURED__";
 window._fbReady=READY;
 if(READY){
   try{
@@ -279,6 +311,8 @@ function itemAvailDt(n,fi,hs,ff,hl,skip){
 const CAT_CLR={"Cámaras":"sky","Tarjetas SD":"lav","Lentes":"butter","Micrófonos":"peach","Trípodes":"sage"};
 const catClr=c=>CAT_CLR[c]||"sand";
 const eClr={bueno:"b-sage",regular:"b-butter","dañado":"b-rose",respaldo:"b-sand"};
+
+/* ── CATEGORY HELPERS ── */
 function eqCat(nombre){
   const it=inventario.find(i=>i.nombre===nombre);
   if(!it)return "";
@@ -286,26 +320,162 @@ function eqCat(nombre){
   return m[it.categoria]||"";
 }
 function autoNotas(m){
-  // For each item in this mission, find the immediately preceding mission that had it
   const handoffs=[];
   for(const item of m.equipo){
-    // Find missions that end before or on m.fi and have this item
     const prev=misiones.filter(x=>
-      x.id!==m.id &&
-      x.equipo.includes(item) &&
-      dtStr(x.ff,x.hl||"23:59") <= dtStr(m.fi,m.hs||"23:59")
+      x.id!==m.id&&x.equipo.includes(item)&&
+      dtStr(x.ff,x.hl||"23:59")<=dtStr(m.fi,m.hs||"23:59")
     ).sort((a,b)=>dtStr(b.ff,b.hl||"23:59").localeCompare(dtStr(a.ff,a.hl||"23:59")));
     if(prev.length){
       const from=prev[0];
       const fromName=from.colabs.length===1?from.colabs[0]:from.lugar;
       const toName=m.colabs.length===1?m.colabs[0]:m.lugar;
-      if(fromName!==toName){
-        handoffs.push(`${item}: ${fromName} → ${toName}`);
-      }
+      if(fromName!==toName)handoffs.push(`${item}: ${fromName} → ${toName}`);
     }
   }
   return handoffs.join(" · ");
 }
+
+/* ── CALENDAR ── */
+const PROJ_COLORS={
+  "ICBF":"#a8c8dc","MI":"#c8d8c0","CCP":"#c4b8dc",
+  "Trata":"#e4c4a8","SIMCI":"#e4d8a8","GC":"#d0d0c8","—":"#d0d0c8"
+};
+const PROJ_FG={
+  "ICBF":"#1b4f6a","MI":"#3a5830","CCP":"#3e2e6c",
+  "Trata":"#7a4520","SIMCI":"#5c4a10","GC":"#505048","—":"#505048"
+};
+let calYear=new Date().getFullYear();
+let calMonth=new Date().getMonth();
+
+function renderCalendar(){
+  const root=document.getElementById("cal-root");
+  if(!root)return;
+  const monthNames=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  const dayNames=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+  const hoy=today();
+
+  // Build 5-week grid
+  const firstDay=new Date(calYear,calMonth,1);
+  const lastDay=new Date(calYear,calMonth+1,0);
+  let startDow=firstDay.getDay(); // 0=Sun
+  startDow=startDow===0?6:startDow-1; // convert to Mon=0
+  const totalDays=lastDay.getDate();
+
+  // Generate all days in grid
+  const gridDays=[];
+  for(let i=0;i<startDow;i++)gridDays.push(null);
+  for(let d=1;d<=totalDays;d++)gridDays.push(d);
+  while(gridDays.length%7!==0)gridDays.push(null);
+
+  // For each day, find active missions
+  function missionsOnDay(day){
+    if(!day)return[];
+    const pad=n=>String(n).padStart(2,"0");
+    const dateStr=`${calYear}-${pad(calMonth+1)}-${pad(day)}`;
+    return misiones.filter(m=>m.fi<=dateStr&&m.ff>=dateStr);
+  }
+
+  // Render 5-week blocks
+  const weeks=[];
+  for(let w=0;w<gridDays.length/7;w++)weeks.push(gridDays.slice(w*7,(w+1)*7));
+
+  let html=`<div class="cal-nav">
+    <button onclick="calPrev()">← Anterior</button>
+    <div class="cal-month">${monthNames[calMonth]} ${calYear}</div>
+    <button onclick="calNext()">Siguiente →</button>
+    <button onclick="calToday()" style="margin-left:auto">Hoy</button>
+  </div>
+  <div class="cal-grid">
+    <div class="cal-hdr"></div>${dayNames.map(d=>`<div class="cal-hdr">${d}</div>`).join("")}`;
+
+  for(const week of weeks){
+    // Week label (date range)
+    const firstNonNull=week.find(d=>d!==null);
+    const lastNonNull=[...week].reverse().find(d=>d!==null);
+    html+=`<div class="cal-label">${firstNonNull||""}${lastNonNull&&lastNonNull!==firstNonNull?`–${lastNonNull}`:""}</div>`;
+    for(const day of week){
+      const pad=n=>String(n).padStart(2,"0");
+      const dateStr=day?`${calYear}-${pad(calMonth+1)}-${pad(day)}`:"";
+      const isToday=dateStr===hoy;
+      const missions=day?missionsOnDay(day):[];
+      const isEmpty=!day;
+      html+=`<div class="cal-cell${isToday?" today":""}${isEmpty?" style='background:transparent;border-color:transparent'":""}">`;
+      if(day){
+        html+=`<div style="font-size:10px;font-weight:600;color:${isToday?"var(--sky-d)":"var(--ink3)"};margin-bottom:3px;text-align:right">${day}</div>`;
+        for(const m of missions.slice(0,3)){
+          const bg=PROJ_COLORS[m.proyecto]||"#d0d0c8";
+          const fg=PROJ_FG[m.proyecto]||"#505048";
+          html+=`<div class="cal-bar" style="background:${bg};color:${fg}" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))' title="${m.lugar} — ${m.colabs.join(", ")}">${m.lugar}</div>`;
+        }
+        if(missions.length>3)html+=`<div style="font-size:9px;color:var(--ink3);text-align:center">+${missions.length-3} más</div>`;
+      }
+      html+=`</div>`;
+    }
+  }
+  html+="</div>";
+  root.innerHTML=html;
+}
+
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+function calToday(){calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderCalendar();}
+
+/* ── HISTORY ── */
+let histFilter="all";
+
+function getArchivedMonths(){
+  const hoy=today();
+  const months=new Set();
+  for(const m of misiones){
+    const [y,mo]=m.ff.split("-");
+    const key=`${y}-${mo}`;
+    if(m.ff<hoy.slice(0,7)+"-01")months.add(key);
+  }
+  return [...months].sort((a,b)=>b.localeCompare(a));
+}
+
+function renderHistory(){
+  const months=getArchivedMonths();
+  const tabsEl=document.getElementById("hist-tabs");
+  const tblEl=document.getElementById("hist-tbl");
+  if(!tabsEl||!tblEl)return;
+
+  const MONTH_NAMES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+  // Build tabs
+  tabsEl.innerHTML=`<div class="filter-tab${histFilter==="all"?" active":""}" onclick="setHistFilter('all')">Todos</div>`+
+    months.map(k=>{
+      const [y,mo]=k.split("-");
+      return`<div class="filter-tab${histFilter===k?" active":""}" onclick="setHistFilter('${k}')">${MONTH_NAMES[+mo-1]} ${y}</div>`;
+    }).join("");
+
+  // Filter missions
+  const hoy=today().slice(0,7)+"-01";
+  let filtered=misiones.filter(m=>m.ff<hoy);
+  if(histFilter!=="all")filtered=filtered.filter(m=>m.ff.startsWith(histFilter));
+  filtered.sort((a,b)=>b.ff.localeCompare(a.ff));
+
+  if(!filtered.length){
+    tblEl.innerHTML=`<thead><tr><th>Sin misiones archivadas</th></tr></thead><tbody></tbody>`;
+    return;
+  }
+
+  tblEl.innerHTML=`<thead><tr>
+    <th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th>
+    <th>Proyecto</th><th>Equipo asignado</th><th>Notas</th>
+  </tr></thead><tbody>`+
+  filtered.map(m=>`<tr>
+    <td><div style="font-weight:600">${m.lugar}</div><div style="font-size:12px;color:var(--ink3)">${m.colabs.join(", ")}</div></td>
+    <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
+    <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
+    <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}</td>
+    <td style="max-width:260px">${m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${e}</span>`).join("")||`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
+    <td style="font-size:12px;color:var(--ink2);max-width:180px">${m.notas||""}</td>
+  </tr>`).join("")+"</tbody>";
+}
+
+function setHistFilter(f){histFilter=f;renderHistory();}
 
 const DEF={
   misiones:[
@@ -403,7 +573,7 @@ function setupDrop(inpId,dropId,getItems){
 }
 
 /* NAV */
-const PAGE_TITLES={panel:"Panel",misiones:"Misiones",inventario:"Inventario",gestion:"Gestión"};
+const PAGE_TITLES={panel:"Panel",misiones:"Misiones",inventario:"Inventario",calendario:"Calendario",historial:"Historial",gestion:"Gestión"};
 function goTo(name,el){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("page-"+name).classList.add("active");
@@ -412,6 +582,8 @@ function goTo(name,el){
   document.getElementById("page-title").textContent=PAGE_TITLES[name]||name;
   if(name==="inventario")renderInv();
   if(name==="gestion")renderGestion();
+  if(name==="calendario")renderCalendar();
+  if(name==="historial")renderHistory();
 }
 
 /* CONFLICTS */
@@ -457,7 +629,12 @@ function renderPanel(){
 function renderMisiones(){
   const cfx=getConflicts();
   const cfxIds=new Set(cfx.flatMap(c=>[c.a.id,c.b.id]));
-  const sorted=[...misiones].sort((a,b)=>a.fi.localeCompare(b.fi));
+  const cutoff=today().slice(0,7)+"-01"; // first day of current month
+  const active=misiones.filter(m=>m.ff>=cutoff);
+  const archived=misiones.filter(m=>m.ff<cutoff).length;
+  const sorted=[...active].sort((a,b)=>a.fi.localeCompare(b.fi));
+  const arcNote=archived?`<div class="alert alert-info" style="margin-bottom:1rem">${archived} misión${archived!==1?"es":""} archivada${archived!==1?"s":""} en el Historial → ve a la pestaña <strong>Historial</strong> para consultarlas.</div>`:"";
+  document.getElementById("arc-note").innerHTML=arcNote;
   document.getElementById("mission-tbl").innerHTML=
     `<thead><tr><th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead><tbody>`+
     sorted.map(m=>`<tr>
@@ -660,6 +837,8 @@ function render(){
   renderPanel();renderMisiones();
   if(document.getElementById("page-inventario")?.classList.contains("active"))renderInv();
   if(document.getElementById("page-gestion")?.classList.contains("active"))renderGestion();
+  if(document.getElementById("page-calendario")?.classList.contains("active"))renderCalendar();
+  if(document.getElementById("page-historial")?.classList.contains("active"))renderHistory();
 }
 
 /* INIT */
