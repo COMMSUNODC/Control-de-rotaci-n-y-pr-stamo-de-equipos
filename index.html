@@ -324,7 +324,7 @@ table.mt tr.click{cursor:pointer}
 <!-- FIREBASE MODULE -->
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getFirestore,doc,setDoc,onSnapshot,collection,addDoc,serverTimestamp,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import{getFirestore,doc,setDoc,deleteDoc,onSnapshot,collection,addDoc,serverTimestamp,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,reload}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 /* Configuración de Firebase (pública por naturaleza) */
 const CFG={apiKey:"AIzaSyBc8WeJf4anA4L7fQuKvCWoYHKKca5VkLA",authDomain:"equipos-comms.firebaseapp.com",projectId:"equipos-comms",storageBucket:"equipos-comms.firebasestorage.app",messagingSenderId:"983083494008",appId:"1:983083494008:web:d51833bd7ca3d548369b8d"};
@@ -337,7 +337,7 @@ if(READY&&!DEMO){
     const auth=getAuth(app);
     auth.languageCode="es-419";
     const back=()=>({url:location.origin+location.pathname});
-    const userOf=u=>u?{email:(u.email||"").toLowerCase(),verified:!!u.emailVerified}:null;
+    const userOf=u=>u?{uid:u.uid,email:(u.email||"").toLowerCase(),verified:!!u.emailVerified}:null;
     let unsubs=[];
     window.FB={
       mode:"firebase",
@@ -355,6 +355,10 @@ if(READY&&!DEMO){
       },
       savePrincipal:partial=>setDoc(doc(db,"equipo","principal"),partial,{merge:true}),
       saveAcceso:data=>setDoc(doc(db,"config","acceso"),data),
+      /* Activación de cuentas sin depender del correo de verificación */
+      solicitar:()=>{const u=auth.currentUser;return u?setDoc(doc(db,"solicitudes",u.uid),{email:(u.email||"").toLowerCase(),creado:serverTimestamp()}):Promise.resolve();},
+      listenSolicitudes:cb=>{unsubs.push(onSnapshot(collection(db,"solicitudes"),s=>cb(s.docs.map(d=>({uid:d.id,...d.data({serverTimestamps:"estimate"})}))),e=>console.warn(e)));},
+      borrarSolicitud:uid=>deleteDoc(doc(db,"solicitudes",uid)),
       addActa:async data=>{const r=await addDoc(collection(db,"actas"),{...data,creado:serverTimestamp()});return r.id;},
       ts:v=>v&&typeof v.toMillis==="function"?v.toMillis():(typeof v==="number"?v:0)
     };
@@ -386,6 +390,10 @@ function fbErr(e){console.error(e);const c=e&&e.code||"";if(c.includes("permissi
 
 /* ════════════════════ DATOS BASE ════════════════════ */
 const OWNERS=["juan.castiblancoramirez@un.org","laura.rodrigueznavarro@un.org","camilo.romero@un.org"];
+/* Cuentas activadas sin correo de verificación: uid → correo. La de Nicolás va fija (también en las reglas). */
+const ACTIVOS_FIJOS={"MbpOcwUurahhPVPiMIbmBG5ajUm2":"juan.castiblancoramirez@un.org"};
+let ACTIVOS={...ACTIVOS_FIJOS},SOLICITUDES=[];
+const cuentaActiva=u=>!!u&&(u.verified||lc(ACTIVOS[u.uid]||"")===lc(u.email));
 const DEF_PERSONAS=[
   {nombre:"Nicolás Castiblanco",email:"juan.castiblancoramirez@un.org",entrega:1,aprueba:1,activo:true},
   {nombre:"John Vásquez",email:"john.vasquezzuluaga@un.org",entrega:2,aprueba:4,activo:true},
@@ -507,7 +515,7 @@ const isValidador=e=>personas.some(p=>p.activo&&+p.entrega>0&&lc(p.email)===lc(e
 const isAprobador=e=>isOwner(e)||personas.some(p=>p.activo&&+p.aprueba>0&&lc(p.email)===lc(e));
 const escala=()=>personas.filter(p=>p.activo&&+p.entrega>0).sort((a,b)=>a.entrega-b.entrega);
 const escalaAprob=()=>personas.filter(p=>p.activo&&+p.aprueba>0).sort((a,b)=>a.aprueba-b.aprueba);
-function accesoFrom(list){const act=list.filter(p=>p.activo&&p.email);return{personas:list,miembros:act.map(p=>lc(p.email)),validadores:act.filter(p=>+p.entrega>0).map(p=>lc(p.email)),aprobadores:act.filter(p=>+p.aprueba>0).map(p=>lc(p.email)),actualizado:Date.now()};}
+function accesoFrom(list){const act=list.filter(p=>p.activo&&p.email);return{personas:list,miembros:act.map(p=>lc(p.email)),validadores:act.filter(p=>+p.entrega>0).map(p=>lc(p.email)),aprobadores:act.filter(p=>+p.aprueba>0).map(p=>lc(p.email)),activos:{...ACTIVOS,...ACTIVOS_FIJOS},actualizado:Date.now()};}
 const meSig=()=>({email:ME.email,nombre:ME.nombre});
 
 /* Inventario */
@@ -612,6 +620,7 @@ function applyPrincipal(d){
 }
 function applyAcceso(d){
   personas=(d&&d.personas)||[];
+  ACTIVOS={...((d&&d.activos)||{}),...ACTIVOS_FIJOS};
   colaboradores=personas.filter(p=>p.activo).map(p=>p.nombre);
   const p=personaBy(ME.email);
   ME.nombre=p?p.nombre:ME.email;
@@ -637,7 +646,7 @@ function showLogin(mode,info){
   L.classList.add("open");
   const msg=info?`<div class="alert ${info.ok?"alert-ok":"alert-err"}">${esc(info.t)}</div>`:"";
   if(mode==="registro"){
-    B.innerHTML=`${msg}<p class="form-hint">Crea tu contraseña una sola vez. Te llegará un correo para confirmar que la cuenta es tuya.</p>
+    B.innerHTML=`${msg}<p class="form-hint">Crea tu contraseña una sola vez. Después, Nicolás, Laura, Camilo o John activan tu cuenta.</p>
     <div class="fg"><label>Correo institucional</label><input id="l-email" type="email" placeholder="nombre@un.org" autocomplete="username"></div>
     <div class="fg"><label>Contraseña (mínimo 6 caracteres)</label><input id="l-pass" type="password" autocomplete="new-password"></div>
     <div class="fg"><label>Repite la contraseña</label><input id="l-pass2" type="password" autocomplete="new-password"></div>
@@ -649,8 +658,9 @@ function showLogin(mode,info){
     <button class="btn btn-pri" id="l-go" onclick="doReset()">Enviar enlace</button>
     <div class="login-links"><a onclick="showLogin('entrar')">← Volver</a></div>`;
   }else if(mode==="verificar"){
-    B.innerHTML=`${msg}<div class="alert alert-info">Te enviamos un correo a <strong>${esc(info&&info.email||"")}</strong>. Ábrelo y haz clic en el enlace para confirmar tu cuenta. Si no lo ves, revisa la carpeta de correo no deseado.</div>
-    <button class="btn btn-pri" id="l-go" onclick="doCheckVerified()">Ya confirmé mi correo</button>
+    B.innerHTML=`${msg}<div class="alert alert-info">Tu cuenta <strong>${esc(info&&info.email||"")}</strong> está creada. <strong>Falta activarla:</strong> avísale a Nicolás, Laura, Camilo o John. Les aparece en Gestión y la activan con un toque.</div>
+    <p class="form-hint">Si te llega un correo de confirmación, abrir su enlace también activa la cuenta. Puede llegar a correo no deseado o a la cuarentena.</p>
+    <button class="btn btn-pri" id="l-go" onclick="doCheckVerified()">Ya me la activaron</button>
     <div class="login-links"><a onclick="doResend()">Reenviar correo</a><a onclick="doSignOut()">Usar otra cuenta</a></div>`;
   }else if(mode==="noauth"){
     B.innerHTML=`<div class="alert alert-err">La cuenta <strong>${esc(info&&info.email||"")}</strong> no está autorizada en el sistema.</div>
@@ -679,17 +689,26 @@ async function doRegister(){
 }
 async function doReset(){const e=lc(lval("l-email"));if(!e)return;busy(true);try{await FB.reset(e);showLogin("entrar",{ok:true,t:"Te enviamos el enlace a "+e+". Revisa también el correo no deseado."});}catch(err){showLogin("olvido",{t:authMsg(err)});}}
 async function doResend(){try{await FB.resendVerification();toast("Correo reenviado.");}catch(err){toast(authMsg(err),"err");}}
-async function doCheckVerified(){busy(true);try{const u=await FB.reloadUser();if(u&&u.verified)startApp(u);else showLogin("verificar",{email:u&&u.email,t:"Todavía no aparece confirmado. Abre el enlace del correo y vuelve a intentar."});}catch(err){showLogin("verificar",{t:authMsg(err)});}}
+async function doCheckVerified(){busy(true);try{await FB.reloadUser();}catch(err){}location.reload();}
+function pendiente(){if(ME&&ME.pend)return;if(ME)ME.pend=true;FB.solicitar?.().catch(()=>{});showLogin("verificar",{email:ME&&ME.email});}
 async function doSignOut(){try{await FB.signOut();}catch(e){}location.reload();}
 
 let STARTED=false;
 function startApp(u){
   if(STARTED)return;STARTED=true;
-  ME={email:lc(u.email),nombre:u.email};
-  document.getElementById("login").classList.remove("open");
+  ME={email:lc(u.email),nombre:u.email,uid:u.uid,verified:!!u.verified};
+  if(cuentaActiva(ME))document.getElementById("login").classList.remove("open");
+  let solOn=false;
   FB.listen({
     acceso:d=>{
       LOADED.acceso=true;
+      if(d)ACTIVOS={...(d.activos||{}),...ACTIVOS_FIJOS};
+      if(!cuentaActiva(ME)){
+        if(d&&!(d.miembros||[]).includes(ME.email)&&!isOwner(ME.email))showLogin("noauth",{email:ME.email});
+        else pendiente();
+        return;
+      }
+      if(ME.pend){location.reload();return;}
       if(!d){
         if(isOwner(ME.email)){FB.saveAcceso(accesoFrom(DEF_PERSONAS)).catch(e=>toast(fbErr(e),"err"));}
         else showLogin("noauth",{email:ME.email});
@@ -697,10 +716,11 @@ function startApp(u){
       }
       if(!(d.miembros||[]).includes(ME.email)&&!isOwner(ME.email)){showLogin("noauth",{email:ME.email});return;}
       applyAcceso(d);
+      if(!solOn&&isAprobador(ME.email)&&FB.listenSolicitudes){solOn=true;FB.listenSolicitudes(l=>{SOLICITUDES=l;render();});}
     },
-    principal:d=>{LOADED.principal=true;if(!d&&isAprobador(ME.email)){FB.savePrincipal({misiones:[],inventario:INV2026,categorias:CATS_2026,invVersion:INV_VERSION});return;}applyPrincipal(d);window._setSyncStatus(FB.mode==="demo"?"local":"live");},
+    principal:d=>{LOADED.principal=true;if(!d&&cuentaActiva(ME)&&isAprobador(ME.email)){FB.savePrincipal({misiones:[],inventario:INV2026,categorias:CATS_2026,invVersion:INV_VERSION});return;}applyPrincipal(d);window._setSyncStatus(FB.mode==="demo"?"local":"live");},
     actas:list=>{LOADED.actas=true;actas=list;render();},
-    error:e=>{console.error(e);if(e&&e.code==="permission-denied")showLogin("noauth",{email:ME.email});else{window._setSyncStatus("err");}}
+    error:e=>{console.error(e);if(e&&e.code==="permission-denied"){if(!cuentaActiva(ME))pendiente();else showLogin("noauth",{email:ME.email});}else{window._setSyncStatus("err");}}
   });
 }
 function renderMe(){
@@ -749,7 +769,9 @@ function renderMis(){
   const pend=pendientes();
   const myActas=actas.filter(a=>lc(a.firmante?.email)===ME.email&&["salida","devolucion","traspaso","novedad","enmienda"].includes(a.tipo)).sort((a,b)=>tsA(b)-tsA(a)).slice(0,6);
   const nombre=(ME.nombre||"").split(" ")[0];
-  let h=`<div style="margin-bottom:1.25rem"><div style="font-size:20px;font-weight:600">Hola, ${esc(nombre)}</div><div style="font-size:13px;color:var(--ink3);margin-top:2px">${mine.length?`Tienes ${mine.length} equipo(s) a tu cargo.`:"No tienes equipos a tu cargo."}</div></div>`;
+  const porActivar=cuentasPorActivar();
+  let h=porActivar.length?`<div class="cfg-banner"><strong>${porActivar.length===1?"1 cuenta nueva espera":porActivar.length+" cuentas nuevas esperan"} tu activación:</strong> ${porActivar.map(s=>esc(personaBy(s.email)?.nombre||s.email)).join(", ")}.<br><button class="btn btn-pri" style="margin-top:8px" onclick="goTo('gestion')">Ir a activarlas</button></div>`:"";
+  h+=`<div style="margin-bottom:1.25rem"><div style="font-size:20px;font-weight:600">Hola, ${esc(nombre)}</div><div style="font-size:13px;color:var(--ink3);margin-top:2px">${mine.length?`Tienes ${mine.length} equipo(s) a tu cargo.`:"No tienes equipos a tu cargo."}</div></div>`;
   h+=`<div class="qa">
     <button class="qa-btn qa-sky" onclick="formSalida()"><span class="qa-ico">↗</span><strong>Retirar equipo</strong><span>Del armario. Alguien de la escala te lo entrega.</span></button>
     <button class="qa-btn qa-lav" onclick="formTraspaso()"><span class="qa-ico">⇄</span><strong>Recibir de un compañero</strong><span>Cuando el equipo pasa directo de otra persona a ti.</span></button>
@@ -1390,6 +1412,8 @@ function renderGestion(){
   let h="";
   if(adm&&invVersion!==INV_VERSION)h+=`<div class="cfg-banner"><strong>Carga el inventario completo 2026.</strong> El sistema tiene ${inventario.length} ítems y el Excel de inventario tiene ${INV2026.length}. Al cargarlo se conservan las misiones y se completan descripción, serial y estado de cada equipo. No se borra nada.<br><button class="btn btn-pri" style="margin-top:8px" onclick="importInv2026()">Cargar inventario 2026</button></div>`;
   if(!adm)h+=`<div class="alert alert-info">Solo Nicolás, Laura, Camilo y John pueden editar estas listas. Tú puedes consultarlas.</div>`;
+  const porActivar=cuentasPorActivar();
+  if(adm&&porActivar.length)h+=`<div class="card"><div class="sec-head"><div class="sec-title">Cuentas por activar (${porActivar.length})</div></div><p class="form-hint">Antes de activar, confirma con la persona que ella acaba de crear la cuenta. Si no fue ella, toca Descartar y avísale a Nicolás.</p>${porActivar.map(s=>{const p=personaBy(s.email);return`<div class="inv-item"><strong style="min-width:160px">${esc(p?p.nombre:"No está en la lista")}</strong><span class="mono" style="flex:1;font-size:12px">${esc(s.email)}</span>${p&&p.activo?`<button class="btn btn-pri" onclick="activarCuenta('${esc(s.uid)}')">Activar</button>`:""}<button class="btn btn-sec" onclick="descartarSolicitud('${esc(s.uid)}')">Descartar</button></div>`;}).join("")}</div>`;
   h+=`<div class="card"><div class="sec-head"><div class="sec-title">Personas y roles</div>${adm?`<button class="btn btn-pri" onclick="editPersona(-1)">+ Persona</button>`:""}</div>
   <p class="form-hint">“Entrega” es el orden de la escala para entregar y recibir equipos. “Aprueba” es el orden para aprobar correcciones y resolver novedades. 0 = no tiene ese rol. Nadie aprueba sus propias actas.</p>
   <div class="tbl-wrap"><table class="mt"><thead><tr><th>Nombre</th><th>Correo</th><th>Entrega</th><th>Aprueba</th><th>Activo</th><th></th></tr></thead><tbody>${personas.map((p,i)=>`<tr><td><strong>${esc(p.nombre)}</strong>${isOwner(p.email)?` <span class="badge b-lav" style="font-size:10px">administra</span>`:""}</td><td class="mono">${esc(p.email)}</td><td>${+p.entrega?`<span class="badge b-sky">${p.entrega}</span>`:"—"}</td><td>${+p.aprueba?`<span class="badge b-lav">${p.aprueba}</span>`:"—"}</td><td>${p.activo?"Sí":"No"}</td><td>${adm?`<button class="btn-sm" onclick="editPersona(${i})">Editar</button>`:""}</td></tr>`).join("")}</tbody></table></div></div>`;
@@ -1416,6 +1440,24 @@ async function savePersona(i){
     if(old&&old.nombre!==p.nombre){misiones.forEach(m=>{m.colabs=(m.colabs||[]).map(c=>c===old.nombre?p.nombre:c);});await saveData(["misiones"]);}
     closeModal();toast("Persona guardada.");
   }catch(e){toast(fbErr(e),"err");}
+}
+function cuentasPorActivar(){
+  if(!ME||!isAprobador(ME.email))return[];
+  return SOLICITUDES.filter(s=>s&&s.uid&&s.email&&lc(ACTIVOS[s.uid]||"")!==lc(s.email));
+}
+async function activarCuenta(uid){
+  const s=SOLICITUDES.find(x=>x.uid===uid);if(!s)return;
+  const p=personaBy(s.email);
+  if(!p||!p.activo){toast("Ese correo no está activo en la lista de personas.","err");return;}
+  if(lc(s.email)===ME.email){toast("No puedes activar tu propia cuenta.","err");return;}
+  if(!confirm(`¿Activar la cuenta de ${p.nombre} (${s.email})? Confirma antes con la persona que ella la creó.`))return;
+  ACTIVOS={...ACTIVOS,[uid]:lc(s.email)};
+  try{await FB.saveAcceso(accesoFrom(personas));try{await FB.borrarSolicitud?.(uid);}catch(e){}SOLICITUDES=SOLICITUDES.filter(x=>x.uid!==uid);render();toast("Cuenta activada. Ya puede entrar.");}
+  catch(e){toast(fbErr(e),"err");}
+}
+async function descartarSolicitud(uid){
+  if(!confirm("¿Descartar esta solicitud? La persona no podrá entrar hasta que se active su cuenta."))return;
+  try{await FB.borrarSolicitud(uid);}catch(e){toast(fbErr(e),"err");}
 }
 async function delPersona(i){
   const p=personas[i];
@@ -1531,7 +1573,6 @@ function boot(){
   if(!window.FB){showLogin("error",{t:"No se pudo cargar la conexión con Firebase. Revisa tu internet y recarga."});return;}
   FB.onAuth(u=>{
     if(!u){if(!STARTED)showLogin("entrar");else location.reload();return;}
-    if(!u.verified){showLogin("verificar",{email:u.email});return;}
     startApp(u);
   });
 }
