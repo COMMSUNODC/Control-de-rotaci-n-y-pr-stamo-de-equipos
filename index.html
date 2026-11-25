@@ -3,31 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UNODC Colombia — Equipo Técnico</title>
+<title>UNODC Colombia — Control de equipos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--sage:#c8d8c0;--sage-l:#eef4eb;--sage-d:#3a5830;--peach:#e4c4a8;--peach-l:#faf0e6;--peach-d:#7a4520;--sky:#a8c8dc;--sky-l:#e4f0f7;--sky-d:#1b4f6a;--lav:#c4b8dc;--lav-l:#ede8f7;--lav-d:#3e2e6c;--rose:#dcb8c0;--rose-l:#f7eaed;--rose-d:#6c2e38;--butter:#e4d8a8;--butter-l:#faf5e4;--butter-d:#5c4a10;--ink:#22221a;--ink2:#52524a;--ink3:#909088;--cream:#f8f4ee;--sand:#e4ddd0;--white:#ffffff;--navy:#1a2e44;--teal:#1b6b72;--r:14px;--rs:8px;--sh:0 2px 12px rgba(0,0,0,.07);--sh-lg:0 8px 32px rgba(0,0,0,.13)}
+:root{--sage:#c8d8c0;--sage-l:#eef4eb;--sage-d:#3a5830;--peach:#e4c4a8;--peach-l:#faf0e6;--peach-d:#7a4520;--sky:#a8c8dc;--sky-l:#e4f0f7;--sky-d:#1b4f6a;--lav:#c4b8dc;--lav-l:#ede8f7;--lav-d:#3e2e6c;--rose:#dcb8c0;--rose-l:#f7eaed;--rose-d:#6c2e38;--butter:#e4d8a8;--butter-l:#faf5e4;--butter-d:#5c4a10;--mint:#b4d8d0;--mint-l:#e6f4f1;--mint-d:#1f5a50;--ink:#22221a;--ink2:#52524a;--ink3:#909088;--cream:#f8f4ee;--sand:#e4ddd0;--white:#ffffff;--navy:#1a2e44;--teal:#1b6b72;--r:14px;--rs:8px;--sh:0 2px 12px rgba(0,0,0,.07);--sh-lg:0 8px 32px rgba(0,0,0,.13)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
 input,select,textarea,button{font-family:'DM Sans',sans-serif}
 textarea{resize:vertical}
 button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
 .app{display:flex;min-height:100vh}
 .sidebar{width:220px;flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
-.main{margin-left:220px;flex:1;min-height:100vh}
-.topbar{background:var(--white);border-bottom:1px solid var(--sand);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--sh)}
+.main{margin-left:220px;flex:1;min-height:100vh;min-width:0}
+.topbar{background:var(--white);border-bottom:1px solid var(--sand);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--sh);gap:10px}
 .content{padding:2rem;max-width:1100px}
 .sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)}
 .sidebar-logo .org{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:3px}
 .sidebar-logo .app-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.3}
 .nav-section{padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .nav-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:.25rem 1.25rem .5rem;font-weight:500}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.6rem 1.25rem;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.6rem 1.25rem;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;transition:all .15s;border-left:3px solid transparent;position:relative}
 .nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
 .nav-item.active{background:rgba(255,255,255,.1);color:var(--white);border-left-color:var(--sky);font-weight:500}
 .nav-item .ico{font-size:15px;width:18px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;background:#e8a0ac;color:#4a1820;border-radius:10px;font-size:10px;font-weight:700;padding:1px 7px}
 .sidebar-bottom{margin-top:auto;padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)}
+.me-box{font-size:12px;color:rgba(255,255,255,.75);margin-bottom:10px;line-height:1.4}
+.me-box a{color:rgba(255,255,255,.5);font-size:11px;cursor:pointer;text-decoration:underline}
 .sync-pill{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.5)}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .4s;flex-shrink:0}
 .sync-dot.live{background:#7ec87a;box-shadow:0 0 6px #7ec87a88}
@@ -47,36 +51,44 @@ button{cursor:pointer}
 .card-butter{background:var(--butter-l);border-color:var(--butter)}
 .card-lav{background:var(--lav-l);border-color:var(--lav)}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
-.metric{border-radius:var(--r);padding:1.25rem 1.5rem}
+.metric{border-radius:var(--r);padding:1.25rem 1.5rem;border:1px solid transparent}
 .metric-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:.4rem}
 .metric-val{font-size:32px;font-weight:600;line-height:1}
 .btn{border-radius:var(--rs);padding:8px 18px;font-size:13px;font-weight:500;border:1.5px solid transparent;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .btn-pri{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
-.btn-pri:hover{background:var(--sky);color:var(--white)}
+.btn-pri:hover:not(:disabled){background:var(--sky);color:var(--white)}
+.btn-ok{background:var(--sage-l);border-color:var(--sage);color:var(--sage-d)}
+.btn-ok:hover:not(:disabled){background:var(--sage-d);color:var(--white)}
+.btn-warn{background:var(--rose-l);border-color:var(--rose);color:var(--rose-d)}
+.btn-warn:hover:not(:disabled){background:var(--rose-d);color:var(--white)}
 .btn-sec{background:var(--white);border-color:var(--sand);color:var(--ink2)}
 .btn-sec:hover{border-color:var(--ink3)}
 .btn-sm{font-size:12px;padding:4px 10px;border-radius:6px;border:1px solid var(--sand);background:var(--white);color:var(--ink2)}
 .btn-sm:hover{border-color:var(--sky);color:var(--sky-d)}
 .btn-del{font-size:13px;padding:4px 8px;border-radius:6px;border:none;background:none;color:var(--rose-d);opacity:.5}
 .btn-del:hover{opacity:1}
-.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
 .b-sage{background:var(--sage-l);color:var(--sage-d);border:1px solid var(--sage)}
 .b-sky{background:var(--sky-l);color:var(--sky-d);border:1px solid var(--sky)}
 .b-peach{background:var(--peach-l);color:var(--peach-d);border:1px solid var(--peach)}
 .b-rose{background:var(--rose-l);color:var(--rose-d);border:1px solid var(--rose)}
 .b-lav{background:var(--lav-l);color:var(--lav-d);border:1px solid var(--lav)}
 .b-butter{background:var(--butter-l);color:var(--butter-d);border:1px solid var(--butter)}
+.b-mint{background:var(--mint-l);color:var(--mint-d);border:1px solid var(--mint)}
 .b-sand{background:var(--cream);color:var(--ink2);border:1px solid var(--sand)}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;border:1.5px solid var(--sky);background:var(--sky-l);color:var(--sky-d)}
 .chip-x{background:none;border:none;cursor:pointer;color:inherit;font-size:14px;padding:0;line-height:1;opacity:.5}
 .chip-x:hover{opacity:1}
 .chip-c{border-color:var(--lav);background:var(--lav-l);color:var(--lav-d)}
 .eq-tag{display:inline-block;border-radius:20px;font-size:11px;font-weight:600;padding:2px 8px;margin:2px;border:1px solid var(--sand);background:var(--cream);color:var(--ink2)}
-.eq-cam{background:var(--sky-l);color:var(--sky-d);border-color:var(--sky)}
-.eq-sd{background:var(--lav-l);color:var(--lav-d);border-color:var(--lav)}
-.eq-len{background:var(--butter-l);color:var(--butter-d);border-color:var(--butter)}
-.eq-mic{background:var(--peach-l);color:var(--peach-d);border-color:var(--peach)}
-.eq-tri{background:var(--sage-l);color:var(--sage-d);border-color:var(--sage)}
+.eq-sky{background:var(--sky-l);color:var(--sky-d);border-color:var(--sky)}
+.eq-lav{background:var(--lav-l);color:var(--lav-d);border-color:var(--lav)}
+.eq-butter{background:var(--butter-l);color:var(--butter-d);border-color:var(--butter)}
+.eq-peach{background:var(--peach-l);color:var(--peach-d);border-color:var(--peach)}
+.eq-sage{background:var(--sage-l);color:var(--sage-d);border-color:var(--sage)}
+.eq-rose{background:var(--rose-l);color:var(--rose-d);border-color:var(--rose)}
+.eq-mint{background:var(--mint-l);color:var(--mint-d);border-color:var(--mint)}
+.eq-sand{background:var(--cream);color:var(--ink2);border-color:var(--sand)}
 /* Calendar */
 .cal-grid{display:grid;grid-template-columns:90px repeat(7,1fr);gap:2px;margin-bottom:1.5rem}
 .cal-hdr{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:6px 4px;text-align:center}
@@ -85,48 +97,51 @@ button{cursor:pointer}
 .cal-cell.today{border-color:var(--sky);background:var(--sky-l)}
 .cal-bar{border-radius:4px;padding:2px 5px;font-size:10px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:opacity .12s}
 .cal-bar:hover{opacity:.8}
-.cal-nav{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.cal-nav{display:flex;align-items:center;gap:12px;margin-bottom:1rem;flex-wrap:wrap}
 .cal-nav button{background:var(--white);border:1px solid var(--sand);border-radius:var(--rs);padding:6px 14px;font-size:13px;cursor:pointer;transition:all .15s}
 .cal-nav button:hover{border-color:var(--sky);color:var(--sky-d)}
 .cal-month{font-size:16px;font-weight:600;min-width:160px}
-/* Archive badge */
-.arc-badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;background:var(--cream);color:var(--ink3);border:1px solid var(--sand)}
 .filter-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
 .filter-tab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1.5px solid var(--sand);background:var(--white);color:var(--ink2);cursor:pointer;transition:all .15s}
 .filter-tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
 .sec-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
-.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--sand)}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--sand);background:var(--white)}
 table.mt{width:100%;border-collapse:collapse;font-size:13px}
 table.mt th{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 14px;border-bottom:1.5px solid var(--sand);background:var(--cream);text-align:left;white-space:nowrap}
 table.mt td{padding:10px 14px;border-bottom:1px solid var(--cream);vertical-align:top}
 table.mt tr:last-child td{border-bottom:none}
 table.mt tr:hover td{background:#fdfcf9}
+table.mt tr.click{cursor:pointer}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .form-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
 .fg{display:flex;flex-direction:column;gap:5px}
-.fg label{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
-.fg input,.fg textarea,.fg select{border:1.5px solid var(--sand);border-radius:var(--rs);padding:9px 12px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .15s;width:100%;font-size:13px}
+.fg label,.lbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.fg input,.fg textarea,.fg select{border:1.5px solid var(--sand);border-radius:var(--rs);padding:9px 12px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .15s;width:100%;font-size:14px}
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--sky);background:var(--white);box-shadow:0 0 0 3px rgba(168,200,220,.18)}
 .fg textarea{min-height:68px}
-.form-hint{font-size:11px;color:var(--ink3);font-style:italic;margin-bottom:12px;line-height:1.5}
-/* FIXED SMART DROPDOWN */
+.form-hint{font-size:12px;color:var(--ink3);margin-bottom:12px;line-height:1.5}
 .sw{position:relative}
-.sw-inp{border:1.5px solid var(--sand);border-radius:var(--rs);padding:9px 12px;background:var(--cream);color:var(--ink);outline:none;width:100%;font-size:13px;transition:border-color .15s}
+.sw-inp{border:1.5px solid var(--sand);border-radius:var(--rs);padding:9px 12px;background:var(--cream);color:var(--ink);outline:none;width:100%;font-size:14px;transition:border-color .15s}
 .sw-inp:focus{border-color:var(--sky);background:var(--white);box-shadow:0 0 0 3px rgba(168,200,220,.18)}
-.sdrop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--sky);border-radius:var(--rs);max-height:240px;overflow-y:auto;z-index:500;box-shadow:var(--sh-lg);display:none}
+.sdrop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--sky);border-radius:var(--rs);max-height:260px;overflow-y:auto;z-index:500;box-shadow:var(--sh-lg);display:none}
 .sdrop.open{display:block}
 .di{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--cream)}
 .di:last-child{border-bottom:none}
 .di:hover{background:var(--sky-l)}
+.di.off{cursor:not-allowed;opacity:.55}
+.di.off:hover{background:none}
 .di-empty{padding:10px 14px;font-size:12px;color:var(--ink3);font-style:italic}
-.alert{border-radius:var(--rs);padding:10px 14px;font-size:13px;margin-bottom:12px;border:1.5px solid transparent}
+.alert{border-radius:var(--rs);padding:10px 14px;font-size:13px;margin-bottom:12px;border:1.5px solid transparent;line-height:1.5}
 .alert-warn{background:var(--peach-l);border-color:var(--peach);color:var(--peach-d)}
 .alert-ok{background:var(--sage-l);border-color:var(--sage);color:var(--sage-d)}
 .alert-info{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
+.alert-err{background:var(--rose-l);border-color:var(--rose);color:var(--rose-d)}
 .inv-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--rs);margin-bottom:5px;border:1px solid var(--sand);background:var(--white);font-size:13px;flex-wrap:wrap}
+.inv-item.click{cursor:pointer}
+.inv-item.click:hover{border-color:var(--sky)}
 .inv-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.colab-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--cream);font-size:13px}
+.colab-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--cream);font-size:13px;flex-wrap:wrap}
 .colab-row:last-child{border-bottom:none}
 .avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;background:var(--lav-l);border:1.5px solid var(--lav);color:var(--lav-d)}
 .tl-item{display:flex;gap:14px;padding:10px 8px;border-bottom:1px solid var(--cream);cursor:pointer;border-radius:var(--rs);transition:background .1s}
@@ -147,54 +162,121 @@ table.mt tr:hover td{background:#fdfcf9}
 .mhead{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--sand)}
 .mhead h2{font-size:15px;font-weight:600}
 .mbody{padding:1.5rem}
-.mfoot{padding:1rem 1.5rem;border-top:1px solid var(--sand);display:flex;gap:8px;justify-content:flex-end}
+.mfoot{padding:1rem 1.5rem;border-top:1px solid var(--sand);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .cfg-banner{background:var(--butter-l);border:1.5px solid var(--butter);border-radius:var(--r);padding:1rem 1.5rem;margin-bottom:1.5rem;font-size:13px;color:var(--butter-d);line-height:1.6}
-@media(max-width:900px){.sidebar{width:56px}.sidebar-logo,.nav-label,.nav-item span:not(.ico),.sync-pill span{display:none}.nav-item{justify-content:center;padding:.75rem}.main{margin-left:56px}.metrics{grid-template-columns:1fr 1fr}.form-grid-4{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.metrics{grid-template-columns:1fr}.form-grid,.form-grid-4{grid-template-columns:1fr}.content{padding:1rem}.topbar{padding:0 1rem}}
+/* Actas */
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.qa-btn{border-radius:var(--r);padding:1.25rem 1.4rem;text-align:left;border:1.5px solid;display:flex;flex-direction:column;gap:5px;transition:transform .12s,box-shadow .12s}
+.qa-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--sh)}
+.qa-btn .qa-ico{font-size:20px}
+.qa-btn strong{font-size:15px}
+.qa-btn span{font-size:12px;opacity:.85;line-height:1.4}
+.qa-sky{background:var(--sky-l);border-color:var(--sky);color:var(--sky-d)}
+.qa-lav{background:var(--lav-l);border-color:var(--lav);color:var(--lav-d)}
+.qa-rose{background:var(--rose-l);border-color:var(--rose);color:var(--rose-d)}
+.chk-row{border:1px solid var(--sand);border-radius:var(--rs);padding:10px 12px;margin-bottom:8px;background:var(--white)}
+.chk-row.nov{border-color:var(--rose);background:#fffafb}
+.chk-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chk-name{font-size:12px;color:var(--ink2);flex:1;min-width:120px}
+.chk-desc{font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.5}
+.seg{display:inline-flex;border:1.5px solid var(--sand);border-radius:20px;overflow:hidden;flex-shrink:0}
+.seg button{border:none;background:var(--white);padding:6px 12px;font-size:12px;font-weight:600;color:var(--ink3)}
+.seg button+button{border-left:1.5px solid var(--sand)}
+.seg button.on-ok{background:var(--sage-l);color:var(--sage-d)}
+.seg button.on-nov{background:var(--rose-l);color:var(--rose-d)}
+.decl{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;background:var(--sky-l);border:1.5px solid var(--sky);border-radius:var(--rs);padding:12px 14px;margin-top:6px;color:var(--sky-d);cursor:pointer}
+.decl input{margin-top:3px;width:17px;height:17px;flex-shrink:0}
+.chkl{display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:6px 0;cursor:pointer}
+.chkl input{margin-top:2px;width:16px;height:16px;flex-shrink:0}
+.pend{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--butter);font-size:13px;flex-wrap:wrap}
+.pend:last-child{border-bottom:none}
+.pend-txt{flex:1;min-width:200px;line-height:1.45}
+.mine{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--cream);font-size:13px;flex-wrap:wrap}
+.mine:last-child{border-bottom:none}
+.tl-ev{border-left:2px solid var(--sand);padding:4px 0 10px 14px;margin-left:4px;font-size:13px;position:relative}
+.tl-ev:before{content:"";position:absolute;left:-6px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--sand)}
+.tl-ev.ok:before{background:var(--sage-d)}
+.tl-ev.nov:before{background:var(--rose-d)}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:13px;margin-bottom:1rem}
+.kv dt{color:var(--ink3);font-size:12px}
+.mono{font-family:'DM Mono',monospace;font-size:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:var(--rs);font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:2000;max-width:90vw;box-shadow:var(--sh-lg)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{background:var(--rose-d)}
+/* Login */
+.login{position:fixed;inset:0;background:var(--navy);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem;overflow-y:auto}
+.login.open{display:flex}
+.login-card{background:var(--white);border-radius:var(--r);padding:2rem;width:100%;max-width:420px;box-shadow:var(--sh-lg)}
+.login-card .org{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.login-card h1{font-size:20px;font-weight:600;margin-bottom:1.25rem}
+.login-card .fg{margin-bottom:12px}
+.login-card .btn{width:100%;justify-content:center;padding:11px}
+.login-links{display:flex;justify-content:space-between;margin-top:14px;font-size:12px;gap:10px;flex-wrap:wrap}
+.login-links a{color:var(--sky-d);cursor:pointer;text-decoration:underline}
+.demo-bar{background:var(--butter);color:var(--butter-d);font-size:12px;padding:6px 2rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.demo-bar select{font-size:12px;padding:3px 6px;border-radius:6px;border:1px solid var(--butter-d);background:var(--butter-l)}
+#print-area{display:none}
+@media print{
+  body *{visibility:hidden}
+  #print-area,#print-area *{visibility:visible}
+  #print-area{display:block;position:absolute;left:0;top:0;width:100%;padding:24px;font-size:12px}
+  .no-print{display:none!important}
+}
+@media(max-width:900px){.sidebar{width:56px}.sidebar-logo,.nav-label,.nav-item span:not(.ico):not(.nav-badge),.sync-pill span,.me-box{display:none}.nav-item{justify-content:center;padding:.75rem}.nav-badge{position:absolute;top:2px;right:2px;padding:0 5px}.main{margin-left:56px}.metrics{grid-template-columns:1fr 1fr}.form-grid-4{grid-template-columns:1fr 1fr}.qa{grid-template-columns:1fr}}
+@media(max-width:600px){.metrics{grid-template-columns:1fr 1fr}.form-grid,.form-grid-4{grid-template-columns:1fr}.content{padding:1rem}.topbar{padding:0 1rem}.demo-bar{padding:6px 1rem}.kv{grid-template-columns:1fr}.mbg{padding:.5rem}.mbody{padding:1rem}.metric{padding:1rem}.metric-val{font-size:26px}.qa{gap:.6rem}.qa-btn{padding:.85rem 1rem;gap:2px}.qa-btn .qa-ico{display:none}.today-b{display:none}}
 </style>
 </head>
 <body>
+<div class="login" id="login"><div class="login-card"><div class="org">UNODC Colombia · Comunicaciones</div><h1>Control de equipos</h1><div id="login-body"></div></div></div>
 <div class="app">
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="org">UNODC Colombia</div>
-    <div class="app-title">Equipo<br>Técnico</div>
+    <div class="app-title">Control de<br>equipos</div>
   </div>
   <nav>
     <div class="nav-section">
-      <div class="nav-label">Principal</div>
-      <div class="nav-item active" onclick="goTo('panel',this)"><span class="ico">◈</span><span>Panel</span></div>
-      <div class="nav-item" onclick="goTo('misiones',this)"><span class="ico">◎</span><span>Misiones</span></div>
-      <div class="nav-item" onclick="goTo('inventario',this)"><span class="ico">◻</span><span>Inventario</span></div>
-      <div class="nav-item" onclick="goTo('calendario',this)"><span class="ico">◫</span><span>Calendario</span></div>
-      <div class="nav-item" onclick="goTo('historial',this)"><span class="ico">◷</span><span>Historial</span></div>
+      <div class="nav-label">Mi día</div>
+      <div class="nav-item active" data-page="mis" onclick="goTo('mis',this)"><span class="ico">◉</span><span>Mis equipos</span><span class="nav-badge" id="badge-mis" style="display:none"></span></div>
     </div>
     <div class="nav-section">
-      <div class="nav-label">Ajustes</div>
-      <div class="nav-item" onclick="goTo('gestion',this)"><span class="ico">◑</span><span>Gestión</span></div>
+      <div class="nav-label">Principal</div>
+      <div class="nav-item" data-page="panel" onclick="goTo('panel',this)"><span class="ico">◈</span><span>Panel</span></div>
+      <div class="nav-item" data-page="misiones" onclick="goTo('misiones',this)"><span class="ico">◎</span><span>Misiones</span></div>
+      <div class="nav-item" data-page="inventario" onclick="goTo('inventario',this)"><span class="ico">◻</span><span>Inventario</span></div>
+      <div class="nav-item" data-page="calendario" onclick="goTo('calendario',this)"><span class="ico">◫</span><span>Calendario</span></div>
+      <div class="nav-item" data-page="historial" onclick="goTo('historial',this)"><span class="ico">◷</span><span>Historial</span></div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Control</div>
+      <div class="nav-item" data-page="registro" onclick="goTo('registro',this)"><span class="ico">▤</span><span>Registro de actas</span></div>
+      <div class="nav-item" data-page="gestion" onclick="goTo('gestion',this)"><span class="ico">◑</span><span>Gestión</span></div>
     </div>
   </nav>
   <div class="sidebar-bottom">
+    <div class="me-box" id="me-box"></div>
     <div class="sync-pill">
       <div class="sync-dot local" id="sync-dot"></div>
-      <span id="sync-txt">Local</span>
+      <span id="sync-txt">Conectando…</span>
     </div>
   </div>
 </aside>
 <div class="main">
+  <div class="demo-bar" id="demo-bar" style="display:none"></div>
   <header class="topbar">
     <div>
-      <div class="topbar-title" id="page-title">Panel</div>
-      <div class="topbar-sub" id="sync-status">Guardado local · Configura Firebase para sincronización en tiempo real</div>
+      <div class="topbar-title" id="page-title">Mis equipos</div>
+      <div class="topbar-sub" id="sync-status">Conectando…</div>
     </div>
     <div class="topbar-right"><div class="today-b" id="today-lbl"></div></div>
   </header>
   <div class="content">
-    <div id="page-panel" class="page active">
-      <div id="fb-banner"></div>
+    <div id="page-mis" class="page active"><div id="mis-root"></div></div>
+    <div id="page-panel" class="page">
       <div class="metrics" id="metrics"></div>
       <div id="cfx-block"></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div id="fuera-block"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem">
         <div class="card" id="active-block"></div>
         <div class="card" id="upcoming-block"></div>
       </div>
@@ -207,364 +289,438 @@ table.mt tr:hover td{background:#fdfcf9}
       <div id="arc-note"></div><div class="tbl-wrap"><table class="mt" id="mission-tbl"></table></div>
     </div>
     <div id="page-calendario" class="page">
-      <div class="sec-head" style="margin-bottom:.5rem">
-        <div class="sec-title">Calendario de misiones</div>
-      </div>
+      <div class="sec-head" style="margin-bottom:.5rem"><div class="sec-title">Calendario de misiones</div></div>
       <div id="cal-root"></div>
     </div>
     <div id="page-historial" class="page">
-      <div class="sec-head">
-        <div class="sec-title">Historial de misiones</div>
-      </div>
+      <div class="sec-head"><div class="sec-title">Historial de misiones</div></div>
       <div class="filter-tabs" id="hist-tabs"></div>
       <div class="tbl-wrap"><table class="mt" id="hist-tbl"></table></div>
     </div>
     <div id="page-inventario" class="page">
-      <div class="sec-head"><div class="sec-title">Estado del inventario</div></div>
+      <div class="sec-head"><div class="sec-title">Estado del inventario</div><div id="inv-actions"></div></div>
+      <div class="filter-tabs" id="inv-tabs"></div>
       <div id="inv-board"></div>
     </div>
-    <div id="page-gestion" class="page">
-      <div class="card" style="margin-bottom:1rem">
-        <div class="sec-head"><div class="sec-title">Colaboradores</div></div>
-        <div id="colab-list"></div>
-        <div style="display:flex;gap:8px;align-items:flex-end;border-top:1px solid var(--cream);padding-top:1rem;margin-top:1rem;flex-wrap:wrap">
-          <div class="fg" style="flex:1"><label>Nombre</label><input id="new-colab" placeholder="Nombre completo"></div>
-          <button class="btn btn-pri" onclick="addColab()" style="height:40px">Añadir</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="sec-head"><div class="sec-title">Equipo de oficina</div></div>
-        <div id="inv-gestion"></div>
-        <div style="border-top:1px solid var(--cream);padding-top:1rem;margin-top:1rem">
-          <div class="sec-title" style="margin-bottom:12px">Añadir ítem</div>
-          <div class="form-grid">
-            <div class="fg"><label>Nombre</label><input id="ni-nom" placeholder="Ej. Sony 3"></div>
-            <div class="fg"><label>Categoría</label><select id="ni-cat"><option value="">Seleccionar...</option></select></div>
-            <div class="fg"><label>N° de serie</label><input id="ni-ser" placeholder="Opcional"></div>
-            <div class="fg"><label>Estado</label><select id="ni-est"><option value="bueno">Bueno</option><option value="regular">Regular</option><option value="dañado">Dañado</option></select></div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-            <button class="btn btn-pri" onclick="addItem()">Añadir ítem</button>
-            <div id="new-cat-row" style="display:none;gap:8px;align-items:center;flex:1">
-              <input id="nc-nom" placeholder="Nueva categoría..." style="flex:1;border:1.5px solid var(--sand);border-radius:var(--rs);padding:8px 12px;background:var(--cream);color:var(--ink);font-size:13px;outline:none;min-width:0">
-              <button class="btn btn-sec" onclick="addCat()">Crear</button>
-              <button class="btn btn-sec" onclick="cancelCat()">&#10005;</button>
-            </div>
-            <button class="btn btn-sec" id="btn-nc" onclick="showNewCat()">+ Categoría</button>
-          </div>
-        </div>
-      </div>
+    <div id="page-registro" class="page">
+      <div class="sec-head"><div class="sec-title">Registro de actas (no se pueden modificar ni borrar)</div></div>
+      <div id="reg-filters" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem"></div>
+      <div class="tbl-wrap"><table class="mt" id="reg-tbl"></table></div>
     </div>
+    <div id="page-gestion" class="page"><div id="gestion-root"></div></div>
   </div>
 </div>
 <div class="mbg" id="mbg" onclick="closeMbg(event)">
   <div class="modal">
-    <div class="mhead"><h2 id="modal-title">Nueva misión</h2><button class="btn-del" onclick="closeModal()" style="font-size:18px;opacity:.6">&#10005;</button></div>
+    <div class="mhead"><h2 id="modal-title">Nueva misión</h2><button class="btn-del" onclick="closeModal()" style="font-size:18px;opacity:.6" aria-label="Cerrar">&#10005;</button></div>
     <div class="mbody" id="mbody"></div>
     <div class="mfoot" id="mfoot"></div>
   </div>
 </div>
 </div>
+<div id="print-area"></div>
+<div class="toast" id="toast"></div>
 
 <!-- FIREBASE MODULE -->
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getFirestore,doc,getDoc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-/* ▼▼▼ REEMPLAZA ESTOS VALORES CON TU CONFIGURACION DE FIREBASE ▼▼▼ */
+import{getFirestore,doc,setDoc,onSnapshot,collection,addDoc,serverTimestamp,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,reload}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+/* Configuración de Firebase (pública por naturaleza) */
 const CFG={apiKey:"AIzaSyBc8WeJf4anA4L7fQuKvCWoYHKKca5VkLA",authDomain:"equipos-comms.firebaseapp.com",projectId:"equipos-comms",storageBucket:"equipos-comms.firebasestorage.app",messagingSenderId:"983083494008",appId:"1:983083494008:web:d51833bd7ca3d548369b8d"};
-/* ▲▲▲ */
 const READY=CFG.projectId!=="__NOT_CONFIGURED__";
-window._fbReady=READY;
-if(READY){
+const DEMO=new URLSearchParams(location.search).has("demo");
+if(READY&&!DEMO){
   try{
     const app=initializeApp(CFG);
     const db=getFirestore(app);
-    window._fbSave=async(data)=>{
-      window._setSyncStatus("saving");
-      try{await setDoc(doc(db,"equipo","principal"),data);window._setSyncStatus("live");}
-      catch(e){window._setSyncStatus("err");console.error(e);}
+    const auth=getAuth(app);
+    auth.languageCode="es-419";
+    const back=()=>({url:location.origin+location.pathname});
+    const userOf=u=>u?{email:(u.email||"").toLowerCase(),verified:!!u.emailVerified}:null;
+    let unsubs=[];
+    window.FB={
+      mode:"firebase",
+      onAuth:cb=>onAuthStateChanged(auth,u=>cb(userOf(u))),
+      signIn:(e,p)=>signInWithEmailAndPassword(auth,e,p),
+      register:async(e,p)=>{const c=await createUserWithEmailAndPassword(auth,e,p);await sendEmailVerification(c.user,back());},
+      resendVerification:()=>auth.currentUser?sendEmailVerification(auth.currentUser,back()):Promise.resolve(),
+      reloadUser:async()=>{if(!auth.currentUser)return null;await reload(auth.currentUser);await auth.currentUser.getIdToken(true);return userOf(auth.currentUser);},
+      reset:e=>sendPasswordResetEmail(auth,e,back()),
+      signOut:()=>{unsubs.forEach(f=>f());unsubs=[];return signOut(auth);},
+      listen:h=>{
+        unsubs.push(onSnapshot(doc(db,"config","acceso"),s=>h.acceso(s.exists()?s.data():null),h.error));
+        unsubs.push(onSnapshot(doc(db,"equipo","principal"),s=>h.principal(s.exists()?s.data():null),h.error));
+        unsubs.push(onSnapshot(query(collection(db,"actas"),orderBy("creado")),s=>h.actas(s.docs.map(d=>({id:d.id,...d.data({serverTimestamps:"estimate"})}))),h.error));
+      },
+      savePrincipal:partial=>setDoc(doc(db,"equipo","principal"),partial,{merge:true}),
+      saveAcceso:data=>setDoc(doc(db,"config","acceso"),data),
+      addActa:async data=>{const r=await addDoc(collection(db,"actas"),{...data,creado:serverTimestamp()});return r.id;},
+      ts:v=>v&&typeof v.toMillis==="function"?v.toMillis():(typeof v==="number"?v:0)
     };
-    window._fbListen=async(onData)=>{
-      const ref=doc(db,"equipo","principal");
-      const snap=await getDoc(ref);
-      if(!snap.exists()){await setDoc(ref,window._getData());}
-      onSnapshot(ref,(s)=>{if(s.exists()){onData(s.data());window._setSyncStatus("live");}});
-    };
-  }catch(e){window._fbReady=false;console.error(e);}
+  }catch(e){console.error(e);window.FB_ERROR=e;}
 }
+window._fbLoaded=true;
+window.dispatchEvent(new Event("fb-loaded"));
 </script>
 
 <script>
+/* ════════════════════ UTILIDADES ════════════════════ */
 const MESES=["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const MESES_L=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const pad=n=>String(n).padStart(2,"0");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt=f=>{if(!f)return"—";const[y,m,d]=f.split("-");return`${+d} ${MESES[+m]}`;};
+const fmtY=f=>{if(!f)return"—";const[y,m,d]=f.split("-");return`${+d} ${MESES[+m]} ${y}`;};
 const fmtT=t=>t||"";
-const today=()=>new Date().toISOString().slice(0,10);
+const today=()=>{const d=new Date();return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;};
 const todayFmt=()=>{const d=new Date();return`${d.getDate()} ${MESES[d.getMonth()+1]} ${d.getFullYear()}`;};
+const fmtDT=ms=>{if(!ms)return"—";const d=new Date(ms);return`${d.getDate()} ${MESES[d.getMonth()+1]} ${d.getFullYear()} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;};
 const uid=()=>"x"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+function addDays(s,n){const[y,m,d]=s.split("-").map(Number);const x=new Date(y,m-1,d+n);return`${x.getFullYear()}-${pad(x.getMonth()+1)}-${pad(x.getDate())}`;}
+function nextBusinessDay(s){let x=addDays(s,1);for(let i=0;i<7;i++){const[y,m,d]=x.split("-").map(Number);const w=new Date(y,m-1,d).getDay();if(w!==0&&w!==6)return x;x=addDays(x,1);}return x;}
 const dtStr=(d,t)=>d+"T"+(t||"00:00");
-function overlapDt(a,b){return dtStr(a.fi,a.hs)<dtStr(b.ff,b.hl||"23:59")&&dtStr(a.ff,a.hl||"23:59")>dtStr(b.fi,b.hs);}
-function itemAvailDt(n,fi,hs,ff,hl,skip){
-  const ts=dtStr(fi,hs),te=dtStr(ff,hl||"23:59");
-  const u=misiones.filter(m=>m.id!==skip&&m.equipo.includes(n)&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs));
-  return{libre:!u.length,donde:u.map(x=>x.lugar)};
-}
-const CAT_CLR={"Cámaras":"sky","Tarjetas SD":"lav","Lentes":"butter","Micrófonos":"peach","Trípodes":"sage"};
-const catClr=c=>CAT_CLR[c]||"sand";
-const eClr={bueno:"b-sage",regular:"b-butter","dañado":"b-rose",respaldo:"b-sand"};
+const initials=n=>String(n||"?").split(" ").filter(Boolean).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+function toast(msg,kind){const t=document.getElementById("toast");t.textContent=msg;t.className="toast show "+(kind||"");clearTimeout(t._h);t._h=setTimeout(()=>t.className="toast",4000);}
+function fbErr(e){console.error(e);const c=e&&e.code||"";if(c.includes("permission-denied"))return"No tienes permiso para esta acción (revisa tu rol en Gestión).";if(c.includes("unavailable")||c.includes("network"))return"Sin conexión. Intenta de nuevo.";return"No se pudo guardar: "+(e&&e.message||e);}
 
-/* ── CATEGORY HELPERS ── */
-function eqCat(nombre){
-  const it=inventario.find(i=>i.nombre===nombre);
-  if(!it)return "";
-  const m={"Cámaras":"eq-cam","Tarjetas SD":"eq-sd","Lentes":"eq-len","Micrófonos":"eq-mic","Trípodes":"eq-tri"};
-  return m[it.categoria]||"";
-}
-function autoNotas(m){
-  const handoffs=[];
-  for(const item of m.equipo){
-    const prev=misiones.filter(x=>
-      x.id!==m.id&&x.equipo.includes(item)&&
-      dtStr(x.ff,x.hl||"23:59")<=dtStr(m.fi,m.hs||"23:59")
-    ).sort((a,b)=>dtStr(b.ff,b.hl||"23:59").localeCompare(dtStr(a.ff,a.hl||"23:59")));
-    if(prev.length){
-      const from=prev[0];
-      const fromName=from.colabs.length===1?from.colabs[0]:from.lugar;
-      const toName=m.colabs.length===1?m.colabs[0]:m.lugar;
-      if(fromName!==toName)handoffs.push(`${item}: ${fromName} → ${toName}`);
-    }
-  }
-  return handoffs.join(" · ");
-}
+/* ════════════════════ DATOS BASE ════════════════════ */
+const OWNERS=["juan.castiblancoramirez@un.org","laura.rodrigueznavarro@un.org","camilo.romero@un.org"];
+const DEF_PERSONAS=[
+  {nombre:"Nicolás Castiblanco",email:"juan.castiblancoramirez@un.org",entrega:1,aprueba:1,activo:true},
+  {nombre:"John Vásquez",email:"john.vasquezzuluaga@un.org",entrega:2,aprueba:4,activo:true},
+  {nombre:"Laura Rodríguez",email:"laura.rodrigueznavarro@un.org",entrega:3,aprueba:2,activo:true},
+  {nombre:"Camilo Romero",email:"camilo.romero@un.org",entrega:4,aprueba:3,activo:true},
+  {nombre:"Diego Cuervo",email:"diego.cuervo@un.org",entrega:5,aprueba:0,activo:true},
+  {nombre:"Diego Ardila",email:"diego.ardila@un.org",entrega:6,aprueba:0,activo:true},
+  {nombre:"Katherine Montoya",email:"laura.montoyaarana@un.org",entrega:0,aprueba:0,activo:true},
+  {nombre:"Sebastián González",email:"sebastian.gonzalezgonzalez@un.org",entrega:0,aprueba:0,activo:true}
+];
+const CATS_2026=["Cámaras","Lentes","Tarjetas SD","Sonido","Trípodes y soportes","Iluminación","Baterías y carga","Accesorios"];
+const CAT_CLR={"Cámaras":"sky","Lentes":"butter","Tarjetas SD":"lav","Sonido":"peach","Micrófonos":"peach","Trípodes y soportes":"sage","Trípodes":"sage","Iluminación":"rose","Baterías y carga":"mint","Accesorios":"sand"};
+const eqCls=c=>"eq-"+(CAT_CLR[c]||"sand");
+const ESTADOS=["bueno","regular","dañado","perdido","baja"];
+const eClr={bueno:"b-sage",regular:"b-butter","dañado":"b-rose",perdido:"b-rose",baja:"b-sand"};
+const INV_VERSION="2026-11";
+/* [nombre, categoría, descripción, serie, serial UN, estado, estado detallado, incluye, observaciones] — fuente: INVENTARIO DE EQUIPOS COMUNICACIONES 2026.xlsx */
+const INV2026_RAW=[
+["Sony 1","Cámaras","Cuerpo de cámara Sony a7R IV","4971340","","regular","Le falta el protector del visor (eyecup). Agarre de caucho derecho despegado (frontal y posterior). Tiene tapa de sensor.","","Pendiente de mantenimiento preventivo."],
+["Sony 2","Cámaras","Cuerpo de cámara Sony a7R IV","","","regular","Agarre de caucho derecho despegado. Tapa de tarjetas vencida. Tiene tapa de sensor.","","Pendiente de mantenimiento preventivo. Falta serial."],
+["Canon T3i 1","Cámaras","Cuerpo de cámara Canon Rebel T3i","372077026522","","bueno","Cuerpo en perfecto estado. Pantalla rayada. Tiene tapa de sensor.","",""],
+["Canon T3i 2","Cámaras","Cuerpo de cámara Canon Rebel T3i","DS126311","","regular","Agarres de caucho despegados y rotos. Falta la tapa de entrada de micrófono. Tiene tapa de sensor.","",""],
+["Nikon","Cámaras","Cámara Nikon","2717178","","bueno","Desgaste por uso y pantalla rayada.","",""],
+["Osmo Pocket","Cámaras","DJI Osmo Pocket","OT210","","regular","Desgaste por uso. Algunos golpes. Le falta el joystick.","Estuche y 2 adaptadores (tipo C y Lightning).",""],
+["Dron Mini 2","Cámaras","Dron DJI Mini 2 (kit)","3Q4CK1D3A3MXJM","","regular","Carcasa quebrada en la base de una de las hélices y desgaste por uso. Control remoto con desgaste en los agarres.","Estuche, control remoto DJI con juego de joysticks, 6 baterías, cargador triple, adaptador de carga, 3 hélices de repuesto, 3 cables mini USB y 1 cable USB-C para el control.",""],
+["iPhone dron","Cámaras","iPhone para dron","","","dañado","No enciende; probablemente dañado.","",""],
+["24-70mm","Lentes","Lente Sony 24-70mm","2122561","","bueno","Perfecto estado.","Tapas, estuche y parasol.","Se le reemplazó el diafragma en 2026."],
+["70-200mm","Lentes","Lente Sony 70-200mm","1873613","","bueno","Perfecto estado.","Tapas, estuche y parasol.",""],
+["50mm","Lentes","Lente Sony 50mm","2123780","","bueno","Perfecto estado.","",""],
+["18-200mm","Lentes","Lente 18-200mm","","","bueno","","","No aparece en el Excel de inventario: completar datos."],
+["24-240mm","Lentes","Lente Sony 24-240mm","","","bueno","Perfecto estado.","Tapas.",""],
+["Rokinon 14mm","Lentes","Lente Rokinon 14mm","BKP25373","","regular","Golpes a la altura de la montura y en el anillo de foco.","Tapas.",""],
+["Canon 90-300mm","Lentes","Lente Canon 90-300mm","34500646","","bueno","Desgaste por uso en el anillo de foco.","Tapas.",""],
+["Canon 10-22mm","Lentes","Lente Canon 10-22mm","89601606","","bueno","Perfecto estado.","Tapas.",""],
+["Canon 18-55mm","Lentes","Lente Canon 18-55mm","1146123894","","bueno","Perfecto estado.","Tapas.",""],
+["Canon 50mm","Lentes","Lente Canon 50mm","5615309696","","bueno","Perfecto estado. Sin tapa.","",""],
+["Nikon 10-105mm","Lentes","Lente Nikon 10-105mm","US36205636","","regular","Tiene el zoom suelto.","",""],
+["SD 128GB·1","Tarjetas SD","Tarjeta SD 128 GB (Sony TOUGH)","TVDKEC7009A04","","bueno","","","Verificar que este serial corresponda a la SD·1."],
+["SD 128GB·2","Tarjetas SD","Tarjeta SD 128 GB","","","bueno","","","Falta serial."],
+["SD 128GB·3","Tarjetas SD","Tarjeta SD 128 GB","","","bueno","","","Falta serial."],
+["Hollyland 1","Sonido","Micrófono Hollyland Lark M2 (kit)","9452252FA88","","bueno","Al kit le falta 1 cortaviento (perro). El resto está completo.","",""],
+["Hollyland 2","Sonido","Micrófono Hollyland Lark M2 (kit)","9442252XEYD","","bueno","Al kit le falta 1 cortaviento (perro). El resto está completo.","",""],
+["Hollyland 3","Sonido","Micrófono Hollyland Lark M2 (kit)","94422538LYH","","bueno","Perfecto estado. Kit completo.","",""],
+["Sennheiser 1","Sonido","Micrófono de solapa Sennheiser (receptor + emisor)","Rx 5373101652 · Tx 5373167266","","bueno","Perfecto estado. Kit completo.","Cable para cámara, cable de micrófono con cortaviento, estuche para cables y estuche del par.",""],
+["Sennheiser 2","Sonido","Micrófono de solapa Sennheiser (receptor + emisor)","Rx 5033096151 · Tx 5033757640","","bueno","Perfecto estado. Kit incompleto: sin cortaviento de micrófono.","Cable para cámara, cable de micrófono, estuche para cables y estuche del par.",""],
+["Sennheiser 3","Sonido","Micrófono de solapa Sennheiser (receptor + emisor)","Rx 4108161399 · Tx 4138252829","","regular","Desgaste por uso. El cable para cámara genera interferencia. Sin cortaviento de micrófono ni estuche para cables.","Cable para cámara, cable de micrófono y estuche del par.",""],
+["Boya","Sonido","Micrófono de solapa Boya (receptor + emisor)","Rx 211-190914 · Tx 211-191028","","bueno","Perfecto estado. Kit completo con estuche.","",""],
+["Rode VideoMic","Sonido","Micrófono de cámara Rode VideoMic Pro","CR0076472","","bueno","Perfecto estado.","Cortaviento (perro) y protector.",""],
+["Zoom H4n","Sonido","Grabadora Zoom H4n Pro","B93078041","","bueno","Desgaste en los agarres por uso.","",""],
+["Audífonos HD 280","Sonido","Audífonos Sennheiser HD 280 PRO","4088","","bueno","","",""],
+["Sennheiser mano","Sonido","Emisores inalámbricos para micrófonos de mano Sennheiser (2)","5373020369 · 5152016712","","bueno","Perfecto estado.","",""],
+["Cables XLR","Sonido","Cables Sennheiser XLR a plug 1/4 (3)","","","bueno","Perfecto estado.","",""],
+["Trípode 1","Trípodes y soportes","Trípode Ulanzi Zero Y","Y018485","","bueno","Perfecto estado. No tiene la zapata original.","",""],
+["Trípode 2","Trípodes y soportes","Trípode Ulanzi Zero Y","Y014769","","bueno","Perfecto estado.","",""],
+["Trípode 3","Trípodes y soportes","Trípode Ulanzi Zero Y","","","bueno","","","Falta serial."],
+["Trípode Weifeng","Trípodes y soportes","Trípode Weifeng de cabeza fluida","","","bueno","","",""],
+["Trípode Diskon","Trípodes y soportes","Trípode Diskon DK-17","","","bueno","Buen estado. Estuche deteriorado y correa rota.","",""],
+["Ronin SC2","Trípodes y soportes","Estabilizador DJI Ronin SC2","018-200281","","bueno","Perfecto estado. Kit completo.","Manija, zapata, montura quick release, montura de precisión y elevador de cuerpo de cámara.",""],
+["Stand Neewer 1","Trípodes y soportes","Stand Neewer","","","bueno","Perfecto estado.","",""],
+["Stand Neewer 2","Trípodes y soportes","Stand Neewer","","","bueno","Perfecto estado.","",""],
+["Stand Neewer 3","Trípodes y soportes","Stand Neewer","","","bueno","Perfecto estado.","",""],
+["Stand Weifeng 1","Trípodes y soportes","Stand Weifeng","","","bueno","Perfecto estado.","",""],
+["Stand Weifeng 2","Trípodes y soportes","Stand Weifeng","","","bueno","Estuche dañado.","",""],
+["Flash 220EX","Iluminación","Flash Canon 220EX","OW0710","","bueno","Perfecto estado.","Estuche.",""],
+["Flash 600EX","Iluminación","Flash Canon 600EX","","AT30-10048074","bueno","Perfecto estado.","Estuche, tapa protectora y base para trípode.",""],
+["Luz Yongnuo","Iluminación","Luz portátil Yongnuo YN160 III","204-7288","","bueno","Perfecto estado.","Manija, cargador, batería y 2 filtros.",""],
+["Luz Video Light","Iluminación","Luz portátil Video Light","4607117450085 (serial de caja)","","bueno","Perfecto estado.","Cargador y batería.",""],
+["Neewer 1","Iluminación","Luz Neewer","","","regular","Frame muy quebrado a la altura del ajuste del tilt.","Estuche y cargador con cable.",""],
+["Neewer 2","Iluminación","Luz Neewer","","","regular","Frame quebrado a la altura del ajuste del tilt.","Estuche y cargador con cable.",""],
+["Neewer 3","Iluminación","Luz Neewer","","","regular","Frame quebrado a la altura del ajuste del tilt.","Estuche y cargador con cable.",""],
+["Flex pequeño","Iluminación","Flex (reflector) pequeño","","","bueno","Buen estado.","",""],
+["Flex grande","Iluminación","Flex (reflector) grande","","","bueno","Buen estado.","",""],
+["Batería Sony 1","Baterías y carga","Batería Sony NP-FZ100","20190701WCB","","regular","Pequeña grieta en una esquina.","",""],
+["Batería Sony 2","Baterías y carga","Batería Sony NP-FZ100","20211006WDA","","bueno","Perfecto estado.","",""],
+["Batería Sony 3","Baterías y carga","Batería Sony NP-FZ100","2022096WEB","","bueno","Perfecto estado.","",""],
+["Batería Sony 4","Baterías y carga","Batería Sony NP-FZ100","","","bueno","Perfecto estado.","","En el Excel tenía el mismo serial que la Batería Sony 1: verificar."],
+["Batería Sony 5","Baterías y carga","Batería Sony NP-FZ100","20231220WGA","","bueno","Perfecto estado.","",""],
+["Baterías Nikon","Baterías y carga","Baterías Nikon EN-EL14a (2)","R9NYS","","bueno","Perfecto estado.","",""],
+["Baterías Canon","Baterías y carga","Baterías Canon (2)","","","regular","Una de las baterías dura poco.","",""],
+["Cargador Sony 1","Baterías y carga","Cargador Sony BC-QZ1","23125PA1016127","","bueno","Perfecto estado.","",""],
+["Cargador Sony 2","Baterías y carga","Cargador Sony BC-QZ1","","","bueno","Perfecto estado.","","Falta serial."],
+["Cargador Nikon","Baterías y carga","Cargador Nikon MH-24","1312020566H","","bueno","Perfecto estado.","",""],
+["Cargador Canon","Baterías y carga","Cargador Canon","","","bueno","Perfecto estado.","",""],
+["Cargador pilas","Baterías y carga","Cargador de pilas Energizer","R0921H","","bueno","Perfecto estado.","9 pilas AA recargables.",""],
+["Adaptador E-EF","Accesorios","Adaptador de montura E a EF (Ommlite)","","","bueno","Perfecto estado.","",""],
+["Teleconverter 2X","Accesorios","Adaptador Sony Teleconverter 2X","4850037","","bueno","Perfecto estado.","Estuche.",""],
+["Filtro UV 77mm","Accesorios","Filtro UV Tiffen 77mm","","","bueno","Perfecto estado.","",""],
+["Filtro ND 49mm","Accesorios","Filtro ND variable 49mm","","","bueno","Perfecto estado.","",""],
+["Filtro ND 72mm","Accesorios","Filtro ND variable 72mm","","","bueno","Caja rota. Filtro en perfecto estado.","",""],
+["Monitor Bestview","Accesorios","Monitor externo Bestview 4K","6970602270054","","bueno","Perfecto estado. Kit completo.","Cargador de pared, batería, cargador de batería, cable HDMI y marco plástico.",""],
+["Kit limpieza","Accesorios","Kit de limpieza de cámara","","","regular","Desgaste por uso.","Pera de aire, limpiadores de sensor, cepillo, paño de microfibra y líquido para lentes.",""],
+["Maletín Everest","Accesorios","Maletín para cámara Everest","","","regular","Desgaste por uso. Broche roto.","",""],
+["Maletín Genérico","Accesorios","Maletín para cámara genérico","","","bueno","Buen estado.","",""],
+["Maletín Kryso","Accesorios","Maletín para cámara Kryso","","","bueno","Buen estado.","",""],
+["Maletín LOOK","Accesorios","Maletín para cámara LOOK","","","bueno","Buen estado.","",""],
+["Teleprompter","Accesorios","Teleprompter TV PROMPT","202025LE","","bueno","Perfecto estado. Kit completo.","Monitor, 2 zapatas, cable de poder, 4 tornillos para soporte de cámara, 3 tornillos para zapata, cable HDMI, cable coaxial y cable VGA.",""]
+];
+const INV2026=INV2026_RAW.map((r,i)=>({id:"v"+pad(i+1)+"_"+r[0].toLowerCase().replace(/[^a-z0-9]+/g,""),nombre:r[0],categoria:r[1],descripcion:r[2],serie:r[3],serialUN:r[4],estado:r[5],detalle:r[6],incluye:r[7],obs:r[8]}));
 
-/* ── CALENDAR ── */
-const PROJ_COLORS={
-  "ICBF":"#a8c8dc","MI":"#c8d8c0","CCP":"#c4b8dc",
-  "Trata":"#e4c4a8","SIMCI":"#e4d8a8","GC":"#d0d0c8","—":"#d0d0c8"
-};
-const PROJ_FG={
-  "ICBF":"#1b4f6a","MI":"#3a5830","CCP":"#3e2e6c",
-  "Trata":"#7a4520","SIMCI":"#5c4a10","GC":"#505048","—":"#505048"
-};
-let calYear=new Date().getFullYear();
-let calMonth=new Date().getMonth();
+const DECL_SALIDA="Revisé los equipos y su estado coincide con lo que marqué. Me hago responsable de ellos hasta que mi devolución sea aprobada o los entregue a otra persona mediante un traspaso registrado.";
+const DECL_DEV="Declaro que devuelvo los equipos en el estado que marqué. Sigo siendo responsable de ellos hasta que la persona que recibe apruebe la devolución.";
+const DECL_TRAS="Revisé los equipos que me entregan y su estado coincide con lo que marqué. Desde este momento quedan a mi cargo.";
+const CHECK_DEV=[["sd","Descargué mi material. Las tarjetas SD van formateadas."],["bat","Las baterías van cargadas."],["acc","Todo va limpio y con sus accesorios, tapas y estuches."]];
 
-function renderCalendar(){
-  const root=document.getElementById("cal-root");
-  if(!root)return;
-  const monthNames=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-  const dayNames=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
-  const hoy=today();
-
-  // Build 5-week grid
-  const firstDay=new Date(calYear,calMonth,1);
-  const lastDay=new Date(calYear,calMonth+1,0);
-  let startDow=firstDay.getDay(); // 0=Sun
-  startDow=startDow===0?6:startDow-1; // convert to Mon=0
-  const totalDays=lastDay.getDate();
-
-  // Generate all days in grid
-  const gridDays=[];
-  for(let i=0;i<startDow;i++)gridDays.push(null);
-  for(let d=1;d<=totalDays;d++)gridDays.push(d);
-  while(gridDays.length%7!==0)gridDays.push(null);
-
-  // For each day, find active missions
-  function missionsOnDay(day){
-    if(!day)return[];
-    const pad=n=>String(n).padStart(2,"0");
-    const dateStr=`${calYear}-${pad(calMonth+1)}-${pad(day)}`;
-    return misiones.filter(m=>m.fi<=dateStr&&m.ff>=dateStr);
-  }
-
-  // Render 5-week blocks
-  const weeks=[];
-  for(let w=0;w<gridDays.length/7;w++)weeks.push(gridDays.slice(w*7,(w+1)*7));
-
-  let html=`<div class="cal-nav">
-    <button onclick="calPrev()">← Anterior</button>
-    <div class="cal-month">${monthNames[calMonth]} ${calYear}</div>
-    <button onclick="calNext()">Siguiente →</button>
-    <button onclick="calToday()" style="margin-left:auto">Hoy</button>
-  </div>
-  <div class="cal-grid">
-    <div class="cal-hdr"></div>${dayNames.map(d=>`<div class="cal-hdr">${d}</div>`).join("")}`;
-
-  for(const week of weeks){
-    // Week label (date range)
-    const firstNonNull=week.find(d=>d!==null);
-    const lastNonNull=[...week].reverse().find(d=>d!==null);
-    html+=`<div class="cal-label">${firstNonNull||""}${lastNonNull&&lastNonNull!==firstNonNull?`–${lastNonNull}`:""}</div>`;
-    for(const day of week){
-      const pad=n=>String(n).padStart(2,"0");
-      const dateStr=day?`${calYear}-${pad(calMonth+1)}-${pad(day)}`:"";
-      const isToday=dateStr===hoy;
-      const missions=day?missionsOnDay(day):[];
-      const isEmpty=!day;
-      html+=`<div class="cal-cell${isToday?" today":""}${isEmpty?" style='background:transparent;border-color:transparent'":""}">`;
-      if(day){
-        html+=`<div style="font-size:10px;font-weight:600;color:${isToday?"var(--sky-d)":"var(--ink3)"};margin-bottom:3px;text-align:right">${day}</div>`;
-        for(const m of missions.slice(0,3)){
-          const bg=PROJ_COLORS[m.proyecto]||"#d0d0c8";
-          const fg=PROJ_FG[m.proyecto]||"#505048";
-          html+=`<div class="cal-bar" style="background:${bg};color:${fg}" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))' title="${m.lugar} — ${m.colabs.join(", ")}">${m.lugar}</div>`;
-        }
-        if(missions.length>3)html+=`<div style="font-size:9px;color:var(--ink3);text-align:center">+${missions.length-3} más</div>`;
-      }
-      html+=`</div>`;
-    }
-  }
-  html+="</div>";
-  root.innerHTML=html;
-}
-
-function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
-function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
-function calToday(){calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderCalendar();}
-
-/* ── HISTORY ── */
-let histFilter="all";
-
-function getArchivedMonths(){
-  const hoy=today();
-  const months=new Set();
-  for(const m of misiones){
-    const [y,mo]=m.ff.split("-");
-    const key=`${y}-${mo}`;
-    if(m.ff<hoy.slice(0,7)+"-01")months.add(key);
-  }
-  return [...months].sort((a,b)=>b.localeCompare(a));
-}
-
-function renderHistory(){
-  const months=getArchivedMonths();
-  const tabsEl=document.getElementById("hist-tabs");
-  const tblEl=document.getElementById("hist-tbl");
-  if(!tabsEl||!tblEl)return;
-
-  const MONTH_NAMES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-
-  // Build tabs
-  tabsEl.innerHTML=`<div class="filter-tab${histFilter==="all"?" active":""}" onclick="setHistFilter('all')">Todos</div>`+
-    months.map(k=>{
-      const [y,mo]=k.split("-");
-      return`<div class="filter-tab${histFilter===k?" active":""}" onclick="setHistFilter('${k}')">${MONTH_NAMES[+mo-1]} ${y}</div>`;
-    }).join("");
-
-  // Filter missions
-  const hoy=today().slice(0,7)+"-01";
-  let filtered=misiones.filter(m=>m.ff<hoy);
-  if(histFilter!=="all")filtered=filtered.filter(m=>m.ff.startsWith(histFilter));
-  filtered.sort((a,b)=>b.ff.localeCompare(a.ff));
-
-  if(!filtered.length){
-    tblEl.innerHTML=`<thead><tr><th>Sin misiones archivadas</th></tr></thead><tbody></tbody>`;
-    return;
-  }
-
-  tblEl.innerHTML=`<thead><tr>
-    <th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th>
-    <th>Proyecto</th><th>Equipo asignado</th><th>Notas</th>
-  </tr></thead><tbody>`+
-  filtered.map(m=>`<tr>
-    <td><div style="font-weight:600">${m.lugar}</div><div style="font-size:12px;color:var(--ink3)">${m.colabs.join(", ")}</div></td>
-    <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
-    <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
-    <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}</td>
-    <td style="max-width:260px">${m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${e}</span>`).join("")||`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
-    <td style="font-size:12px;color:var(--ink2);max-width:180px">${m.notas||""}</td>
-  </tr>`).join("")+"</tbody>";
-}
-
-function setHistFilter(f){histFilter=f;renderHistory();}
-
-const DEF={
-  misiones:[
-    {id:"m01",lugar:"Pereira",fi:"2026-03-17",hs:"06:00",ff:"2026-03-19",hl:"21:00",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","Hollyland 3","Trípode 3","SD 128GB·2","24-70mm"],notas:""},
-    {id:"m02",lugar:"Quibdó",fi:"2026-03-19",hs:"07:00",ff:"2026-03-20",hl:"20:00",proyecto:"MI",colabs:["Laura Rodríguez"],equipo:["Hollyland 1"],notas:"Laura usa equipo personal"},
-    {id:"m03",lugar:"Tumaco",fi:"2026-03-19",hs:"06:00",ff:"2026-03-20",hl:"21:00",proyecto:"CCP",colabs:["Diego Cuervo"],equipo:["Trípode 1","SD 128GB·3","Sennheiser 1"],notas:"Cuervo usa equipo personal"},
-    {id:"m04",lugar:"Leticia",fi:"2026-03-19",hs:"",ff:"2026-03-20",hl:"",proyecto:"ICBF",colabs:["Katherine Montoya"],equipo:["Sony 1","SD 128GB·1","18-200mm","Trípode 2","Hollyland 2"],notas:""},
-    {id:"m05",lugar:"Buenaventura",fi:"2026-03-20",hs:"07:00",ff:"2026-03-24",hl:"20:00",proyecto:"Trata",colabs:["Nicolás Castiblanco"],equipo:["Hollyland 3"],notas:"Nicolás usa equipo personal"},
-    {id:"m06",lugar:"Caloto",fi:"2026-03-21",hs:"05:00",ff:"2026-03-22",hl:"22:00",proyecto:"MI",colabs:["Katherine Montoya","Diego Ardila","Camilo Romero","John Vásquez"],equipo:["Sony 1","70-200mm","18-200mm","Trípode 2","50mm","SD 128GB·1","Hollyland 2"],notas:"Misión grupal (4 personas)"},
-    {id:"m07",lugar:"Río de Janeiro",fi:"2026-03-22",hs:"08:00",ff:"2026-04-27",hl:"23:00",proyecto:"SIMCI",colabs:["Laura Rodríguez"],equipo:["24-70mm","Hollyland 1","SD 128GB·3"],notas:"Diego Ardila le entrega el 24-70mm a Laura"},
-    {id:"m08",lugar:"Armenia",fi:"2026-03-23",hs:"",ff:"2026-03-25",hl:"",proyecto:"ICBF",colabs:["Diego Ardila"],equipo:["Sony 2","Trípode 3","Hollyland 2","18-200mm","SD 128GB·2"],notas:""},
-    {id:"m09",lugar:"Tumaco",fi:"2026-03-24",hs:"06:00",ff:"2026-03-25",hl:"21:00",proyecto:"—",colabs:["John Vásquez"],equipo:["Sennheiser 1","Trípode 2"],notas:"Se lleva la Canon y 2 SDs viejas"},
-    {id:"m10",lugar:"Cauca Bo Mathiasen",fi:"2026-03-24",hs:"14:00",ff:"2026-03-25",hl:"20:00",proyecto:"MI",colabs:["Camilo Romero"],equipo:["Sony 1","Trípode 1","70-200mm","50mm","SD 128GB·1","Sennheiser 2"],notas:""},
-    {id:"m11",lugar:"TBC Trata c/Daniel",fi:"2026-04-16",hs:"07:00",ff:"2026-04-24",hl:"20:00",proyecto:"Trata",colabs:["Camilo Romero"],equipo:["Sony 1","18-200mm","Sennheiser 2","Trípode 2","SD 128GB·1"],notas:""}
-  ],
-  inventario:[
-    {id:"i01",nombre:"Sony 1",categoria:"Cámaras",serie:"",estado:"bueno"},
-    {id:"i02",nombre:"Sony 2",categoria:"Cámaras",serie:"",estado:"bueno"},
-    {id:"i03",nombre:"SD 128GB·1",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
-    {id:"i04",nombre:"SD 128GB·2",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
-    {id:"i05",nombre:"SD 128GB·3",categoria:"Tarjetas SD",serie:"",estado:"bueno"},
-    {id:"i06",nombre:"50mm",categoria:"Lentes",serie:"",estado:"bueno"},
-    {id:"i07",nombre:"70-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
-    {id:"i08",nombre:"24-70mm",categoria:"Lentes",serie:"",estado:"bueno"},
-    {id:"i09",nombre:"18-200mm",categoria:"Lentes",serie:"",estado:"bueno"},
-    {id:"i0a",nombre:"Hollyland 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
-    {id:"i0b",nombre:"Hollyland 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
-    {id:"i0c",nombre:"Hollyland 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
-    {id:"i0d",nombre:"Sennheiser 1",categoria:"Micrófonos",serie:"",estado:"bueno"},
-    {id:"i0e",nombre:"Sennheiser 2",categoria:"Micrófonos",serie:"",estado:"bueno"},
-    {id:"i0f",nombre:"Sennheiser 3",categoria:"Micrófonos",serie:"",estado:"bueno"},
-    {id:"i0g",nombre:"Trípode 1",categoria:"Trípodes",serie:"",estado:"bueno"},
-    {id:"i0h",nombre:"Trípode 2",categoria:"Trípodes",serie:"",estado:"bueno"},
-    {id:"i0i",nombre:"Trípode 3",categoria:"Trípodes",serie:"",estado:"bueno"}
-  ],
-  colaboradores:["Laura Rodríguez","Diego Ardila","Camilo Romero","Diego Cuervo","Nicolás Castiblanco","John Vásquez","Katherine Montoya"],
-  categorias:["Cámaras","Tarjetas SD","Lentes","Micrófonos","Trípodes"]
-};
-
-let misiones=[],inventario=[],colaboradores=[],categorias=[];
+/* ════════════════════ ESTADO ════════════════════ */
+let misiones=[],inventario=[],categorias=[],personas=[],actas=[],invVersion="";
+let colaboradores=[];
+let ME=null; // {email,nombre}
 let editId=null,fColabs=[],fEquipo=[];
-const SK="unodc_v8";
+let F=null; // formulario de acta en curso
+let LOADED={acceso:false,principal:false,actas:false};
 
-/* SYNC STATUS */
+/* Roles */
+const lc=s=>String(s||"").trim().toLowerCase();
+const personaBy=email=>personas.find(p=>lc(p.email)===lc(email));
+const nombreDe=email=>personaBy(email)?.nombre||email;
+const isOwner=e=>OWNERS.includes(lc(e));
+const isValidador=e=>personas.some(p=>p.activo&&+p.entrega>0&&lc(p.email)===lc(e));
+const isAprobador=e=>isOwner(e)||personas.some(p=>p.activo&&+p.aprueba>0&&lc(p.email)===lc(e));
+const escala=()=>personas.filter(p=>p.activo&&+p.entrega>0).sort((a,b)=>a.entrega-b.entrega);
+const escalaAprob=()=>personas.filter(p=>p.activo&&+p.aprueba>0).sort((a,b)=>a.aprueba-b.aprueba);
+function accesoFrom(list){const act=list.filter(p=>p.activo&&p.email);return{personas:list,miembros:act.map(p=>lc(p.email)),validadores:act.filter(p=>+p.entrega>0).map(p=>lc(p.email)),aprobadores:act.filter(p=>+p.aprueba>0).map(p=>lc(p.email)),actualizado:Date.now()};}
+const meSig=()=>({email:ME.email,nombre:ME.nombre});
+
+/* Inventario */
+const invById=id=>inventario.find(i=>i.id===id);
+const invByName=n=>inventario.find(i=>i.nombre===n);
+function eqCat(nombre){const it=invByName(nombre);return it?eqCls(it.categoria):"";}
+const activoInv=it=>it.estado!=="perdido"&&it.estado!=="baja";
+
+/* ════════════════════ ACTAS: LÓGICA ════════════════════ */
+const tsA=a=>(window.FB&&FB.ts)?FB.ts(a.creado):(a.creado||0);
+const actaById=id=>actas.find(a=>a.id===id);
+const folio=a=>a&&a.id?a.id.replace(/[^a-zA-Z0-9]/g,"").slice(-6).toUpperCase():"";
+const TIPO_LBL={salida:"Salida",devolucion:"Devolución",traspaso:"Traspaso",novedad:"Novedad",enmienda:"Solicitud de corrección",confirmacion:"Confirmación",revision:"Revisión de devolución",resolucion:"Resolución",conteo:"Conteo de armario"};
+const TIPO_CLR={salida:"b-sky",devolucion:"b-sage",traspaso:"b-lav",novedad:"b-rose",enmienda:"b-butter",confirmacion:"b-sand",revision:"b-sand",resolucion:"b-sand",conteo:"b-mint"};
+const respuestas=(id,tipo)=>actas.filter(a=>a.ref===id&&(!tipo||a.tipo===tipo)).sort((a,b)=>tsA(a)-tsA(b));
+
+function custodia(){
+  const c={};
+  const sorted=[...actas].sort((a,b)=>tsA(a)-tsA(b));
+  for(const a of sorted){
+    if(a.tipo==="salida"||a.tipo==="traspaso"){
+      for(const it of a.items||[])c[it.id]={st:"fuera",email:a.firmante.email,nombre:a.firmante.nombre,desde:tsA(a),actaId:a.id,prevista:a.prevista||"",mision:a.mision||null,motivo:a.motivo||""};
+    }else if(a.tipo==="devolucion"){
+      for(const it of a.items||[])if(c[it.id]&&lc(c[it.id].email)===lc(a.firmante.email))c[it.id]={...c[it.id],st:"devolucion",devId:a.id};
+    }else if(a.tipo==="revision"){
+      const dev=actaById(a.ref);if(dev)for(const it of dev.items||[])if(c[it.id]&&c[it.id].devId===a.ref)delete c[it.id];
+    }else if(a.tipo==="resolucion"&&Array.isArray(a.cierra)){
+      for(const id of a.cierra)delete c[id];
+    }
+  }
+  return c;
+}
+function misItems(email,cust){cust=cust||custodia();return Object.entries(cust).filter(([id,c])=>lc(c.email)===lc(email)).map(([id,c])=>({id,...c,inv:invById(id)}));}
+const vencido=c=>c.st==="fuera"&&c.prevista&&c.prevista<today();
+
+function necesitaResolucion(a){
+  if(a.tipo==="enmienda"||a.tipo==="novedad")return true;
+  if(["salida","devolucion","traspaso","revision"].includes(a.tipo))return(a.items||[]).some(i=>i.estado==="novedad");
+  if(a.tipo==="conteo")return(a.faltantes||[]).length>0;
+  if(a.tipo==="confirmacion")return a.resultado==="observaciones";
+  return false;
+}
+function estadoActa(a){
+  const r=k=>respuestas(a.id,k);
+  if(a.tipo==="salida"){const c=r("confirmacion")[0];return c?(c.resultado==="observaciones"?["Confirmada con observaciones","b-butter"]:["Entrega confirmada","b-sage"]):["Falta confirmar la entrega","b-butter"];}
+  if(a.tipo==="traspaso"){const c=r("confirmacion")[0];return c?(c.resultado==="observaciones"?["Con desacuerdo","b-rose"]:["Confirmado por quien entregó","b-sage"]):["Falta que "+(a.de?.nombre||"quien entregó")+" confirme","b-butter"];}
+  if(a.tipo==="devolucion"){const c=r("revision")[0];return c?["Devolución aprobada","b-sage"]:["Falta revisar y aprobar","b-butter"];}
+  if(a.tipo==="enmienda"){const c=r("resolucion")[0];return c?(c.decision==="aprobada"?["Corrección aprobada","b-sage"]:["Corrección rechazada","b-rose"]):["Por aprobar","b-butter"];}
+  if(necesitaResolucion(a)){const c=r("resolucion")[0];return c?["Novedad resuelta","b-sage"]:["Novedad sin resolver","b-rose"];}
+  return["Registrada","b-sand"];
+}
+function novedadesPendientes(itemId){
+  const out=[];
+  for(const a of actas){
+    if(!necesitaResolucion(a)||respuestas(a.id,"resolucion").length)continue;
+    for(const it of a.items||[])if(it.id===itemId&&it.estado==="novedad")out.push({a,nota:it.nota});
+    for(const it of a.faltantes||[])if(it.id===itemId)out.push({a,nota:"No estaba en el armario durante el conteo."});
+  }
+  return out;
+}
+function estadoVigente(inv){
+  if(!inv)return"";
+  let t=inv.detalle||"Sin observaciones registradas.";
+  const nv=novedadesPendientes(inv.id);
+  if(nv.length)t+=" ⚠ Novedad pendiente: "+nv.map(n=>`${n.nota} (${n.a.firmante.nombre}, ${fmtDT(tsA(n.a)).split(" · ")[0]})`).join(" · ");
+  return t;
+}
+
+function pendientes(){
+  if(!ME)return[];
+  const me=ME.email,out=[];
+  const val=isValidador(me),apr=isAprobador(me);
+  for(const a of actas){
+    const propio=lc(a.firmante?.email)===me;
+    if(a.tipo==="salida"&&val&&!propio&&!respuestas(a.id,"confirmacion").length)
+      out.push({a,acc:"confirmarSalida",prio:lc(a.contraparte?.email)===me?0:2,txt:`<strong>${esc(a.firmante.nombre)}</strong> retiró ${a.items.length} equipo(s)${lc(a.contraparte?.email)===me?" y te eligió a ti para la entrega":""}. Confirma que se los entregaste.`,btn:"Confirmar entrega"});
+    if(a.tipo==="traspaso"&&lc(a.de?.email)===me&&!respuestas(a.id,"confirmacion").length)
+      out.push({a,acc:"confirmarTraspaso",prio:0,txt:`<strong>${esc(a.firmante.nombre)}</strong> registró que le pasaste ${a.items.length} equipo(s). Confírmalo.`,btn:"Confirmar traspaso"});
+    if(a.tipo==="devolucion"&&val&&!propio&&!respuestas(a.id,"revision").length)
+      out.push({a,acc:"revisar",prio:lc(a.contraparte?.email)===me?0:2,txt:`<strong>${esc(a.firmante.nombre)}</strong> devolvió ${a.items.length} equipo(s)${lc(a.contraparte?.email)===me?" y te los entregó a ti":""}. Revísalos y aprueba la devolución.`,btn:"Revisar devolución"});
+    if(apr&&!propio&&necesitaResolucion(a)&&!respuestas(a.id,"resolucion").length)
+      out.push({a,acc:"resolver",prio:1,txt:a.tipo==="enmienda"?`<strong>${esc(a.firmante.nombre)}</strong> pide corregir el acta #${esc(folio(actaById(a.ref)))}.`:`Hay una novedad sin resolver en el acta de ${esc(TIPO_LBL[a.tipo].toLowerCase())} #${esc(folio(a))} (${esc(a.firmante.nombre)}).`,btn:a.tipo==="enmienda"?"Revisar corrección":"Resolver novedad"});
+  }
+  return out.sort((x,y)=>x.prio-y.prio||tsA(x.a)-tsA(y.a));
+}
+
+/* ════════════════════ SINCRONIZACIÓN ════════════════════ */
 window._setSyncStatus=function(s){
-  const dot=document.getElementById("sync-dot");
-  const txt=document.getElementById("sync-txt");
-  const sub=document.getElementById("sync-status");
+  const dot=document.getElementById("sync-dot"),txt=document.getElementById("sync-txt"),sub=document.getElementById("sync-status");
   if(!dot)return;
-  const map={live:["live","En vivo","Sincronizado · todos ven los cambios en tiempo real"],saving:["saving","Guardando…","Sincronizando…"],err:["err","Error","Error de sincronización · revisa la config de Firebase"],local:["local","Local","Guardado local · configura Firebase para sync en tiempo real"]};
+  const map={live:["live","En vivo","Sincronizado · todos ven los cambios en tiempo real"],saving:["saving","Guardando…","Sincronizando…"],err:["err","Error","Error de sincronización"],local:["local","Demo","Modo demostración · nada se guarda en la nube"]};
   const[cls,lbl,desc]=map[s]||map.local;
   dot.className="sync-dot "+cls;txt.textContent=lbl;if(sub)sub.textContent=desc;
 };
-window._getData=()=>({misiones,inventario,colaboradores,categorias});
-
-function applyData(d){
-  if(d.misiones)misiones=d.misiones;
-  if(d.inventario)inventario=d.inventario;
-  if(d.colaboradores)colaboradores=d.colaboradores;
-  if(d.categorias)categorias=d.categorias;
+function applyPrincipal(d){
+  if(!d)return;
+  misiones=d.misiones||[];
+  inventario=d.inventario||[];
+  categorias=d.categorias||[];
+  invVersion=d.invVersion||"";
   render();
 }
-function saveData(){
-  const data={misiones,inventario,colaboradores,categorias};
-  try{localStorage.setItem(SK,JSON.stringify(data));}catch(e){}
-  if(window._fbReady&&window._fbSave)window._fbSave(data);
+function applyAcceso(d){
+  personas=(d&&d.personas)||[];
+  colaboradores=personas.filter(p=>p.activo).map(p=>p.nombre);
+  const p=personaBy(ME.email);
+  ME.nombre=p?p.nombre:ME.email;
+  renderMe();render();
 }
-function loadData(){
-  try{const r=localStorage.getItem(SK);if(r)applyData(JSON.parse(r));else applyData(DEF);}
-  catch{applyData(DEF);}
+async function saveData(keys){
+  const all={misiones,inventario,categorias,invVersion};
+  const partial={};(keys||["misiones"]).forEach(k=>partial[k]=all[k]);
+  window._setSyncStatus("saving");
+  try{await FB.savePrincipal(partial);window._setSyncStatus(FB.mode==="demo"?"local":"live");}
+  catch(e){window._setSyncStatus("err");toast(fbErr(e),"err");}
+}
+async function addActa(data){
+  const doc={...data,firmante:meSig(),cliente:Date.now(),version:1};
+  return await FB.addActa(JSON.parse(JSON.stringify(doc)));
 }
 
-/* SMART DROPDOWN — fixed reopen */
+/* ════════════════════ LOGIN ════════════════════ */
+const AUTH_MSG={"auth/invalid-credential":"Correo o contraseña incorrectos.","auth/wrong-password":"Correo o contraseña incorrectos.","auth/user-not-found":"No hay cuenta con ese correo. Usa “Primera vez”.","auth/email-already-in-use":"Ese correo ya tiene cuenta. Si no recuerdas la contraseña usa “Olvidé mi contraseña”.","auth/weak-password":"La contraseña debe tener al menos 6 caracteres.","auth/invalid-email":"El correo no es válido.","auth/too-many-requests":"Demasiados intentos. Espera unos minutos.","auth/network-request-failed":"Sin conexión a internet.","auth/operation-not-allowed":"Falta activar el inicio de sesión con correo y contraseña en Firebase (Authentication → Método de acceso)."};
+const authMsg=e=>AUTH_MSG[e&&e.code]||("Error: "+(e&&e.message||e));
+function showLogin(mode,info){
+  const L=document.getElementById("login"),B=document.getElementById("login-body");
+  L.classList.add("open");
+  const msg=info?`<div class="alert ${info.ok?"alert-ok":"alert-err"}">${esc(info.t)}</div>`:"";
+  if(mode==="registro"){
+    B.innerHTML=`${msg}<p class="form-hint">Crea tu contraseña una sola vez. Te llegará un correo para confirmar que la cuenta es tuya.</p>
+    <div class="fg"><label>Correo institucional</label><input id="l-email" type="email" placeholder="nombre@un.org" autocomplete="username"></div>
+    <div class="fg"><label>Contraseña (mínimo 6 caracteres)</label><input id="l-pass" type="password" autocomplete="new-password"></div>
+    <div class="fg"><label>Repite la contraseña</label><input id="l-pass2" type="password" autocomplete="new-password"></div>
+    <button class="btn btn-pri" id="l-go" onclick="doRegister()">Crear mi cuenta</button>
+    <div class="login-links"><a onclick="showLogin('entrar')">← Ya tengo cuenta</a></div>`;
+  }else if(mode==="olvido"){
+    B.innerHTML=`${msg}<p class="form-hint">Te enviaremos un enlace a tu correo para crear una contraseña nueva.</p>
+    <div class="fg"><label>Correo institucional</label><input id="l-email" type="email" placeholder="nombre@un.org"></div>
+    <button class="btn btn-pri" id="l-go" onclick="doReset()">Enviar enlace</button>
+    <div class="login-links"><a onclick="showLogin('entrar')">← Volver</a></div>`;
+  }else if(mode==="verificar"){
+    B.innerHTML=`${msg}<div class="alert alert-info">Te enviamos un correo a <strong>${esc(info&&info.email||"")}</strong>. Ábrelo y haz clic en el enlace para confirmar tu cuenta. Si no lo ves, revisa la carpeta de correo no deseado.</div>
+    <button class="btn btn-pri" id="l-go" onclick="doCheckVerified()">Ya confirmé mi correo</button>
+    <div class="login-links"><a onclick="doResend()">Reenviar correo</a><a onclick="doSignOut()">Usar otra cuenta</a></div>`;
+  }else if(mode==="noauth"){
+    B.innerHTML=`<div class="alert alert-err">La cuenta <strong>${esc(info&&info.email||"")}</strong> no está autorizada en el sistema.</div>
+    <p class="form-hint">Pídele a Nicolás Castiblanco (o a Laura Rodríguez o Camilo Romero) que agregue tu correo en Gestión → Personas. Después recarga la página.</p>
+    <button class="btn btn-sec" onclick="location.reload()">Recargar</button>
+    <div class="login-links"><a onclick="doSignOut()">Salir</a></div>`;
+  }else if(mode==="error"){
+    B.innerHTML=`<div class="alert alert-err">${esc(info&&info.t||"No se pudo conectar con el servidor.")}</div><button class="btn btn-sec" onclick="location.reload()">Reintentar</button>`;
+  }else{
+    B.innerHTML=`${msg}<div class="fg"><label>Correo institucional</label><input id="l-email" type="email" placeholder="nombre@un.org" autocomplete="username"></div>
+    <div class="fg"><label>Contraseña</label><input id="l-pass" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doSignIn()"></div>
+    <button class="btn btn-pri" id="l-go" onclick="doSignIn()">Entrar</button>
+    <div class="login-links"><a onclick="showLogin('registro')">Primera vez: crear mi cuenta</a><a onclick="showLogin('olvido')">Olvidé mi contraseña</a></div>`;
+  }
+}
+const lval=id=>(document.getElementById(id)?.value||"").trim();
+function busy(on){const b=document.getElementById("l-go");if(b){b.disabled=on;}}
+async function doSignIn(){const e=lc(lval("l-email")),p=lval("l-pass");if(!e||!p)return;busy(true);try{await FB.signIn(e,p);}catch(err){showLogin("entrar",{t:authMsg(err)});}}
+async function doRegister(){
+  const e=lc(lval("l-email")),p=lval("l-pass"),p2=lval("l-pass2");
+  if(!e.endsWith("@un.org"))return showLogin("registro",{t:"Usa tu correo institucional @un.org."});
+  if(p!==p2)return showLogin("registro",{t:"Las contraseñas no coinciden."});
+  busy(true);
+  try{await FB.register(e,p);showLogin("verificar",{email:e,ok:true,t:"Cuenta creada."});}
+  catch(err){showLogin("registro",{t:authMsg(err)});}
+}
+async function doReset(){const e=lc(lval("l-email"));if(!e)return;busy(true);try{await FB.reset(e);showLogin("entrar",{ok:true,t:"Te enviamos el enlace a "+e+". Revisa también el correo no deseado."});}catch(err){showLogin("olvido",{t:authMsg(err)});}}
+async function doResend(){try{await FB.resendVerification();toast("Correo reenviado.");}catch(err){toast(authMsg(err),"err");}}
+async function doCheckVerified(){busy(true);try{const u=await FB.reloadUser();if(u&&u.verified)startApp(u);else showLogin("verificar",{email:u&&u.email,t:"Todavía no aparece confirmado. Abre el enlace del correo y vuelve a intentar."});}catch(err){showLogin("verificar",{t:authMsg(err)});}}
+async function doSignOut(){try{await FB.signOut();}catch(e){}location.reload();}
+
+let STARTED=false;
+function startApp(u){
+  if(STARTED)return;STARTED=true;
+  ME={email:lc(u.email),nombre:u.email};
+  document.getElementById("login").classList.remove("open");
+  FB.listen({
+    acceso:d=>{
+      LOADED.acceso=true;
+      if(!d){
+        if(isOwner(ME.email)){FB.saveAcceso(accesoFrom(DEF_PERSONAS)).catch(e=>toast(fbErr(e),"err"));}
+        else showLogin("noauth",{email:ME.email});
+        return;
+      }
+      if(!(d.miembros||[]).includes(ME.email)&&!isOwner(ME.email)){showLogin("noauth",{email:ME.email});return;}
+      applyAcceso(d);
+    },
+    principal:d=>{LOADED.principal=true;if(!d&&isAprobador(ME.email)){FB.savePrincipal({misiones:[],inventario:INV2026,categorias:CATS_2026,invVersion:INV_VERSION});return;}applyPrincipal(d);window._setSyncStatus(FB.mode==="demo"?"local":"live");},
+    actas:list=>{LOADED.actas=true;actas=list;render();},
+    error:e=>{console.error(e);if(e&&e.code==="permission-denied")showLogin("noauth",{email:ME.email});else{window._setSyncStatus("err");}}
+  });
+}
+function renderMe(){
+  const b=document.getElementById("me-box");if(!b||!ME)return;
+  const roles=[isValidador(ME.email)?"entrega equipos":"",isAprobador(ME.email)?"aprueba":""].filter(Boolean).join(" · ");
+  b.innerHTML=`<strong>${esc(ME.nombre)}</strong>${roles?`<br><span style="opacity:.6">${roles}</span>`:""}${FB.mode==="demo"?"":`<br><a onclick="doSignOut()">Cerrar sesión</a>`}`;
+}
+
+/* ════════════════════ DROPDOWNS ════════════════════ */
 let _openDrop=null;
 function openDrop(el){if(_openDrop&&_openDrop!==el)closeDrop(_openDrop);el.classList.add("open");_openDrop=el;}
 function closeDrop(el){if(!el)return;el.classList.remove("open");if(_openDrop===el)_openDrop=null;}
 document.addEventListener("click",e=>{if(_openDrop&&!_openDrop.closest(".sw").contains(e.target))closeDrop(_openDrop);});
-
 function setupDrop(inpId,dropId,getItems){
-  const inp=document.getElementById(inpId);
-  const drop=document.getElementById(dropId);
+  const inp=document.getElementById(inpId),drop=document.getElementById(dropId);
   if(!inp||!drop)return;
   function populate(){
-    const q=inp.value.toLowerCase();
-    const items=getItems(q);
-    drop.innerHTML=items.length
-      ?items.map(it=>`<div class="di" onmousedown="event.preventDefault()">${it.html}</div>`).join("")
-      :`<div class="di-empty">No encontrado</div>`;
-    drop.querySelectorAll(".di").forEach((el,i)=>{if(items[i])el.addEventListener("click",()=>{items[i].onSelect();closeDrop(drop);inp.value="";setTimeout(()=>inp.focus(),10);});});
+    const items=getItems(inp.value.toLowerCase());
+    drop.innerHTML=items.length?items.map(it=>`<div class="di${it.off?" off":""}" onmousedown="event.preventDefault()">${it.html}</div>`).join(""):`<div class="di-empty">No encontrado</div>`;
+    drop.querySelectorAll(".di").forEach((el,i)=>{if(items[i]&&!items[i].off)el.addEventListener("click",()=>{items[i].onSelect();closeDrop(drop);inp.value="";setTimeout(()=>inp.focus(),10);});});
   }
   inp.addEventListener("focus",()=>{populate();openDrop(drop);});
   inp.addEventListener("click",()=>{populate();openDrop(drop);});
@@ -572,287 +728,816 @@ function setupDrop(inpId,dropId,getItems){
   drop._populate=populate;
 }
 
-/* NAV */
-const PAGE_TITLES={panel:"Panel",misiones:"Misiones",inventario:"Inventario",calendario:"Calendario",historial:"Historial",gestion:"Gestión"};
+/* ════════════════════ NAVEGACIÓN ════════════════════ */
+const PAGE_TITLES={mis:"Mis equipos",panel:"Panel",misiones:"Misiones",inventario:"Inventario",calendario:"Calendario",historial:"Historial",registro:"Registro de actas",gestion:"Gestión"};
+let CUR_PAGE="mis";
 function goTo(name,el){
+  CUR_PAGE=name;
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("page-"+name).classList.add("active");
-  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
-  if(el)el.classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.dataset.page===name));
   document.getElementById("page-title").textContent=PAGE_TITLES[name]||name;
-  if(name==="inventario")renderInv();
-  if(name==="gestion")renderGestion();
-  if(name==="calendario")renderCalendar();
-  if(name==="historial")renderHistory();
+  render();
+  window.scrollTo(0,0);
 }
 
-/* CONFLICTS */
-function getConflicts(){
-  const out=[];
-  for(let i=0;i<misiones.length;i++)for(let j=i+1;j<misiones.length;j++){
-    const a=misiones[i],b=misiones[j];
-    if(!overlapDt(a,b))continue;
-    const s=a.equipo.filter(e=>b.equipo.includes(e));
-    if(s.length)out.push({a,b,shared:s});
+/* ════════════════════ MIS EQUIPOS ════════════════════ */
+function renderMis(){
+  const root=document.getElementById("mis-root");if(!root||!ME)return;
+  const cust=custodia();
+  const mine=misItems(ME.email,cust);
+  const pend=pendientes();
+  const myActas=actas.filter(a=>lc(a.firmante?.email)===ME.email&&["salida","devolucion","traspaso","novedad","enmienda"].includes(a.tipo)).sort((a,b)=>tsA(b)-tsA(a)).slice(0,6);
+  const nombre=(ME.nombre||"").split(" ")[0];
+  let h=`<div style="margin-bottom:1.25rem"><div style="font-size:20px;font-weight:600">Hola, ${esc(nombre)}</div><div style="font-size:13px;color:var(--ink3);margin-top:2px">${mine.length?`Tienes ${mine.length} equipo(s) a tu cargo.`:"No tienes equipos a tu cargo."}</div></div>`;
+  h+=`<div class="qa">
+    <button class="qa-btn qa-sky" onclick="formSalida()"><span class="qa-ico">↗</span><strong>Retirar equipo</strong><span>Del armario. Alguien de la escala te lo entrega.</span></button>
+    <button class="qa-btn qa-lav" onclick="formTraspaso()"><span class="qa-ico">⇄</span><strong>Recibir de un compañero</strong><span>Cuando el equipo pasa directo de otra persona a ti.</span></button>
+    <button class="qa-btn qa-rose" onclick="formNovedad()" ${mine.length?"":"disabled"}><span class="qa-ico">!</span><strong>Reportar novedad</strong><span>Daño, falla, pérdida o robo de algo a tu cargo.</span></button>
+  </div>`;
+  if(pend.length){
+    h+=`<div class="card card-butter"><div class="sec-title" style="margin-bottom:.5rem;color:var(--butter-d)">Pendiente de tu parte (${pend.length})</div>${pend.map((p,i)=>`<div class="pend"><span class="badge ${TIPO_CLR[p.a.tipo]}">${TIPO_LBL[p.a.tipo]}</span><div class="pend-txt">${p.txt}<div style="font-size:11px;color:var(--ink3)">${fmtDT(tsA(p.a))} · Acta #${esc(folio(p.a))}</div></div><button class="btn btn-pri" onclick="doPend(${i})">${p.btn}</button></div>`).join("")}</div>`;
   }
-  return out;
+  h+=`<div class="card"><div class="sec-head" style="margin-bottom:.5rem"><div class="sec-title">Equipo a mi cargo</div>${mine.filter(m=>m.st==="fuera").length?`<button class="btn btn-ok" onclick="formDevolucion()">Devolver equipo</button>`:""}</div>`;
+  if(!mine.length)h+=`<p style="font-size:13px;color:var(--ink3)">Nada por ahora. Cuando retires o recibas equipo aparecerá aquí.</p>`;
+  else h+=mine.sort((a,b)=>(a.inv?.categoria||"").localeCompare(b.inv?.categoria||"")).map(m=>`<div class="mine"><span class="eq-tag ${eqCls(m.inv?.categoria)}">${esc(m.inv?.nombre||m.id)}</span><span style="flex:1;font-size:12px;color:var(--ink3);min-width:140px">${esc(m.inv?.descripcion||"")}</span>${m.st==="devolucion"?`<span class="badge b-butter">Devolución en revisión</span>`:vencido(m)?`<span class="badge b-rose">Devolución vencida (${fmt(m.prevista)})</span>`:m.prevista?`<span class="badge b-sand">Devolver: ${fmt(m.prevista)}</span>`:""}<button class="btn-sm" onclick="verActa('${m.actaId}')">Acta #${esc(folio(actaById(m.actaId)))}</button></div>`).join("");
+  h+=`</div>`;
+  if(myActas.length)h+=`<div class="card"><div class="sec-title" style="margin-bottom:.5rem">Mis últimas actas</div>${myActas.map(a=>{const[e,c]=estadoActa(a);return`<div class="mine" style="cursor:pointer" onclick="verActa('${a.id}')"><span class="badge ${TIPO_CLR[a.tipo]}">${TIPO_LBL[a.tipo]}</span><span class="mono" style="color:var(--ink3)">#${esc(folio(a))}</span><span style="flex:1;font-size:12px;color:var(--ink3)">${fmtDT(tsA(a))}${a.items?` · ${a.items.length} equipo(s)`:""}</span><span class="badge ${c}">${e}</span></div>`;}).join("")}</div>`;
+  root.innerHTML=h;
+  window._pend=pend;
 }
+function doPend(i){const p=window._pend[i];if(!p)return;({confirmarSalida:formConfirmar,confirmarTraspaso:formConfirmar,revisar:formRevision,resolver:formResolver})[p.acc](p.a.id);}
+function updateBadge(){const n=pendientes().length;const b=document.getElementById("badge-mis");if(b){b.style.display=n?"":"none";b.textContent=n;}}
 
-/* RENDER PANEL */
-function renderPanel(){
+/* ════════════════════ FORMULARIOS DE ACTAS ════════════════════ */
+function showForm(title,body,foot,wide){
+  document.getElementById("modal-title").textContent=title;
+  document.getElementById("mbody").innerHTML=body;
+  document.getElementById("mfoot").innerHTML=foot||"";
+  document.querySelector("#mbg .modal").style.maxWidth=wide?"780px":"640px";
+  document.getElementById("mbg").classList.add("open");
+}
+function chkRows(editable,removable){
+  if(!F.items.length)return`<p class="form-hint" style="margin:0">Aún no has agregado equipos.</p>`;
+  return F.items.map((st,i)=>{
+    const inv=invById(st.id)||{nombre:st.nombre};
+    return`<div class="chk-row${st.estado==="novedad"?" nov":""}"><div class="chk-top"><span class="eq-tag ${eqCls(inv.categoria)}">${esc(inv.nombre)}</span><span class="chk-name">${esc(inv.descripcion||"")}${inv.serie?` · <span class="mono">${esc(inv.serie)}</span>`:""}</span>
+    ${editable?`<div class="seg"><button type="button" class="${st.estado==="ok"?"on-ok":""}" onclick="setChk(${i},'ok')">✓ Igual</button><button type="button" class="${st.estado==="novedad"?"on-nov":""}" onclick="setChk(${i},'novedad')">Novedad</button></div>`:""}
+    ${removable?`<button class="btn-del" onclick="rmFItem(${i})" aria-label="Quitar">&#10005;</button>`:""}</div>
+    <div class="chk-desc"><strong>Estado registrado:</strong> ${esc(st.registro||estadoVigente(inv))}${inv.incluye?`<br><strong>Incluye:</strong> ${esc(inv.incluye)}`:""}</div>
+    ${st.estado==="novedad"?`<input class="sw-inp" style="margin-top:8px" placeholder="¿Qué cambió? (falta algo, daño nuevo, no funciona…)" value="${esc(st.nota||"")}" oninput="F.items[${i}].nota=this.value">`:""}</div>`;
+  }).join("");
+}
+function setChk(i,v){F.items[i].estado=v;if(v==="ok")F.items[i].nota="";refreshItems();if(v==="novedad")setTimeout(()=>{const r=document.querySelectorAll("#f-items .chk-row")[i];r&&r.querySelector("input")?.focus();},20);}
+function rmFItem(i){F.items.splice(i,1);refreshItems();}
+function refreshItems(){const el=document.getElementById("f-items");if(el)el.innerHTML=chkRows(F.editable!==false,F.removable);const c=document.getElementById("f-count");if(c)c.textContent=F.items.length?`(${F.items.length})`:"";}
+function itemState(inv){return{id:inv.id,nombre:inv.nombre,estado:"ok",nota:"",registro:estadoVigente(inv)};}
+function escalaOptions(exclude,selected){
+  const list=escala().filter(p=>lc(p.email)!==lc(exclude));
+  return list.map(p=>`<option value="${esc(p.email)}" ${lc(p.email)===lc(selected)?"selected":""}>${p.entrega}. ${esc(p.nombre)}</option>`).join("");
+}
+function declBox(id,text){return`<label class="decl"><input type="checkbox" id="${id}"><span>${esc(text)}</span></label>`;}
+function validateItems(){
+  if(!F.items.length){toast("Agrega al menos un equipo.","err");return false;}
+  const sinNota=F.items.find(i=>i.estado==="novedad"&&!String(i.nota||"").trim());
+  if(sinNota){toast(`Describe la novedad de ${sinNota.nombre}.`,"err");return false;}
+  return true;
+}
+const itemsOut=()=>F.items.map(i=>({id:i.id,nombre:i.nombre,estado:i.estado,nota:String(i.nota||"").trim(),registro:i.registro||""}));
+async function submitWith(btnId,fn){const b=document.getElementById(btnId);if(b){b.disabled=true;b.textContent="Guardando…";}try{const id=await fn();closeModal();toast(id?`Acta #${folio({id})} firmada y guardada.`:"Guardado.");}catch(e){toast(fbErr(e),"err");if(b){b.disabled=false;b.textContent="Reintentar";}}}
+
+/* ── 1. SALIDA ── */
+function misionesMias(){
   const hoy=today();
-  const sorted=[...misiones].sort((a,b)=>a.fi.localeCompare(b.fi));
-  const activas=misiones.filter(m=>m.fi<=hoy&&m.ff>=hoy);
-  const proximas=sorted.filter(m=>m.fi>hoy);
-  const cfx=getConflicts();
-  const banner=document.getElementById("fb-banner");
-  if(banner&&!window._fbReady){
-    banner.innerHTML=`<div class="cfg-banner"><strong>Sincronización en tiempo real no activa.</strong> Los datos se guardan solo en este navegador. Para que todos vean los cambios, <a href="#" onclick="showFbInstructions();return false" style="color:var(--butter-d);font-weight:600">configura Firebase →</a></div>`;
-  }else if(banner)banner.innerHTML="";
-  document.getElementById("metrics").innerHTML=[
-    {l:"Total misiones",v:misiones.length,c:"sky"},
-    {l:"Activas hoy",v:activas.length,c:"sage"},
-    {l:"Conflictos",v:cfx.length,c:cfx.length?"rose":"sage"},
-    {l:"Próximas",v:proximas.length,c:"lav"}
-  ].map(m=>`<div class="metric card-${m.c}"><div class="metric-label">${m.l}</div><div class="metric-val">${m.v}</div></div>`).join("");
-  document.getElementById("cfx-block").innerHTML=cfx.length
-    ?`<div class="card card-peach" style="margin-bottom:1rem"><div class="sec-title" style="margin-bottom:.75rem">Conflictos detectados</div>${cfx.map(c=>`<div class="cfx-item"><div class="cfx-dot"></div><div><strong>${c.a.lugar}</strong> (${fmt(c.a.fi)} ${fmtT(c.a.hs)} → ${fmt(c.a.ff)} ${fmtT(c.a.hl)}) &amp; <strong>${c.b.lugar}</strong> (${fmt(c.b.fi)} ${fmtT(c.b.hs)} → ${fmt(c.b.ff)} ${fmtT(c.b.hl)})<br><span style="font-size:12px">Comparten: ${c.shared.join(", ")}</span></div></div>`).join("")}</div>`:"";
-  const ab=document.getElementById("active-block");
-  ab.innerHTML=`<div class="sec-title" style="margin-bottom:.75rem">En campo hoy</div>`;
-  ab.innerHTML+=activas.length?activas.map(m=>`<div class="tl-item" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'><div class="tl-dates">${fmtT(m.hs)||"—"}<br>${fmtT(m.hl)||"—"}</div><div><div class="tl-lugar">${m.lugar} <span class="badge b-butter" style="font-size:10px">${m.proyecto}</span></div><div class="tl-meta">${m.colabs.join(", ")}</div></div></div>`).join(""):`<p style="font-size:13px;color:var(--ink3)">Ninguna misión activa hoy.</p>`;
-  const ub=document.getElementById("upcoming-block");
-  ub.innerHTML=`<div class="sec-title" style="margin-bottom:.75rem">Próximas misiones</div>`;
-  ub.innerHTML+=proximas.length?proximas.slice(0,6).map(m=>`<div class="tl-item" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'><div class="tl-dates">${fmt(m.fi)}<br><span style="font-family:'DM Mono',monospace">${fmtT(m.hs)||"—"}</span></div><div><div class="tl-lugar">${m.lugar} ${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand" style="font-size:10px">${m.proyecto}</span>`:""}</div><div class="tl-meta">${m.colabs.join(", ")}</div></div></div>`).join(""):`<p style="font-size:13px;color:var(--ink3)">No hay misiones próximas.</p>`;
+  return misiones.filter(m=>(m.colabs||[]).includes(ME.nombre)&&m.ff>=addDays(hoy,-2)&&m.fi<=addDays(hoy,10)).sort((a,b)=>a.fi.localeCompare(b.fi));
+}
+function formSalida(prefMisionId){
+  if(!escala().filter(p=>lc(p.email)!==ME.email).length){toast("No hay personas en la escala de entrega. Revísalo en Gestión.","err");return;}
+  const mm=misionesMias();
+  const mId=prefMisionId!==undefined?prefMisionId:(mm[0]?.id||"");
+  F={tipo:"salida",items:[],removable:true,misionId:mId};
+  const firstVal=escala().find(p=>lc(p.email)!==ME.email);
+  showForm("Retirar equipo",`
+    <div class="fg" style="margin-bottom:12px"><label>¿Para qué misión?</label>
+      <select id="f-mision" onchange="onSalidaMision()"><option value="">Sin misión: uso en oficina u otro</option>${mm.map(m=>`<option value="${m.id}" ${m.id===mId?"selected":""}>${esc(m.lugar)} · ${fmt(m.fi)} → ${fmt(m.ff)}</option>`).join("")}</select></div>
+    <div class="fg" id="f-motivo-wrap" style="margin-bottom:12px;${mId?"display:none":""}"><label>Motivo</label><input id="f-motivo" placeholder="Ej. entrevista en el piso 5"></div>
+    <div id="f-mnote"></div>
+    <div class="fg" style="margin-bottom:8px"><label>Equipos <span id="f-count"></span></label>
+      <div class="sw"><input class="sw-inp" id="fx-search" placeholder="+ Agregar equipo (busca por nombre)…" autocomplete="off"><div class="sdrop" id="fx-drop"></div></div></div>
+    <p class="form-hint" style="margin:6px 0 10px">Revisa cada equipo contra su estado registrado. Si todo está igual, no tienes que hacer nada más. Si algo cambió, toca “Novedad” y escríbelo.</p>
+    <div id="f-items"></div>
+    <div class="form-grid" style="margin-top:14px">
+      <div class="fg"><label>¿Quién te entrega?</label><select id="f-val">${escalaOptions(ME.email,firstVal?.email)}</select></div>
+      <div class="fg"><label>Devolución prevista</label><input type="date" id="f-prev" value="${today()}"></div>
+    </div>
+    ${declBox("f-decl",DECL_SALIDA)}`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" id="f-go" onclick="submitSalida()">Firmar y recibir</button>`,true);
+  setupDrop("fx-search","fx-drop",q=>pickerItems(q,"salida"));
+  onSalidaMision();
+}
+function pickerItems(q,mode){
+  const cust=custodia();
+  return inventario.filter(it=>activoInv(it)&&!F.items.some(x=>x.id===it.id)&&(it.nombre+" "+(it.descripcion||"")+" "+(it.categoria||"")).toLowerCase().includes(q))
+    .sort((a,b)=>(a.categoria||"").localeCompare(b.categoria||"")||a.nombre.localeCompare(b.nombre))
+    .map(it=>{
+      const c=cust[it.id];
+      let badge=`<span class="badge b-sage" style="font-size:10px">En armario</span>`,off=false;
+      if(c){badge=`<span class="badge b-rose" style="font-size:10px">Lo tiene ${esc(c.nombre)}</span>`;off=true;}
+      else if(it.estado==="dañado"){badge=`<span class="badge b-rose" style="font-size:10px">Dañado</span>`;off=true;}
+      else if(it.estado==="regular")badge=`<span class="badge b-butter" style="font-size:10px">En armario · regular</span>`;
+      return{off,html:`<span><span class="eq-tag ${eqCls(it.categoria)}">${esc(it.nombre)}</span> <span style="font-size:11px;color:var(--ink3)">${esc(it.descripcion||"")}</span></span>${badge}`,onSelect:()=>{F.items.push(itemState(it));refreshItems();}};
+    });
+}
+function onSalidaMision(){
+  const sel=document.getElementById("f-mision");if(!sel)return;
+  const m=misiones.find(x=>x.id===sel.value);
+  document.getElementById("f-motivo-wrap").style.display=m?"none":"";
+  const note=document.getElementById("f-mnote");
+  if(m){
+    const cust=custodia();const ocup=[];
+    F.items=F.items.filter(i=>i.manual);
+    for(const n of m.equipo||[]){
+      const it=invByName(n);if(!it||F.items.some(x=>x.id===it.id))continue;
+      if(cust[it.id]){ocup.push(`${n} (lo tiene ${cust[it.id].nombre})`);continue;}
+      if(it.estado==="dañado"){ocup.push(`${n} (dañado)`);continue;}
+      F.items.push(itemState(it));
+    }
+    document.getElementById("f-prev").value=nextBusinessDay(m.ff);
+    note.innerHTML=ocup.length?`<div class="alert alert-warn">No se cargaron: ${ocup.map(esc).join(" · ")}. Si te lo pasa otra persona, usa “Recibir de un compañero”.</div>`:"";
+  }else{note.innerHTML="";document.getElementById("f-prev").value=today();}
+  refreshItems();
+}
+function submitSalida(){
+  if(!validateItems())return;
+  const m=misiones.find(x=>x.id===document.getElementById("f-mision").value);
+  const motivo=(document.getElementById("f-motivo")?.value||"").trim();
+  if(!m&&!motivo){toast("Escribe el motivo o elige una misión.","err");return;}
+  const val=document.getElementById("f-val").value;
+  if(!val){toast("Elige quién te entrega.","err");return;}
+  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
+  const cust=custodia();const taken=F.items.find(i=>cust[i.id]);
+  if(taken){toast(`${taken.nombre} ya está a cargo de ${cust[taken.id].nombre}.`,"err");return;}
+  submitWith("f-go",()=>addActa({tipo:"salida",items:itemsOut(),mision:m?{id:m.id,lugar:m.lugar,fi:m.fi,ff:m.ff}:null,motivo:m?"":motivo,contraparte:{email:val,nombre:nombreDe(val)},prevista:document.getElementById("f-prev").value||"",declaracion:DECL_SALIDA}));
 }
 
-/* RENDER MISIONES */
-function renderMisiones(){
-  const cfx=getConflicts();
-  const cfxIds=new Set(cfx.flatMap(c=>[c.a.id,c.b.id]));
-  const cutoff=today().slice(0,7)+"-01"; // first day of current month
-  const active=misiones.filter(m=>m.ff>=cutoff);
-  const archived=misiones.filter(m=>m.ff<cutoff).length;
-  const sorted=[...active].sort((a,b)=>a.fi.localeCompare(b.fi));
-  const arcNote=archived?`<div class="alert alert-info" style="margin-bottom:1rem">${archived} misión${archived!==1?"es":""} archivada${archived!==1?"s":""} en el Historial → ve a la pestaña <strong>Historial</strong> para consultarlas.</div>`:"";
-  document.getElementById("arc-note").innerHTML=arcNote;
-  document.getElementById("mission-tbl").innerHTML=
-    `<thead><tr><th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead><tbody>`+
-    sorted.map(m=>`<tr>
-      <td><div style="font-weight:600">${m.lugar}</div><div style="font-size:12px;color:var(--ink3)">${m.colabs.join(", ")}</div>${cfxIds.has(m.id)?`<span class="badge b-rose" style="font-size:10px;margin-top:4px">conflicto</span>`:""}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
-      <td style="font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
-      <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${m.proyecto}</span>`:""}</td>
-      <td style="max-width:280px">${m.equipo.length?m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${e}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
-      <td style="font-size:12px;color:var(--ink2);max-width:200px">${(()=>{const auto=autoNotas(m);const manual=m.notas||"";if(auto&&manual)return`<span style="color:var(--ink3)">${auto}</span><br>${manual}`;if(auto)return`<span style="color:var(--ink3)">${auto}</span>`;return manual;})()}</td>
-      <td style="white-space:nowrap"><button class="btn-sm" onclick='openModal(misiones.find(x=>x.id=="${m.id}"))'>Editar</button> <button class="btn-del" onclick='delMision("${m.id}")'>&#10005;</button></td>
-    </tr>`).join("")+"</tbody>";
+/* ── 2. DEVOLUCIÓN ── */
+function formDevolucion(){
+  const mine=misItems(ME.email).filter(m=>m.st==="fuera");
+  if(!mine.length){toast("No tienes equipo pendiente por devolver.");return;}
+  F={tipo:"devolucion",items:mine.map(m=>({...itemState(m.inv||{id:m.id,nombre:m.id}),sel:true})),removable:true};
+  const firstVal=escala().find(p=>lc(p.email)!==ME.email);
+  showForm("Devolver equipo",`
+    <p class="form-hint">Están todos los equipos a tu cargo. Quita (✕) los que todavía no devuelves. Toca “Novedad” si algo volvió distinto a como lo recibiste.</p>
+    <div class="lbl" style="margin-bottom:6px">Equipos que devuelvo <span id="f-count"></span></div>
+    <div id="f-items"></div>
+    <div class="lbl" style="margin:14px 0 4px">Lista de devolución</div>
+    ${CHECK_DEV.map(([k,t])=>`<label class="chkl"><input type="checkbox" id="f-ck-${k}"><span>${esc(t)}</span></label>`).join("")}
+    <div class="form-grid" style="margin-top:12px">
+      <div class="fg"><label>¿A quién se lo entregas?</label><select id="f-val">${escalaOptions(ME.email,firstVal?.email)}</select></div>
+      <div class="fg"><label>Comentario (opcional)</label><input id="f-notas" placeholder="Algo que deba saber quien recibe"></div>
+    </div>
+    ${declBox("f-decl",DECL_DEV)}`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-ok" id="f-go" onclick="submitDevolucion()">Firmar devolución</button>`,true);
+  refreshItems();
+}
+function submitDevolucion(){
+  if(!validateItems())return;
+  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
+  const checklist={};CHECK_DEV.forEach(([k])=>checklist[k]=!!document.getElementById("f-ck-"+k).checked);
+  const val=document.getElementById("f-val").value;
+  submitWith("f-go",()=>addActa({tipo:"devolucion",items:itemsOut(),checklist,contraparte:{email:val,nombre:nombreDe(val)},notas:document.getElementById("f-notas").value.trim(),declaracion:DECL_DEV}));
 }
 
-/* RENDER INVENTARIO */
-function renderInv(){
-  const hoy=today(),hn=new Date().toTimeString().slice(0,5),now=hoy+"T"+hn;
-  const byCat={};
-  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it);}
-  let html="";
-  for(const[cat,items]of Object.entries(byCat)){
-    html+=`<div class="cat-div">${cat}</div>`;
-    for(const it of items){
-      const ahora=misiones.filter(m=>m.equipo.includes(it.nombre)&&dtStr(m.fi,m.hs)<=now&&now<=dtStr(m.ff,m.hl||"23:59"));
-      const prox=[...misiones].filter(m=>m.equipo.includes(it.nombre)&&dtStr(m.fi,m.hs)>now).sort((a,b)=>dtStr(a.fi,a.hs).localeCompare(dtStr(b.fi,b.hs)))[0];
-      html+=`<div class="inv-item"><div class="inv-dot" style="background:${ahora.length?"var(--rose)":"var(--sage)"}"></div><span style="font-weight:600;min-width:120px">${it.nombre}</span><span class="badge ${eClr[it.estado]||"b-sand"}">${it.estado}</span><span class="badge ${ahora.length?"b-rose":"b-sage"}" style="margin-left:4px">${ahora.length?`En campo — ${ahora.map(u=>u.lugar).join(", ")}`:"Disponible"}</span><span style="font-size:12px;color:var(--ink3);margin-left:auto">${prox?`Próximo: ${prox.lugar} (${fmt(prox.fi)} ${fmtT(prox.hs)})`:"Sin uso programado"}</span></div>`;
+/* ── 3. TRASPASO ── */
+function formTraspaso(){
+  const cust=custodia();
+  const holders={};
+  for(const[id,c]of Object.entries(cust))if(lc(c.email)!==ME.email&&c.st==="fuera"){(holders[lc(c.email)]=holders[lc(c.email)]||{nombre:c.nombre,email:lc(c.email),items:[]}).items.push(id);}
+  const hs=Object.values(holders);
+  if(!hs.length){toast("Nadie tiene equipo a su cargo en este momento.");return;}
+  F={tipo:"traspaso",items:[],removable:true,holders};
+  const mm=misionesMias();
+  showForm("Recibir equipo de un compañero",`
+    <div class="fg" style="margin-bottom:12px"><label>¿Quién te entrega?</label><select id="f-de" onchange="onTraspasoDe()"><option value="">Elige la persona…</option>${hs.map(h=>`<option value="${esc(h.email)}">${esc(h.nombre)} (${h.items.length} equipo(s))</option>`).join("")}</select></div>
+    <div id="f-de-items"></div>
+    <div class="lbl" style="margin:10px 0 6px">Equipos que recibo <span id="f-count"></span></div>
+    <div id="f-items"></div>
+    <div class="form-grid" style="margin-top:12px">
+      <div class="fg"><label>Misión (opcional)</label><select id="f-mision" onchange="onTraspasoMision()"><option value="">Sin misión</option>${mm.map(m=>`<option value="${m.id}">${esc(m.lugar)} · ${fmt(m.fi)} → ${fmt(m.ff)}</option>`).join("")}</select></div>
+      <div class="fg"><label>Devolución prevista</label><input type="date" id="f-prev" value="${today()}"></div>
+    </div>
+    <div class="alert alert-info" style="margin-top:4px">La persona que te entrega debe confirmar el traspaso en su app. Así su responsabilidad termina y empieza la tuya.</div>
+    ${declBox("f-decl",DECL_TRAS)}`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" id="f-go" onclick="submitTraspaso()">Firmar y recibir</button>`,true);
+  refreshItems();
+}
+function onTraspasoDe(){
+  const e=document.getElementById("f-de").value;F.items=[];
+  const h=F.holders[e];const box=document.getElementById("f-de-items");
+  if(!h){box.innerHTML="";refreshItems();return;}
+  box.innerHTML=`<div class="lbl" style="margin-bottom:6px">Toca los que recibes</div><div style="margin-bottom:6px">${h.items.map(id=>{const inv=invById(id);return`<button type="button" class="chip" style="cursor:pointer" id="tr-${id}" onclick="toggleTr('${id}')">${esc(inv?.nombre||id)}</button>`;}).join("")}</div><button class="btn-sm" onclick="h_all()">Recibo todos</button>`;
+  refreshItems();
+}
+function toggleTr(id){const i=F.items.findIndex(x=>x.id===id);if(i>=0)F.items.splice(i,1);else{const inv=invById(id);if(inv)F.items.push(itemState(inv));}paintTr();refreshItems();}
+function h_all(){const e=document.getElementById("f-de").value;const h=F.holders[e];if(!h)return;h.items.forEach(id=>{if(!F.items.some(x=>x.id===id)){const inv=invById(id);if(inv)F.items.push(itemState(inv));}});paintTr();refreshItems();}
+function paintTr(){document.querySelectorAll("[id^=tr-]").forEach(b=>{const on=F.items.some(x=>"tr-"+x.id===b.id);b.className="chip"+(on?"":" chip-c");b.style.opacity=on?"1":".6";});}
+const _rmFItem=rmFItem;rmFItem=function(i){_rmFItem(i);if(F&&F.tipo==="traspaso")paintTr();};
+function onTraspasoMision(){const m=misiones.find(x=>x.id===document.getElementById("f-mision").value);document.getElementById("f-prev").value=m?nextBusinessDay(m.ff):today();}
+function submitTraspaso(){
+  const de=document.getElementById("f-de").value;
+  if(!de){toast("Elige quién te entrega.","err");return;}
+  if(!validateItems())return;
+  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
+  const m=misiones.find(x=>x.id===document.getElementById("f-mision").value);
+  const cust=custodia();
+  const prev=[...new Set(F.items.map(i=>cust[i.id]?.actaId).filter(Boolean))];
+  submitWith("f-go",()=>addActa({tipo:"traspaso",items:itemsOut(),de:{email:de,nombre:nombreDe(de)},contraparte:{email:de,nombre:nombreDe(de)},actasPrevias:prev,mision:m?{id:m.id,lugar:m.lugar,fi:m.fi,ff:m.ff}:null,prevista:document.getElementById("f-prev").value||"",declaracion:DECL_TRAS}));
+}
+
+/* ── 4. NOVEDAD EN CAMPO ── */
+function formNovedad(){
+  const mine=misItems(ME.email);
+  if(!mine.length){toast("No tienes equipo a tu cargo.");return;}
+  F={tipo:"novedad",items:[]};
+  const now=new Date();const local=`${today()}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  showForm("Reportar novedad",`
+    <p class="form-hint">Repórtala apenas ocurra. Reportar a tiempo te protege: los daños por uso normal en jornada laboral y los robos se gestionan con el seguro.</p>
+    <div class="lbl" style="margin-bottom:6px">¿Qué equipo?</div>
+    <div style="margin-bottom:12px">${mine.map(m=>`<label class="chkl"><input type="checkbox" class="nv-it" value="${m.id}"><span><span class="eq-tag ${eqCls(m.inv?.categoria)}">${esc(m.inv?.nombre||m.id)}</span> ${esc(m.inv?.descripcion||"")}</span></label>`).join("")}</div>
+    <div class="form-grid">
+      <div class="fg"><label>¿Qué pasó?</label><select id="nv-clase" onchange="document.getElementById('nv-robo').style.display=this.value==='robo'?'':'none'"><option value="daño">Daño</option><option value="falla">Falla (no funciona bien)</option><option value="pérdida">Pérdida</option><option value="robo">Robo</option></select></div>
+      <div class="fg"><label>¿Cuándo?</label><input type="datetime-local" id="nv-cuando" value="${local}"></div>
+    </div>
+    <div class="alert alert-warn" id="nv-robo" style="display:none">En caso de robo pon la denuncia ante la Policía y guarda el número: el seguro lo exige.</div>
+    <div class="fg" style="margin-bottom:12px"><label>Cuéntalo: qué pasó, cómo y dónde</label><textarea id="nv-desc" placeholder="Ej. Durante la grabación en Tumaco el trípode se cayó por el viento y se rompió la zapata."></textarea></div>
+    ${declBox("f-decl","Declaro que lo que reporto es verdad.")}`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-warn" id="f-go" onclick="submitNovedad()">Firmar reporte</button>`);
+}
+function submitNovedad(){
+  const ids=[...document.querySelectorAll(".nv-it:checked")].map(x=>x.value);
+  const desc=document.getElementById("nv-desc").value.trim();
+  if(!ids.length){toast("Elige al menos un equipo.","err");return;}
+  if(!desc){toast("Describe lo que pasó.","err");return;}
+  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
+  const clase=document.getElementById("nv-clase").value;
+  submitWith("f-go",()=>addActa({tipo:"novedad",clase,cuando:document.getElementById("nv-cuando").value,descripcion:desc,items:ids.map(id=>{const inv=invById(id);return{id,nombre:inv?.nombre||id,estado:"novedad",nota:`${clase}: ${desc}`,registro:estadoVigente(inv)};})}));
+}
+
+/* ── 5. CONFIRMAR (salida / traspaso) ── */
+function formConfirmar(actaId){
+  const a=actaById(actaId);if(!a)return;
+  const esTr=a.tipo==="traspaso";
+  F={tipo:"confirmacion"};
+  showForm(esTr?"Confirmar traspaso":"Confirmar entrega",`
+    ${resumenActa(a)}
+    <div class="alert alert-info">${esTr?`Confirma que le entregaste estos equipos a <strong>${esc(a.firmante.nombre)}</strong>. Si no estás de acuerdo con algo de lo que registró, elige “No estoy de acuerdo” y explica.`:`Confirma que le entregaste estos equipos a <strong>${esc(a.firmante.nombre)}</strong> y que lo que marcó es correcto.`}</div>
+    <div class="fg"><label>Observación (obligatoria si no estás de acuerdo)</label><textarea id="cf-nota"></textarea></div>`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-warn" id="f-go2" onclick="submitConfirmar('${a.id}','observaciones')">No estoy de acuerdo</button><button class="btn btn-ok" id="f-go" onclick="submitConfirmar('${a.id}','conforme')">${esTr?"Sí, se lo entregué":"Entregado conforme"}</button>`,true);
+}
+function submitConfirmar(id,resultado){
+  const nota=document.getElementById("cf-nota").value.trim();
+  if(resultado==="observaciones"&&!nota){toast("Escribe tu observación.","err");return;}
+  submitWith(resultado==="conforme"?"f-go":"f-go2",()=>addActa({tipo:"confirmacion",ref:id,resultado,nota}));
+}
+
+/* ── 6. REVISAR DEVOLUCIÓN ── */
+function formRevision(actaId){
+  const a=actaById(actaId);if(!a)return;
+  F={tipo:"revision",items:(a.items||[]).map(i=>({id:i.id,nombre:i.nombre,estado:i.estado,nota:i.nota,registro:i.estado==="novedad"?`Quien devuelve reportó: ${i.nota}`:(i.registro||estadoVigente(invById(i.id)))})),removable:false};
+  const ck=a.checklist||{};
+  showForm("Revisar devolución",`
+    <p class="form-hint"><strong>${esc(a.firmante.nombre)}</strong> devolvió estos equipos (${fmtDT(tsA(a))}). Revísalos físicamente. Si todo está bien, solo aprueba.</p>
+    ${a.notas?`<div class="alert alert-info">Comentario: ${esc(a.notas)}</div>`:""}
+    <div style="font-size:12px;margin-bottom:10px">${CHECK_DEV.map(([k,t])=>`<div>${ck[k]?"✅":"⬜"} ${esc(t)}</div>`).join("")}</div>
+    <div id="f-items"></div>
+    <div class="fg" style="margin-top:10px"><label>Observación (opcional)</label><input id="rv-nota"></div>`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-ok" id="f-go" onclick="submitRevision('${a.id}')">Aprobar recepción</button>`,true);
+  refreshItems();
+}
+function submitRevision(id){
+  if(!validateItems())return;
+  submitWith("f-go",()=>addActa({tipo:"revision",ref:id,items:itemsOut(),nota:document.getElementById("rv-nota").value.trim()}));
+}
+
+/* ── 7. RESOLVER (novedad / corrección) ── */
+function formResolver(actaId){
+  const a=actaById(actaId);if(!a)return;
+  if(a.tipo==="enmienda"){
+    const orig=actaById(a.ref);
+    showForm("Revisar solicitud de corrección",`
+      <div class="alert alert-warn"><strong>${esc(a.firmante.nombre)}</strong> pide corregir el acta #${esc(folio(orig))}:<br>“${esc(a.texto)}”</div>
+      ${orig?resumenActa(orig):""}
+      <p class="form-hint">El acta original no cambia nunca. Si apruebas, la corrección queda pegada al acta y se muestra junto a ella.</p>
+      <div class="fg"><label>Nota de la decisión</label><textarea id="rs-nota"></textarea></div>`,
+      `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-warn" id="f-go2" onclick="submitResolEnm('${a.id}','rechazada')">Rechazar</button><button class="btn btn-ok" id="f-go" onclick="submitResolEnm('${a.id}','aprobada')">Aprobar corrección</button>`,true);
+    return;
+  }
+  const afect=[...(a.items||[]).filter(i=>i.estado==="novedad"),...(a.faltantes||[]).map(f=>({...f,nota:"No estaba en el armario durante el conteo."}))];
+  const responsableDef=(a.tipo==="revision"||a.tipo==="confirmacion")?(actaById(a.ref)?.firmante):a.tipo==="traspaso"?a.de:a.tipo==="conteo"?null:a.firmante;
+  const saleDeCirculacion=a.tipo==="novedad"&&(a.clase==="pérdida"||a.clase==="robo");
+  const cust=custodia();
+  F={tipo:"resolucion",afect};
+  showForm("Resolver novedad",`
+    ${resumenActa(a)}
+    <div class="lbl" style="margin:8px 0 6px">Decisión</div>
+    <label class="chkl"><input type="radio" name="rs-dec" value="seguro" checked><span><strong>Uso normal en jornada laboral o robo.</strong> Se revisa el seguro y la persona no responde.</span></label>
+    <label class="chkl"><input type="radio" name="rs-dec" value="descuido"><span><strong>Pérdida o daño por descuido.</strong> Responde la persona: <select id="rs-resp" style="font-size:13px;padding:3px 6px;border-radius:6px;border:1px solid var(--sand)">${personas.filter(p=>p.activo).map(p=>`<option value="${esc(p.email)}" ${responsableDef&&lc(p.email)===lc(responsableDef.email)?"selected":""}>${esc(p.nombre)}</option>`).join("")}</select></span></label>
+    <label class="chkl"><input type="radio" name="rs-dec" value="registro"><span><strong>Solo actualizar el registro.</strong> El estado ya era así o no hay responsabilidad.</span></label>
+    ${afect.length?`<div class="lbl" style="margin:12px 0 6px">Actualizar el inventario</div>${afect.map((it,i)=>{const inv=invById(it.id)||{};return`<div class="chk-row"><div class="chk-top"><span class="eq-tag ${eqCls(inv.categoria)}">${esc(inv.nombre||it.nombre)}</span><span class="chk-name">Novedad: ${esc(it.nota||"")}</span><select id="rs-est-${i}" style="font-size:12px;padding:4px 6px;border-radius:6px;border:1px solid var(--sand)">${ESTADOS.map(e=>`<option ${e===((a.clase==="pérdida"||a.clase==="robo")?"perdido":inv.estado)?"selected":""}>${e}</option>`).join("")}</select></div>
+      <textarea id="rs-det-${i}" style="width:100%;margin-top:8px;border:1.5px solid var(--sand);border-radius:6px;padding:6px 8px;font-size:12px;min-height:48px">${esc([inv.detalle,it.nota].filter(Boolean).join(" "))}</textarea>
+      ${cust[it.id]&&saleDeCirculacion?`<label class="chkl" style="font-size:12px"><input type="checkbox" id="rs-cierra-${i}" checked><span>El equipo sale de circulación (pérdida o robo): cerrar la custodia de ${esc(cust[it.id].nombre)}.</span></label>`:""}</div>`;}).join("")}`:""}
+    <div class="fg" style="margin-top:10px"><label>Nota de la decisión</label><textarea id="rs-nota" placeholder="Qué se decidió y por qué"></textarea></div>`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-ok" id="f-go" onclick="submitResol('${a.id}')">Guardar resolución</button>`,true);
+}
+function submitResolEnm(id,decision){
+  const nota=document.getElementById("rs-nota").value.trim();
+  if(decision==="rechazada"&&!nota){toast("Explica por qué se rechaza.","err");return;}
+  submitWith(decision==="aprobada"?"f-go":"f-go2",()=>addActa({tipo:"resolucion",ref:id,decision,nota}));
+}
+function submitResol(id){
+  const decision=document.querySelector("input[name=rs-dec]:checked").value;
+  const nota=document.getElementById("rs-nota").value.trim();
+  if(!nota){toast("Escribe la nota de la decisión.","err");return;}
+  const respEmail=document.getElementById("rs-resp").value;
+  const cambios=[],cierra=[];
+  (F.afect||[]).forEach((it,i)=>{
+    const inv=invById(it.id);if(!inv)return;
+    const est=document.getElementById("rs-est-"+i).value,det=document.getElementById("rs-det-"+i).value.trim();
+    if(est!==inv.estado||det!==(inv.detalle||""))cambios.push({id:it.id,nombre:inv.nombre,antes:{estado:inv.estado,detalle:inv.detalle||""},despues:{estado:est,detalle:det}});
+    if(document.getElementById("rs-cierra-"+i)?.checked)cierra.push(it.id);
+  });
+  submitWith("f-go",async()=>{
+    const rid=await addActa({tipo:"resolucion",ref:id,decision,responsable:decision==="descuido"?{email:respEmail,nombre:nombreDe(respEmail)}:null,nota,cambios,cierra});
+    if(cambios.length){cambios.forEach(c=>{const inv=invById(c.id);if(inv){inv.estado=c.despues.estado;inv.detalle=c.despues.detalle;}});await saveData(["inventario"]);}
+    return rid;
+  });
+}
+
+/* ── 8. CORRECCIÓN ── */
+function formEnmienda(actaId){
+  const a=actaById(actaId);if(!a)return;
+  showForm("Solicitar corrección",`
+    <p class="form-hint">El acta #${esc(folio(a))} no se puede editar. Escribe qué hay que corregir y por qué. Lo aprueba Nicolás, Laura, Camilo o John (en ese orden de disponibilidad), y nunca la misma persona que lo pide.</p>
+    <div class="fg"><label>Corrección</label><textarea id="en-txt" placeholder="Ej. Marqué el Hollyland 2 pero me llevé el Hollyland 3."></textarea></div>`,
+    `<button class="btn btn-sec" onclick="verActa('${a.id}')">Volver</button><button class="btn btn-pri" id="f-go" onclick="submitEnmienda('${a.id}')">Enviar solicitud</button>`);
+}
+function submitEnmienda(id){const t=document.getElementById("en-txt").value.trim();if(!t){toast("Escribe la corrección.","err");return;}submitWith("f-go",()=>addActa({tipo:"enmienda",ref:id,texto:t}));}
+
+/* ── 9. CONTEO DE ARMARIO ── */
+function formConteo(){
+  const cust=custodia();
+  const esperados=inventario.filter(it=>activoInv(it)&&!cust[it.id]);
+  F={tipo:"conteo",esperados};
+  const byCat={};esperados.forEach(it=>(byCat[it.categoria]=byCat[it.categoria]||[]).push(it));
+  showForm("Conteo de armario",`
+    <p class="form-hint">Marca lo que SÍ está en el armario. Lo que quede sin marcar se reporta como faltante. Hazlo una vez por semana: toma 5 minutos.</p>
+    <button class="btn-sm" style="margin-bottom:8px" onclick="document.querySelectorAll('.ct-it').forEach(x=>x.checked=true)">Marcar todos</button>
+    ${Object.entries(byCat).map(([c,items])=>`<div class="cat-div">${esc(c)}</div>${items.map(it=>`<label class="chkl"><input type="checkbox" class="ct-it" value="${it.id}"><span><strong>${esc(it.nombre)}</strong> <span style="color:var(--ink3);font-size:12px">${esc(it.descripcion||"")}</span></span></label>`).join("")}`).join("")}
+    <div class="fg" style="margin-top:10px"><label>Observación (opcional)</label><input id="ct-nota"></div>`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" id="f-go" onclick="submitConteo()">Firmar conteo</button>`,true);
+}
+function submitConteo(){
+  const ok=new Set([...document.querySelectorAll(".ct-it:checked")].map(x=>x.value));
+  const pres=F.esperados.filter(i=>ok.has(i.id)).map(i=>({id:i.id,nombre:i.nombre}));
+  const falt=F.esperados.filter(i=>!ok.has(i.id)).map(i=>({id:i.id,nombre:i.nombre}));
+  if(falt.length&&!confirm(`Quedan ${falt.length} equipo(s) sin marcar y se reportarán como faltantes. ¿Continuar?`))return;
+  submitWith("f-go",()=>addActa({tipo:"conteo",presentes:pres,faltantes:falt,nota:document.getElementById("ct-nota").value.trim()}));
+}
+
+/* ════════════════════ VER ACTA ════════════════════ */
+function resumenActa(a){
+  const items=a.items||[];
+  return`<div class="card" style="padding:1rem;box-shadow:none;margin-bottom:12px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px"><span class="badge ${TIPO_CLR[a.tipo]}">${TIPO_LBL[a.tipo]}</span><span class="mono">#${esc(folio(a))}</span><span style="font-size:12px;color:var(--ink3)">${fmtDT(tsA(a))} · ${esc(a.firmante.nombre)}</span></div>
+  ${a.de?`<div style="font-size:13px;margin-bottom:6px">Entregó: <strong>${esc(a.de.nombre)}</strong></div>`:""}
+  ${a.descripcion?`<div style="font-size:13px;margin-bottom:6px">${esc(a.clase||"")}: ${esc(a.descripcion)}</div>`:""}
+  ${items.map(i=>`<div style="font-size:13px;padding:3px 0"><span class="eq-tag ${eqCls(invById(i.id)?.categoria)}">${esc(i.nombre)}</span> ${i.estado==="novedad"?`<span class="badge b-rose">Novedad</span> ${esc(i.nota)}`:`<span class="badge b-sage">Igual al registro</span>`}</div>`).join("")}
+  ${(a.faltantes||[]).length?`<div style="font-size:13px;margin-top:6px"><span class="badge b-rose">Faltantes</span> ${a.faltantes.map(f=>esc(f.nombre)).join(", ")}</div>`:""}
+  ${a.nota?`<div style="font-size:13px;margin-top:6px">Observación: ${esc(a.nota)}</div>`:""}</div>`;
+}
+function actaHTML(a,forPrint){
+  const kv=[];
+  kv.push(["Tipo",TIPO_LBL[a.tipo]],["Número","#"+folio(a)],["Fecha y hora (servidor)",fmtDT(tsA(a))],["Firmó",`${a.firmante.nombre} (${a.firmante.email})`]);
+  if(a.contraparte&&a.tipo!=="traspaso")kv.push([a.tipo==="devolucion"?"Entrega a":"Entrega",a.contraparte.nombre]);
+  if(a.de)kv.push(["Recibe de",a.de.nombre]);
+  if(a.mision)kv.push(["Misión",`${a.mision.lugar} (${fmt(a.mision.fi)} → ${fmt(a.mision.ff)})`]);
+  if(a.motivo)kv.push(["Motivo",a.motivo]);
+  if(a.prevista)kv.push(["Devolución prevista",fmtY(a.prevista)]);
+  if(a.clase)kv.push(["Tipo de novedad",a.clase]);
+  if(a.cuando)kv.push(["Cuándo ocurrió",a.cuando.replace("T"," ")]);
+  if(a.ref){const r=actaById(a.ref);kv.push(["Se refiere al acta",r?`#${folio(r)} (${TIPO_LBL[r.tipo]} de ${r.firmante.nombre})`:a.ref]);}
+  if(a.decision)kv.push(["Decisión",{seguro:"Uso normal / robo: se revisa el seguro",descuido:"Descuido: responde "+(a.responsable?.nombre||""),registro:"Solo actualización del registro",aprobada:"Corrección aprobada",rechazada:"Corrección rechazada"}[a.decision]||a.decision]);
+  const[est,cls]=estadoActa(a);
+  let h=`<dl class="kv">${kv.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}<dt>Estado</dt><dd><span class="badge ${cls}">${esc(est)}</span></dd></dl>`;
+  if(a.descripcion)h+=`<div class="alert alert-warn">${esc(a.descripcion)}</div>`;
+  if(a.texto)h+=`<div class="alert alert-warn">Corrección solicitada: “${esc(a.texto)}”</div>`;
+  if((a.items||[]).length)h+=`<div class="tbl-wrap" style="margin-bottom:1rem"><table class="mt"><thead><tr><th>Equipo</th><th>Serie</th><th>Estado registrado en ese momento</th><th>Declaración</th></tr></thead><tbody>${a.items.map(i=>{const inv=invById(i.id);return`<tr><td><strong>${esc(i.nombre)}</strong><div style="font-size:11px;color:var(--ink3)">${esc(inv?.descripcion||"")}</div></td><td class="mono">${esc(inv?.serie||"—")}${inv?.serialUN?`<br>UN ${esc(inv.serialUN)}`:""}</td><td style="font-size:12px;color:var(--ink2);max-width:260px">${esc(i.registro||"—")}</td><td>${i.estado==="novedad"?`<span class="badge b-rose">Novedad</span><div style="font-size:12px;margin-top:3px">${esc(i.nota)}</div>`:`<span class="badge b-sage">Igual al registro</span>`}</td></tr>`;}).join("")}</tbody></table></div>`;
+  if(a.checklist)h+=`<div style="font-size:13px;margin-bottom:1rem">${CHECK_DEV.map(([k,t])=>`<div>${a.checklist[k]?"✅":"⬜"} ${esc(t)}</div>`).join("")}</div>`;
+  if(a.tipo==="conteo")h+=`<div style="font-size:13px;margin-bottom:1rem"><strong>Presentes:</strong> ${(a.presentes||[]).length} · <strong>Faltantes:</strong> ${(a.faltantes||[]).map(f=>esc(f.nombre)).join(", ")||"ninguno"}</div>`;
+  if((a.cambios||[]).length)h+=`<div style="font-size:13px;margin-bottom:1rem"><strong>Cambios al inventario:</strong>${a.cambios.map(c=>`<div>• ${esc(c.nombre)}: ${esc(c.antes.estado)} → <strong>${esc(c.despues.estado)}</strong>. ${esc(c.despues.detalle)}</div>`).join("")}</div>`;
+  if(a.notas)h+=`<div style="font-size:13px;margin-bottom:1rem">Comentario: ${esc(a.notas)}</div>`;
+  if(a.nota)h+=`<div style="font-size:13px;margin-bottom:1rem">Observación: ${esc(a.nota)}</div>`;
+  if(a.declaracion)h+=`<div class="alert alert-info" style="font-size:12px">Declaración firmada: “${esc(a.declaracion)}”</div>`;
+  const resp=respuestas(a.id);
+  if(resp.length){
+    h+=`<div class="lbl" style="margin:12px 0 8px">Lo que pasó después</div>`;
+    h+=resp.map(r=>{
+      let t=`<strong>${esc(TIPO_LBL[r.tipo])}</strong> por ${esc(r.firmante.nombre)} · ${fmtDT(tsA(r))}`;
+      let ok=true;
+      if(r.tipo==="confirmacion"){ok=r.resultado!=="observaciones";t+=ok?" · conforme":" · <strong>con observaciones</strong>";}
+      if(r.tipo==="revision"){const nv=(r.items||[]).filter(i=>i.estado==="novedad");ok=!nv.length;t+=ok?" · todo conforme":" · novedades: "+nv.map(i=>esc(i.nombre+": "+i.nota)).join("; ");}
+      if(r.tipo==="resolucion"){t+=" · "+esc({seguro:"seguro",descuido:"descuido, responde "+(r.responsable?.nombre||""),registro:"actualización de registro",aprobada:"aprobada",rechazada:"rechazada"}[r.decision]||r.decision);}
+      if(r.tipo==="enmienda"){ok=false;const d=respuestas(r.id,"resolucion")[0];t+=`: “${esc(r.texto)}” ${d?`<span class="badge ${d.decision==="aprobada"?"b-sage":"b-rose"}">${d.decision==="aprobada"?"aprobada":"rechazada"} por ${esc(d.firmante.nombre)}</span>`:`<span class="badge b-butter">por aprobar</span>`}`;}
+      if(r.nota)t+=`<div style="font-size:12px;color:var(--ink2)">${esc(r.nota)}</div>`;
+      return`<div class="tl-ev ${ok?"ok":"nov"}">${t}${forPrint?"":` <a style="font-size:11px;color:var(--sky-d);cursor:pointer" onclick="verActa('${r.id}')">ver</a>`}</div>`;
+    }).join("");
+  }
+  return h;
+}
+function verActa(id){
+  const a=actaById(id);if(!a){toast("No se encontró el acta.","err");return;}
+  F=null;
+  const p=pendientes().find(x=>x.a.id===id);
+  const act=p?`<button class="btn btn-pri" onclick="doPendById('${id}')">${p.btn}</button>`:"";
+  const puedeEnm=!["enmienda","resolucion"].includes(a.tipo);
+  showForm(`Acta de ${TIPO_LBL[a.tipo].toLowerCase()} #${folio(a)}`,actaHTML(a),
+    `<button class="btn btn-sec" onclick="imprimirActa('${id}')">Imprimir / PDF</button>${puedeEnm?`<button class="btn btn-sec" onclick="formEnmienda('${id}')">Solicitar corrección</button>`:""}${act}<button class="btn btn-sec" onclick="closeModal()">Cerrar</button>`,true);
+}
+function doPendById(id){const p=pendientes().find(x=>x.a.id===id);if(!p)return;({confirmarSalida:formConfirmar,confirmarTraspaso:formConfirmar,revisar:formRevision,resolver:formResolver})[p.acc](id);}
+function imprimirActa(id){
+  const a=actaById(id);if(!a)return;
+  document.getElementById("print-area").innerHTML=`<div style="font-family:'DM Sans',sans-serif"><div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#888">UNODC Colombia · Comunicaciones · Control de equipos</div><h2 style="margin:6px 0 14px">Acta de ${esc(TIPO_LBL[a.tipo].toLowerCase())} #${esc(folio(a))}</h2>${actaHTML(a,true)}<p style="font-size:10px;color:#888;margin-top:20px">Documento generado el ${fmtDT(Date.now())}. El acta original está guardada en el sistema y no se puede modificar. ID: ${esc(a.id)}</p></div>`;
+  window.print();
+}
+
+/* ════════════════════ REGISTRO ════════════════════ */
+let REG={tipo:"",persona:"",q:""};
+function renderRegistro(){
+  const f=document.getElementById("reg-filters");if(!f)return;
+  if(!f.dataset.ready){
+    f.innerHTML=`<select class="sw-inp" style="width:auto" onchange="REG.tipo=this.value;renderRegistro()"><option value="">Todos los tipos</option>${Object.entries(TIPO_LBL).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select>
+    <select class="sw-inp" style="width:auto" id="reg-per" onchange="REG.persona=this.value;renderRegistro()"></select>
+    <input class="sw-inp" style="width:auto;flex:1;min-width:160px" placeholder="Buscar equipo o número…" oninput="REG.q=this.value.toLowerCase();renderRegistro()">`;
+    f.dataset.ready="1";
+  }
+  const per=document.getElementById("reg-per");const cur=REG.persona;
+  per.innerHTML=`<option value="">Todas las personas</option>`+personas.map(p=>`<option value="${esc(lc(p.email))}" ${lc(p.email)===cur?"selected":""}>${esc(p.nombre)}</option>`).join("");
+  let list=[...actas].sort((a,b)=>tsA(b)-tsA(a));
+  if(REG.tipo)list=list.filter(a=>a.tipo===REG.tipo);
+  if(REG.persona)list=list.filter(a=>lc(a.firmante?.email)===REG.persona||lc(a.de?.email)===REG.persona||lc(a.contraparte?.email)===REG.persona);
+  if(REG.q)list=list.filter(a=>folio(a).toLowerCase().includes(REG.q)||(a.items||[]).some(i=>i.nombre.toLowerCase().includes(REG.q))||(a.mision?.lugar||"").toLowerCase().includes(REG.q));
+  const t=document.getElementById("reg-tbl");
+  if(!list.length){t.innerHTML=`<tbody><tr><td style="color:var(--ink3)">No hay actas${actas.length?" con estos filtros":" todavía"}.</td></tr></tbody>`;return;}
+  t.innerHTML=`<thead><tr><th>Fecha</th><th>Acta</th><th>Tipo</th><th>Firmó</th><th>Equipos</th><th>Estado</th></tr></thead><tbody>${list.map(a=>{const[e,c]=estadoActa(a);return`<tr class="click" onclick="verActa('${a.id}')"><td class="mono" style="white-space:nowrap">${fmtDT(tsA(a))}</td><td class="mono">#${esc(folio(a))}</td><td><span class="badge ${TIPO_CLR[a.tipo]}">${TIPO_LBL[a.tipo]}</span></td><td>${esc(a.firmante?.nombre)}${a.de?`<div style="font-size:11px;color:var(--ink3)">de ${esc(a.de.nombre)}</div>`:""}</td><td style="max-width:280px">${(a.items||[]).map(i=>`<span class="eq-tag ${eqCls(invById(i.id)?.categoria)}">${esc(i.nombre)}</span>`).join("")||(a.ref?`<span style="font-size:12px;color:var(--ink3)">sobre #${esc(folio(actaById(a.ref)))}</span>`:"")}</td><td><span class="badge ${c}">${esc(e)}</span></td></tr>`;}).join("")}</tbody>`;
+}
+
+/* ════════════════════ CALENDARIO ════════════════════ */
+const PROJ_COLORS={"ICBF":"#a8c8dc","MI":"#c8d8c0","CCP":"#c4b8dc","Trata":"#e4c4a8","SIMCI":"#e4d8a8","GC":"#d0d0c8","—":"#d0d0c8"};
+const PROJ_FG={"ICBF":"#1b4f6a","MI":"#3a5830","CCP":"#3e2e6c","Trata":"#7a4520","SIMCI":"#5c4a10","GC":"#505048","—":"#505048"};
+let calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
+function renderCalendar(){
+  const root=document.getElementById("cal-root");if(!root)return;
+  const dayNames=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];const hoy=today();
+  const firstDay=new Date(calYear,calMonth,1),lastDay=new Date(calYear,calMonth+1,0);
+  let startDow=firstDay.getDay();startDow=startDow===0?6:startDow-1;
+  const gridDays=[];for(let i=0;i<startDow;i++)gridDays.push(null);for(let d=1;d<=lastDay.getDate();d++)gridDays.push(d);while(gridDays.length%7!==0)gridDays.push(null);
+  const ds=day=>`${calYear}-${pad(calMonth+1)}-${pad(day)}`;
+  const weeks=[];for(let w=0;w<gridDays.length/7;w++)weeks.push(gridDays.slice(w*7,(w+1)*7));
+  let html=`<div class="cal-nav"><button onclick="calPrev()">← Anterior</button><div class="cal-month">${MESES_L[calMonth]} ${calYear}</div><button onclick="calNext()">Siguiente →</button><button onclick="calToday()" style="margin-left:auto">Hoy</button></div><div style="overflow-x:auto"><div class="cal-grid" style="min-width:620px"><div class="cal-hdr"></div>${dayNames.map(d=>`<div class="cal-hdr">${d}</div>`).join("")}`;
+  for(const week of weeks){
+    const a=week.find(d=>d!==null),b=[...week].reverse().find(d=>d!==null);
+    html+=`<div class="cal-label">${a||""}${b&&b!==a?`–${b}`:""}</div>`;
+    for(const day of week){
+      if(!day){html+=`<div class="cal-cell" style="background:transparent;border-color:transparent"></div>`;continue;}
+      const d=ds(day),isToday=d===hoy,ms=misiones.filter(m=>m.fi<=d&&m.ff>=d);
+      html+=`<div class="cal-cell${isToday?" today":""}"><div style="font-size:10px;font-weight:600;color:${isToday?"var(--sky-d)":"var(--ink3)"};margin-bottom:3px;text-align:right">${day}</div>`;
+      for(const m of ms.slice(0,3))html+=`<div class="cal-bar" style="background:${PROJ_COLORS[m.proyecto]||"#d0d0c8"};color:${PROJ_FG[m.proyecto]||"#505048"}" onclick="openModalId('${m.id}')" title="${esc(m.lugar)} — ${esc((m.colabs||[]).join(", "))}">${esc(m.lugar)}</div>`;
+      if(ms.length>3)html+=`<div style="font-size:9px;color:var(--ink3);text-align:center">+${ms.length-3} más</div>`;
+      html+=`</div>`;
     }
   }
-  document.getElementById("inv-board").innerHTML=html;
+  root.innerHTML=html+"</div></div>";
 }
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+function calToday(){calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderCalendar();}
 
-/* RENDER GESTION */
-function renderGestion(){
-  document.getElementById("colab-list").innerHTML=colaboradores.length
-    ?colaboradores.map((c,i)=>`<div class="colab-row"><div class="avatar">${c.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase()}</div><span style="flex:1">${c}</span><button class="btn-del" onclick="delColab(${i})">&#10005;</button></div>`).join("")
-    :`<p style="font-size:13px;color:var(--ink3)">Sin colaboradores.</p>`;
-  const byCat={};
-  for(const it of inventario){if(!byCat[it.categoria])byCat[it.categoria]=[];byCat[it.categoria].push(it);}
-  let html="";
-  for(const[cat,items]of Object.entries(byCat)){
-    html+=`<div class="cat-div">${cat}</div>`;
-    html+=items.map(it=>`<div class="inv-item"><span style="font-weight:600;flex:1">${it.nombre}</span><span class="badge b-${catClr(cat)}" style="font-size:11px">${it.categoria}</span><span style="font-size:12px;color:var(--ink3);min-width:80px;text-align:right">${it.serie||"—"}</span><span class="badge ${eClr[it.estado]||"b-sand"}">${it.estado}</span><button class="btn-sm" onclick="cycleEstado('${it.id}')">Estado</button><button class="btn-del" onclick="delItem('${it.id}')">&#10005;</button></div>`).join("");
+/* ════════════════════ HISTORIAL ════════════════════ */
+let histFilter="all";
+function renderHistory(){
+  const tabsEl=document.getElementById("hist-tabs"),tblEl=document.getElementById("hist-tbl");if(!tabsEl||!tblEl)return;
+  const cut=today().slice(0,7)+"-01";
+  const months=[...new Set(misiones.filter(m=>m.ff<cut).map(m=>m.ff.slice(0,7)))].sort((a,b)=>b.localeCompare(a));
+  tabsEl.innerHTML=`<div class="filter-tab${histFilter==="all"?" active":""}" onclick="setHistFilter('all')">Todos</div>`+months.map(k=>{const[y,mo]=k.split("-");return`<div class="filter-tab${histFilter===k?" active":""}" onclick="setHistFilter('${k}')">${MESES_L[+mo-1]} ${y}</div>`;}).join("");
+  let filtered=misiones.filter(m=>m.ff<cut);
+  if(histFilter!=="all")filtered=filtered.filter(m=>m.ff.startsWith(histFilter));
+  filtered.sort((a,b)=>b.ff.localeCompare(a.ff));
+  if(!filtered.length){tblEl.innerHTML=`<thead><tr><th>Sin misiones archivadas</th></tr></thead><tbody></tbody>`;return;}
+  tblEl.innerHTML=`<thead><tr><th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th></tr></thead><tbody>`+filtered.map(m=>`<tr>
+    <td><div style="font-weight:600">${esc(m.lugar)}</div><div style="font-size:12px;color:var(--ink3)">${esc((m.colabs||[]).join(", "))}</div></td>
+    <td class="mono" style="white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
+    <td class="mono" style="white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
+    <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${esc(m.proyecto)}</span>`:""}</td>
+    <td style="max-width:260px">${(m.equipo||[]).map(e=>`<span class="eq-tag ${eqCat(e)}">${esc(e)}</span>`).join("")||`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
+    <td style="font-size:12px;color:var(--ink2);max-width:180px">${esc(m.notas||"")}</td></tr>`).join("")+"</tbody>";
+}
+function setHistFilter(f){histFilter=f;renderHistory();}
+
+/* ════════════════════ MISIONES ════════════════════ */
+function overlapDt(a,b){return dtStr(a.fi,a.hs)<dtStr(b.ff,b.hl||"23:59")&&dtStr(a.ff,a.hl||"23:59")>dtStr(b.fi,b.hs);}
+function itemAvailDt(n,fi,hs,ff,hl,skip){const ts=dtStr(fi,hs),te=dtStr(ff,hl||"23:59");const u=misiones.filter(m=>m.id!==skip&&(m.equipo||[]).includes(n)&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs));return{libre:!u.length,donde:u.map(x=>x.lugar)};}
+function autoNotas(m){
+  const out=[];
+  for(const item of m.equipo||[]){
+    const prev=misiones.filter(x=>x.id!==m.id&&(x.equipo||[]).includes(item)&&dtStr(x.ff,x.hl||"23:59")<=dtStr(m.fi,m.hs||"23:59")).sort((a,b)=>dtStr(b.ff,b.hl||"23:59").localeCompare(dtStr(a.ff,a.hl||"23:59")));
+    if(prev.length){const from=prev[0];const fromName=from.colabs.length===1?from.colabs[0]:from.lugar;const toName=m.colabs.length===1?m.colabs[0]:m.lugar;if(fromName!==toName)out.push(`${item}: ${fromName} → ${toName}`);}
   }
-  document.getElementById("inv-gestion").innerHTML=html;
-  populateCatSel();
+  return out.join(" · ");
 }
-function populateCatSel(){const s=document.getElementById("ni-cat");if(!s)return;s.innerHTML=`<option value="">Seleccionar...</option>`+categorias.map(c=>`<option value="${c}">${c}</option>`).join("");}
-
-/* GESTION ACTIONS */
-function addColab(){const n=document.getElementById("new-colab").value.trim();if(!n||colaboradores.includes(n))return;colaboradores.push(n);saveData();renderGestion();document.getElementById("new-colab").value="";}
-function delColab(i){if(!confirm("¿Eliminar colaborador?"))return;colaboradores.splice(i,1);saveData();renderGestion();}
-function addItem(){const nombre=document.getElementById("ni-nom").value.trim(),categoria=document.getElementById("ni-cat").value,serie=document.getElementById("ni-ser").value.trim(),estado=document.getElementById("ni-est").value;if(!nombre||!categoria){alert("Nombre y categoría son obligatorios.");return;}inventario.push({id:uid(),nombre,categoria,serie,estado});saveData();renderGestion();renderInv();document.getElementById("ni-nom").value="";document.getElementById("ni-ser").value="";document.getElementById("ni-cat").value="";}
-function delItem(id){if(!confirm("¿Eliminar ítem?"))return;inventario=inventario.filter(i=>i.id!==id);saveData();renderGestion();renderInv();}
-function cycleEstado(id){const it=inventario.find(i=>i.id===id);if(!it)return;const e=["bueno","regular","dañado"];it.estado=e[(e.indexOf(it.estado)+1)%3];saveData();renderGestion();renderInv();}
-function showNewCat(){document.getElementById("new-cat-row").style.display="flex";document.getElementById("btn-nc").style.display="none";}
-function cancelCat(){document.getElementById("new-cat-row").style.display="none";document.getElementById("btn-nc").style.display="";document.getElementById("nc-nom").value="";}
-function addCat(){const n=document.getElementById("nc-nom").value.trim();if(!n||categorias.includes(n)){cancelCat();return;}categorias.push(n);saveData();populateCatSel();cancelCat();}
-
-/* MODAL */
+function getConflicts(){const out=[];for(let i=0;i<misiones.length;i++)for(let j=i+1;j<misiones.length;j++){const a=misiones[i],b=misiones[j];if(!overlapDt(a,b))continue;const s=(a.equipo||[]).filter(e=>(b.equipo||[]).includes(e));if(s.length)out.push({a,b,shared:s});}return out;}
+function renderMisiones(){
+  const cfxIds=new Set(getConflicts().flatMap(c=>[c.a.id,c.b.id]));
+  const cutoff=today().slice(0,7)+"-01";
+  const active=misiones.filter(m=>m.ff>=cutoff),archived=misiones.length-active.length;
+  document.getElementById("arc-note").innerHTML=archived?`<div class="alert alert-info" style="margin-bottom:1rem">${archived} misión${archived!==1?"es":""} archivada${archived!==1?"s":""} en el Historial.</div>`:"";
+  const sorted=[...active].sort((a,b)=>a.fi.localeCompare(b.fi));
+  document.getElementById("mission-tbl").innerHTML=`<thead><tr><th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead><tbody>`+
+  (sorted.length?sorted.map(m=>{const auto=autoNotas(m),man=m.notas||"";return`<tr>
+    <td><div style="font-weight:600">${esc(m.lugar)}</div><div style="font-size:12px;color:var(--ink3)">${esc((m.colabs||[]).join(", "))}</div>${cfxIds.has(m.id)?`<span class="badge b-rose" style="font-size:10px;margin-top:4px">conflicto</span>`:""}</td>
+    <td class="mono" style="white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
+    <td class="mono" style="white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
+    <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${esc(m.proyecto)}</span>`:""}</td>
+    <td style="max-width:280px">${(m.equipo||[]).length?m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${esc(e)}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
+    <td style="font-size:12px;color:var(--ink2);max-width:200px">${auto?`<span style="color:var(--ink3)">${esc(auto)}</span>${man?"<br>":""}`:""}${esc(man)}</td>
+    <td style="white-space:nowrap">${(m.colabs||[]).includes(ME?.nombre)&&(m.equipo||[]).length&&m.ff>=today()?`<button class="btn-sm" onclick="formSalida('${m.id}')">Retirar</button> `:""}<button class="btn-sm" onclick="openModalId('${m.id}')">Editar</button> <button class="btn-del" onclick="delMision('${m.id}')">&#10005;</button></td>
+  </tr>`;}).join(""):`<tr><td colspan="7" style="color:var(--ink3)">No hay misiones este mes.</td></tr>`)+"</tbody>";
+}
+function openModalId(id){openModal(misiones.find(x=>x.id===id));}
 function openModal(m){
-  editId=m?m.id:null;
+  F=null;editId=m?m.id:null;
   const f=m||{lugar:"",fi:"",hs:"",ff:"",hl:"",proyecto:"",colabs:[],equipo:[],notas:""};
   fColabs=[...(f.colabs||[])];fEquipo=[...(f.equipo||[])];
-  document.getElementById("modal-title").textContent=editId?"Editar misión":"Nueva misión";
-  document.getElementById("mbody").innerHTML=buildModalBody(f);
-  document.getElementById("mfoot").innerHTML=`<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" onclick="saveForm()">Guardar misión</button>`;
-  document.getElementById("mbg").classList.add("open");
+  showForm(editId?"Editar misión":"Nueva misión",buildModalBody(f),`<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" onclick="saveForm()">Guardar misión</button>`);
   renderFColabs();renderFEquipo();
-  /* Setup dropdowns AFTER DOM is ready */
-  setTimeout(()=>{
-    setupDrop("fc-search","fc-drop",q=>
-      colaboradores.filter(c=>c.toLowerCase().includes(q)&&!fColabs.includes(c))
-        .map(c=>({html:`<span>${c}</span>`,onSelect:()=>{fColabs.push(c);renderFColabs();}}))
-    );
-    setupEquipoDrop();
-  },0);
-}
-function closeModal(){document.getElementById("mbg").classList.remove("open");editId=null;fColabs=[];fEquipo=[];closeDrop(_openDrop);}
-function closeMbg(e){if(e.target===document.getElementById("mbg"))closeModal();}
-
-function buildModalBody(f){
-  return`<div class="form-grid" style="margin-bottom:14px">
-    <div class="fg"><label>Lugar</label><input id="f-lugar" value="${f.lugar||""}"></div>
-    <div class="fg"><label>Proyecto</label><input id="f-proyecto" value="${f.proyecto||""}"></div>
-  </div>
-  <div class="form-grid-4">
-    <div class="fg"><label>Fecha salida</label><input type="date" id="f-fi" value="${f.fi||""}" oninput="onDatesChange()"></div>
-    <div class="fg"><label>Hora salida</label><input type="time" id="f-hs" value="${f.hs||""}" oninput="onDatesChange()"></div>
-    <div class="fg"><label>Fecha llegada</label><input type="date" id="f-ff" value="${f.ff||""}" oninput="onDatesChange()"></div>
-    <div class="fg"><label>Hora llegada</label><input type="time" id="f-hl" value="${f.hl||""}" oninput="onDatesChange()"></div>
-  </div>
-  <p class="form-hint">Los horarios permiten detectar intercambios el mismo día: si el equipo llega de otra misión antes de tu hora de salida, se marca como intercambiable.</p>
-  <div class="fg" style="margin-bottom:14px">
-    <label>Colaboradores</label>
-    <div id="fc-chips" style="margin-bottom:6px;min-height:6px"></div>
-    <div class="sw"><input class="sw-inp" id="fc-search" placeholder="Buscar colaborador…" autocomplete="off"><div class="sdrop" id="fc-drop"></div></div>
-  </div>
-  <div class="fg" style="margin-bottom:14px">
-    <label>Equipo de oficina asignado</label>
-    <div id="fe-chips" style="margin-bottom:6px;min-height:6px"></div>
-    <div class="sw"><input class="sw-inp" id="fe-search" placeholder="Buscar equipo…" autocomplete="off"><div class="sdrop" id="fe-drop"></div></div>
-  </div>
-  <div class="fg" style="margin-bottom:14px"><label>Notas</label><textarea id="f-notas">${f.notas||""}</textarea></div>
-  <div id="cfx-prev"></div>`;
-}
-
-function setupEquipoDrop(){
-  const inp=document.getElementById("fe-search");
-  const drop=document.getElementById("fe-drop");
-  if(!inp||!drop)return;
-  function populate(){
-    const q=inp.value.toLowerCase();
-    const fi=document.getElementById("f-fi")?.value||"";
-    const hs=document.getElementById("f-hs")?.value||"";
-    const ff=document.getElementById("f-ff")?.value||"";
-    const hl=document.getElementById("f-hl")?.value||"";
-    const items=inventario.filter(it=>it.nombre.toLowerCase().includes(q)&&!fEquipo.includes(it.nombre));
-    drop.innerHTML=items.length?items.map(it=>{
+  setupDrop("fc-search","fc-drop",q=>colaboradores.filter(c=>c.toLowerCase().includes(q)&&!fColabs.includes(c)).map(c=>({html:`<span>${esc(c)}</span>`,onSelect:()=>{fColabs.push(c);renderFColabs();}})));
+  setupDrop("fe-search","fe-drop",q=>{
+    const{fi,hs,ff,hl}=gfd();
+    return inventario.filter(it=>activoInv(it)&&it.nombre.toLowerCase().includes(q)&&!fEquipo.includes(it.nombre)).map(it=>{
       let badge="";
-      if(fi&&ff){
-        const av=itemAvailDt(it.nombre,fi,hs,ff,hl,editId);
-        if(av.libre){
-          const ix=misiones.filter(m=>m.id!==editId&&m.equipo.includes(it.nombre)&&m.ff===fi&&m.hl&&hs&&m.hl<=hs);
-          badge=ix.length?`<span class="badge b-sky" style="font-size:10px">Intercambio ${ix[0].hl}</span>`:`<span class="badge b-sage" style="font-size:10px">Libre</span>`;
-        }else{
-          badge=`<span class="badge b-rose" style="font-size:10px">Ocupado — ${av.donde.join(", ")}</span>`;
-        }
-      }
-      return`<div class="di" onmousedown="event.preventDefault()"><span>${it.nombre}</span>${badge}</div>`;
-    }).join(""):`<div class="di-empty">No encontrado</div>`;
-    drop.querySelectorAll(".di").forEach((el,i)=>{
-      if(items[i])el.addEventListener("click",()=>{
-        fEquipo.push(items[i].nombre);renderFEquipo();
-        closeDrop(drop);inp.value="";setTimeout(()=>inp.focus(),10);
-      });
+      if(it.estado==="dañado")badge=`<span class="badge b-rose" style="font-size:10px">Dañado</span>`;
+      else if(fi&&ff){const av=itemAvailDt(it.nombre,fi,hs,ff,hl,editId);if(av.libre){const ix=misiones.filter(m=>m.id!==editId&&(m.equipo||[]).includes(it.nombre)&&m.ff===fi&&m.hl&&hs&&m.hl<=hs);badge=ix.length?`<span class="badge b-sky" style="font-size:10px">Intercambio ${ix[0].hl}</span>`:`<span class="badge b-sage" style="font-size:10px">Libre</span>`;}else badge=`<span class="badge b-rose" style="font-size:10px">Ocupado — ${esc(av.donde.join(", "))}</span>`;}
+      return{off:it.estado==="dañado",html:`<span><span class="eq-tag ${eqCls(it.categoria)}">${esc(it.nombre)}</span></span>${badge}`,onSelect:()=>{fEquipo.push(it.nombre);renderFEquipo();}};
     });
-  }
-  inp.addEventListener("focus",()=>{populate();openDrop(drop);});
-  inp.addEventListener("click",()=>{populate();openDrop(drop);});
-  inp.addEventListener("input",()=>{populate();openDrop(drop);});
-  drop._populate=populate;
+  });
 }
-
-function onDatesChange(){
-  const drop=document.getElementById("fe-drop");
-  if(drop&&drop._populate&&drop.classList.contains("open"))drop._populate();
-  checkCfx();
+function closeModal(){document.getElementById("mbg").classList.remove("open");editId=null;fColabs=[];fEquipo=[];F=null;closeDrop(_openDrop);}
+function closeMbg(e){if(e.target===document.getElementById("mbg")&&!F)closeModal();}
+function buildModalBody(f){
+  return`<div class="form-grid"><div class="fg"><label>Lugar</label><input id="f-lugar" value="${esc(f.lugar)}"></div><div class="fg"><label>Proyecto</label><input id="f-proyecto" value="${esc(f.proyecto)}"></div></div>
+  <div class="form-grid-4"><div class="fg"><label>Fecha salida</label><input type="date" id="f-fi" value="${esc(f.fi)}" oninput="onDatesChange()"></div><div class="fg"><label>Hora salida</label><input type="time" id="f-hs" value="${esc(f.hs)}" oninput="onDatesChange()"></div><div class="fg"><label>Fecha llegada</label><input type="date" id="f-ff" value="${esc(f.ff)}" oninput="onDatesChange()"></div><div class="fg"><label>Hora llegada</label><input type="time" id="f-hl" value="${esc(f.hl)}" oninput="onDatesChange()"></div></div>
+  <p class="form-hint">Los horarios permiten detectar intercambios el mismo día. La misión reserva el equipo; la responsabilidad empieza cuando se firma el acta de salida.</p>
+  <div class="fg" style="margin-bottom:14px"><label>Colaboradores</label><div id="fc-chips" style="margin-bottom:6px;min-height:6px"></div><div class="sw"><input class="sw-inp" id="fc-search" placeholder="Buscar colaborador…" autocomplete="off"><div class="sdrop" id="fc-drop"></div></div></div>
+  <div class="fg" style="margin-bottom:14px"><label>Equipo de oficina reservado</label><div id="fe-chips" style="margin-bottom:6px;min-height:6px"></div><div class="sw"><input class="sw-inp" id="fe-search" placeholder="Buscar equipo…" autocomplete="off"><div class="sdrop" id="fe-drop"></div></div></div>
+  <div class="fg" style="margin-bottom:14px"><label>Notas</label><textarea id="f-notas">${esc(f.notas)}</textarea></div><div id="cfx-prev"></div>`;
 }
-
-function renderFColabs(){const el=document.getElementById("fc-chips");if(!el)return;el.innerHTML=fColabs.map(c=>`<span class="chip chip-c">${c}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmColab(this)">×</button></span>`).join("");}
-function renderFEquipo(){const el=document.getElementById("fe-chips");if(!el)return;el.innerHTML=fEquipo.map(e=>`<span class="chip">${e}<button class="chip-x" onmousedown="event.preventDefault()" onclick="rmEquipo(this)">×</button></span>`).join("");checkCfx();}
-function rmColab(btn){const c=btn.closest(".chip").textContent.slice(0,-1).trim();fColabs=fColabs.filter(x=>x!==c);renderFColabs();}
-function rmEquipo(btn){const e=btn.closest(".chip").textContent.slice(0,-1).trim();fEquipo=fEquipo.filter(x=>x!==e);renderFEquipo();}
-
+function onDatesChange(){const d=document.getElementById("fe-drop");if(d&&d._populate&&d.classList.contains("open"))d._populate();checkCfx();}
+function renderFColabs(){const el=document.getElementById("fc-chips");if(el)el.innerHTML=fColabs.map((c,i)=>`<span class="chip chip-c">${esc(c)}<button class="chip-x" onmousedown="event.preventDefault()" onclick="fColabs.splice(${i},1);renderFColabs()">×</button></span>`).join("");}
+function renderFEquipo(){const el=document.getElementById("fe-chips");if(el)el.innerHTML=fEquipo.map((e,i)=>`<span class="chip">${esc(e)}<button class="chip-x" onmousedown="event.preventDefault()" onclick="fEquipo.splice(${i},1);renderFEquipo()">×</button></span>`).join("");checkCfx();}
 function gfd(){return{fi:document.getElementById("f-fi")?.value||"",hs:document.getElementById("f-hs")?.value||"",ff:document.getElementById("f-ff")?.value||"",hl:document.getElementById("f-hl")?.value||""};}
-
 function checkCfx(){
-  const{fi,hs,ff,hl}=gfd();
-  const p=document.getElementById("cfx-prev");if(!p||!fi||!ff){if(p)p.innerHTML="";return;}
+  const{fi,hs,ff,hl}=gfd();const p=document.getElementById("cfx-prev");if(!p)return;if(!fi||!ff){p.innerHTML="";return;}
   const ts=dtStr(fi,hs),te=dtStr(ff,hl||"23:59");
-  const over=misiones.filter(m=>m.id!==editId&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs));
-  const cfx=over.flatMap(m=>fEquipo.filter(e=>m.equipo.includes(e)).map(e=>({lugar:m.lugar,item:e,ff:m.ff,hl:m.hl})));
+  const cfx=misiones.filter(m=>m.id!==editId&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs)).flatMap(m=>fEquipo.filter(e=>(m.equipo||[]).includes(e)).map(e=>({lugar:m.lugar,item:e,ff:m.ff,hl:m.hl})));
   if(!cfx.length){p.innerHTML=`<div class="alert alert-ok">Sin conflictos en el rango seleccionado.</div>`;return;}
-  const ix=cfx.filter(c=>c.ff===fi&&c.hl&&hs&&c.hl<=hs);
-  const hard=cfx.filter(c=>!ix.includes(c));
-  p.innerHTML=(hard.length?`<div class="alert alert-warn">Conflicto: ${hard.map(c=>`<strong>${c.item}</strong> ocupado en ${c.lugar}`).join(" · ")}</div>`:"")+(ix.length?`<div class="alert alert-info">Intercambio posible: ${ix.map(c=>`<strong>${c.item}</strong> llega de ${c.lugar} a las ${c.hl}`).join(" · ")}</div>`:"");
+  const ix=cfx.filter(c=>c.ff===fi&&c.hl&&hs&&c.hl<=hs),hard=cfx.filter(c=>!ix.includes(c));
+  p.innerHTML=(hard.length?`<div class="alert alert-warn">Conflicto: ${hard.map(c=>`<strong>${esc(c.item)}</strong> ocupado en ${esc(c.lugar)}`).join(" · ")}</div>`:"")+(ix.length?`<div class="alert alert-info">Intercambio posible: ${ix.map(c=>`<strong>${esc(c.item)}</strong> llega de ${esc(c.lugar)} a las ${c.hl}`).join(" · ")}</div>`:"");
 }
-
 function saveForm(){
-  const lugar=document.getElementById("f-lugar").value.trim();
-  const{fi,hs,ff,hl}=gfd();
-  if(!lugar||!fi||!ff){alert("Lugar y fechas son obligatorios.");return;}
+  const lugar=document.getElementById("f-lugar").value.trim();const{fi,hs,ff,hl}=gfd();
+  if(!lugar||!fi||!ff){toast("Lugar y fechas son obligatorios.","err");return;}
+  if(ff<fi){toast("La llegada no puede ser antes de la salida.","err");return;}
   const nuevo={id:editId||uid(),lugar,fi,hs,ff,hl,proyecto:document.getElementById("f-proyecto").value.trim()||"—",colabs:[...fColabs],equipo:[...fEquipo],notas:document.getElementById("f-notas").value.trim()};
   misiones=editId?misiones.map(m=>m.id===editId?nuevo:m):[...misiones,nuevo];
-  saveData();closeModal();render();
+  saveData(["misiones"]);closeModal();render();
 }
-function delMision(id){if(!confirm("¿Eliminar esta misión?"))return;misiones=misiones.filter(m=>m.id!==id);saveData();render();}
+function delMision(id){if(!confirm("¿Eliminar esta misión? (Las actas firmadas no se borran.)"))return;misiones=misiones.filter(m=>m.id!==id);saveData(["misiones"]);render();}
 
-/* FIREBASE INSTRUCTIONS */
-function showFbInstructions(){
-  document.getElementById("modal-title").textContent="Activar sincronización en tiempo real";
-  document.getElementById("mbody").innerHTML=`<div style="font-size:13px;line-height:1.7;color:var(--ink2)">
-    <p style="margin-bottom:1rem">Sigue estos pasos <strong>una sola vez</strong> para que todos vean y editen en tiempo real desde cualquier dispositivo:</p>
-    <ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.75rem">
-      <li>Ve a <a href="https://console.firebase.google.com" target="_blank" style="color:var(--sky-d);font-weight:600">console.firebase.google.com</a> e inicia sesión con una cuenta Google.</li>
-      <li>Clic en <strong>"Crear un proyecto"</strong> → nombre (ej. <code style="background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace">unodc-equipo</code>) → crear.</li>
-      <li>Menú izquierdo → <strong>Firestore Database</strong> → <strong>"Crear base de datos"</strong> → <em>Modo de prueba</em> → elige región → crear.</li>
-      <li>Menú izquierdo → ícono engranaje → <strong>Configuración del proyecto</strong> → <strong>"Tus apps"</strong> → ícono Web <strong>&lt;/&gt;</strong> → registrar app.</li>
-      <li>Aparece un bloque de código con tu configuración. Copia esos valores.</li>
-      <li>Abre <code style="background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace">index.html</code> en un editor de texto. Busca <code style="background:var(--cream);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace">REEMPLAZAR</code> y sustituye cada campo con tu configuración.</li>
-      <li>Sube el archivo actualizado a GitHub Pages. Listo — cambios en tiempo real para todos.</li>
-    </ol>
-    <div class="alert alert-info" style="margin-top:1rem">El plan gratuito de Firebase (Spark) es más que suficiente para este uso.</div>
-  </div>`;
-  document.getElementById("mfoot").innerHTML=`<button class="btn btn-sec" onclick="closeModal()">Cerrar</button>`;
-  document.getElementById("mbg").classList.add("open");
-}
-
-/* RENDER ALL */
-function render(){
-  renderPanel();renderMisiones();
-  if(document.getElementById("page-inventario")?.classList.contains("active"))renderInv();
-  if(document.getElementById("page-gestion")?.classList.contains("active"))renderGestion();
-  if(document.getElementById("page-calendario")?.classList.contains("active"))renderCalendar();
-  if(document.getElementById("page-historial")?.classList.contains("active"))renderHistory();
+/* ════════════════════ PANEL ════════════════════ */
+function renderPanel(){
+  const hoy=today();
+  const activas=misiones.filter(m=>m.fi<=hoy&&m.ff>=hoy);
+  const proximas=[...misiones].filter(m=>m.fi>hoy).sort((a,b)=>a.fi.localeCompare(b.fi));
+  const cfx=getConflicts();
+  const cust=custodia();const fuera=Object.entries(cust);const venc=fuera.filter(([id,c])=>vencido(c));
+  const sinConf=actas.filter(a=>(a.tipo==="salida"||a.tipo==="traspaso")&&!respuestas(a.id,"confirmacion").length).length+actas.filter(a=>a.tipo==="devolucion"&&!respuestas(a.id,"revision").length).length;
+  document.getElementById("metrics").innerHTML=[
+    {l:"En campo hoy",v:activas.length,c:"sage"},
+    {l:"Equipos fuera del armario",v:fuera.length,c:"sky"},
+    {l:"Devoluciones vencidas",v:venc.length,c:venc.length?"rose":"sage"},
+    {l:"Actas sin confirmar",v:sinConf,c:sinConf?"butter":"sage"}
+  ].map(m=>`<div class="metric card-${m.c}"><div class="metric-label">${m.l}</div><div class="metric-val">${m.v}</div></div>`).join("");
+  document.getElementById("cfx-block").innerHTML=cfx.length?`<div class="card card-peach"><div class="sec-title" style="margin-bottom:.75rem">Conflictos de reserva</div>${cfx.map(c=>`<div class="cfx-item"><div class="cfx-dot"></div><div><strong>${esc(c.a.lugar)}</strong> (${fmt(c.a.fi)} ${fmtT(c.a.hs)} → ${fmt(c.a.ff)} ${fmtT(c.a.hl)}) &amp; <strong>${esc(c.b.lugar)}</strong> (${fmt(c.b.fi)} ${fmtT(c.b.hs)} → ${fmt(c.b.ff)} ${fmtT(c.b.hl)})<br><span style="font-size:12px">Comparten: ${esc(c.shared.join(", "))}</span></div></div>`).join("")}</div>`:"";
+  const byP={};fuera.forEach(([id,c])=>{(byP[c.nombre]=byP[c.nombre]||[]).push({id,...c});});
+  document.getElementById("fuera-block").innerHTML=fuera.length?`<div class="card"><div class="sec-title" style="margin-bottom:.75rem">¿Quién tiene qué ahora?</div>${Object.entries(byP).map(([n,list])=>`<div class="colab-row"><div class="avatar">${initials(n)}</div><div style="flex:1;min-width:200px"><div style="font-weight:600">${esc(n)}</div><div>${list.map(c=>{const inv=invById(c.id);return`<span class="eq-tag ${eqCls(inv?.categoria)}" title="${esc(inv?.descripcion||"")}">${esc(inv?.nombre||c.id)}${vencido(c)?" ⚠":""}</span>`;}).join("")}</div></div><div style="font-size:12px;color:var(--ink3);text-align:right">${list.some(vencido)?`<span class="badge b-rose">Vencida</span><br>`:""}${list[0].mision?esc(list[0].mision.lugar):esc(list[0].motivo||"")}<br>Devuelve: ${fmt(list[0].prevista)}</div></div>`).join("")}</div>`:"";
+  const ab=document.getElementById("active-block");
+  ab.innerHTML=`<div class="sec-title" style="margin-bottom:.75rem">En campo hoy</div>`+(activas.length?activas.map(m=>`<div class="tl-item" onclick="openModalId('${m.id}')"><div class="tl-dates">${fmtT(m.hs)||"—"}<br>${fmtT(m.hl)||"—"}</div><div><div class="tl-lugar">${esc(m.lugar)} <span class="badge b-butter" style="font-size:10px">${esc(m.proyecto)}</span></div><div class="tl-meta">${esc((m.colabs||[]).join(", "))}</div></div></div>`).join(""):`<p style="font-size:13px;color:var(--ink3)">Ninguna misión activa hoy.</p>`);
+  const ub=document.getElementById("upcoming-block");
+  ub.innerHTML=`<div class="sec-title" style="margin-bottom:.75rem">Próximas misiones</div>`+(proximas.length?proximas.slice(0,6).map(m=>`<div class="tl-item" onclick="openModalId('${m.id}')"><div class="tl-dates">${fmt(m.fi)}<br>${fmtT(m.hs)||"—"}</div><div><div class="tl-lugar">${esc(m.lugar)} ${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand" style="font-size:10px">${esc(m.proyecto)}</span>`:""}</div><div class="tl-meta">${esc((m.colabs||[]).join(", "))}</div></div></div>`).join(""):`<p style="font-size:13px;color:var(--ink3)">No hay misiones próximas.</p>`);
 }
 
-/* INIT */
-document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("today-lbl").textContent=todayFmt();
-  loadData();
-  render();
-  setTimeout(()=>{
-    if(window._fbReady&&window._fbListen){
-      window._fbListen(d=>{applyData(d);});
-    }else{
-      window._setSyncStatus("local");
+/* ════════════════════ INVENTARIO ════════════════════ */
+let invFilter="";
+function renderInv(){
+  const cust=custodia();const now=today()+"T"+new Date().toTimeString().slice(0,5);
+  document.getElementById("inv-actions").innerHTML=ME&&isValidador(ME.email)?`<button class="btn btn-sec" onclick="formConteo()">Conteo de armario</button>`:"";
+  const lastC=[...actas].filter(a=>a.tipo==="conteo").sort((a,b)=>tsA(b)-tsA(a))[0];
+  const cats=[...new Set(inventario.map(i=>i.categoria))];
+  document.getElementById("inv-tabs").innerHTML=`<div class="filter-tab${!invFilter?" active":""}" onclick="invFilter='';renderInv()">Todo (${inventario.length})</div>`+cats.map(c=>`<div class="filter-tab${invFilter===c?" active":""}" onclick="invFilter='${esc(c)}';renderInv()">${esc(c)}</div>`).join("")+`<div class="filter-tab${invFilter==="__fuera"?" active":""}" onclick="invFilter='__fuera';renderInv()">Fuera del armario (${Object.keys(cust).length})</div>`;
+  const byCat={};
+  for(const it of inventario){
+    if(invFilter==="__fuera"&&!cust[it.id])continue;
+    if(invFilter&&invFilter!=="__fuera"&&it.categoria!==invFilter)continue;
+    (byCat[it.categoria]=byCat[it.categoria]||[]).push(it);
+  }
+  let html=lastC?`<p class="form-hint">Último conteo de armario: ${fmtDT(tsA(lastC))} por ${esc(lastC.firmante.nombre)}${(lastC.faltantes||[]).length?` · <span style="color:var(--rose-d)">${lastC.faltantes.length} faltante(s)</span>`:" · sin faltantes"}.</p>`:(ME&&isValidador(ME.email)?`<p class="form-hint">Aún no se ha hecho ningún conteo de armario.</p>`:"");
+  for(const[cat,items]of Object.entries(byCat)){
+    html+=`<div class="cat-div">${esc(cat)}</div>`;
+    for(const it of items){
+      const c=cust[it.id];
+      const prox=misiones.filter(m=>(m.equipo||[]).includes(it.nombre)&&dtStr(m.fi,m.hs)>now).sort((a,b)=>dtStr(a.fi,a.hs).localeCompare(dtStr(b.fi,b.hs)))[0];
+      const nv=novedadesPendientes(it.id).length;
+      const st=!activoInv(it)?`<span class="badge b-sand">Fuera de inventario</span>`:c?(c.st==="devolucion"?`<span class="badge b-butter">Devuelto · en revisión</span>`:`<span class="badge ${vencido(c)?"b-rose":"b-sky"}">Lo tiene ${esc(c.nombre)}${vencido(c)?" · vencida":""}</span>`):`<span class="badge b-sage">En armario</span>`;
+      html+=`<div class="inv-item click" onclick="verItem('${it.id}')"><div class="inv-dot" style="background:${c?"var(--sky-d)":"var(--sage-d)"}"></div><span style="font-weight:600;min-width:120px">${esc(it.nombre)}</span><span style="font-size:12px;color:var(--ink3);flex:1;min-width:140px">${esc(it.descripcion||"")}</span><span class="badge ${eClr[it.estado]||"b-sand"}">${esc(it.estado)}</span>${nv?`<span class="badge b-rose">⚠ novedad</span>`:""}${st}<span style="font-size:11px;color:var(--ink3);min-width:130px;text-align:right">${prox?`Reservado: ${esc(prox.lugar)} ${fmt(prox.fi)}`:""}</span></div>`;
     }
-  },600);
+  }
+  document.getElementById("inv-board").innerHTML=html||`<p style="font-size:13px;color:var(--ink3)">Nada que mostrar.</p>`;
+}
+function verItem(id){
+  const it=invById(id);if(!it)return;
+  F=null;
+  const cust=custodia()[id];
+  const hist=actas.filter(a=>(a.items||[]).some(i=>i.id===id)||(a.faltantes||[]).some(i=>i.id===id)||(a.cierra||[]).includes(id)||(a.cambios||[]).some(c=>c.id===id)||(a.tipo==="revision"&&(actaById(a.ref)?.items||[]).some(i=>i.id===id))).sort((a,b)=>tsA(b)-tsA(a));
+  showForm(it.nombre,`
+    <dl class="kv"><dt>Descripción</dt><dd>${esc(it.descripcion||"—")}</dd><dt>Categoría</dt><dd>${esc(it.categoria)}</dd><dt>N° de serie</dt><dd class="mono">${esc(it.serie||"—")}</dd><dt>Serial UN</dt><dd class="mono">${esc(it.serialUN||"—")}</dd><dt>Estado</dt><dd><span class="badge ${eClr[it.estado]||"b-sand"}">${esc(it.estado)}</span> ${esc(estadoVigente(it))}</dd>${it.incluye?`<dt>Incluye</dt><dd>${esc(it.incluye)}</dd>`:""}${it.obs?`<dt>Observaciones</dt><dd>${esc(it.obs)}</dd>`:""}<dt>Dónde está</dt><dd>${cust?`A cargo de <strong>${esc(cust.nombre)}</strong> desde ${fmtDT(cust.desde)}${cust.prevista?` · devolución prevista ${fmtY(cust.prevista)}`:""}`:"En el armario"}</dd></dl>
+    <div class="lbl" style="margin-bottom:8px">Historia completa (${hist.length})</div>
+    ${hist.length?hist.map(a=>{const i=(a.items||[]).find(x=>x.id===id);const nov=(i&&i.estado==="novedad")||(a.faltantes||[]).some(x=>x.id===id);return`<div class="tl-ev ${nov?"nov":"ok"}" style="cursor:pointer" onclick="verActa('${a.id}')"><strong>${TIPO_LBL[a.tipo]}</strong> · ${esc(a.firmante.nombre)}${a.de?` (de ${esc(a.de.nombre)})`:""} · <span style="color:var(--ink3)">${fmtDT(tsA(a))}</span>${nov?`<div style="font-size:12px;color:var(--rose-d)">${esc(i?i.nota:"Faltante en conteo")}</div>`:""}</div>`;}).join(""):`<p class="form-hint">Sin movimientos registrados.</p>`}`,
+    `<button class="btn btn-sec" onclick="closeModal()">Cerrar</button>`,true);
+}
+
+/* ════════════════════ GESTIÓN ════════════════════ */
+function renderGestion(){
+  const root=document.getElementById("gestion-root");if(!root||!ME)return;
+  const adm=isAprobador(ME.email);
+  let h="";
+  if(adm&&invVersion!==INV_VERSION)h+=`<div class="cfg-banner"><strong>Carga el inventario completo 2026.</strong> El sistema tiene ${inventario.length} ítems y el Excel de inventario tiene ${INV2026.length}. Al cargarlo se conservan las misiones y se completan descripción, serial y estado de cada equipo. No se borra nada.<br><button class="btn btn-pri" style="margin-top:8px" onclick="importInv2026()">Cargar inventario 2026</button></div>`;
+  if(!adm)h+=`<div class="alert alert-info">Solo Nicolás, Laura, Camilo y John pueden editar estas listas. Tú puedes consultarlas.</div>`;
+  h+=`<div class="card"><div class="sec-head"><div class="sec-title">Personas y roles</div>${adm?`<button class="btn btn-pri" onclick="editPersona(-1)">+ Persona</button>`:""}</div>
+  <p class="form-hint">“Entrega” es el orden de la escala para entregar y recibir equipos. “Aprueba” es el orden para aprobar correcciones y resolver novedades. 0 = no tiene ese rol. Nadie aprueba sus propias actas.</p>
+  <div class="tbl-wrap"><table class="mt"><thead><tr><th>Nombre</th><th>Correo</th><th>Entrega</th><th>Aprueba</th><th>Activo</th><th></th></tr></thead><tbody>${personas.map((p,i)=>`<tr><td><strong>${esc(p.nombre)}</strong>${isOwner(p.email)?` <span class="badge b-lav" style="font-size:10px">administra</span>`:""}</td><td class="mono">${esc(p.email)}</td><td>${+p.entrega?`<span class="badge b-sky">${p.entrega}</span>`:"—"}</td><td>${+p.aprueba?`<span class="badge b-lav">${p.aprueba}</span>`:"—"}</td><td>${p.activo?"Sí":"No"}</td><td>${adm?`<button class="btn-sm" onclick="editPersona(${i})">Editar</button>`:""}</td></tr>`).join("")}</tbody></table></div></div>`;
+  const byCat={};inventario.forEach(it=>(byCat[it.categoria]=byCat[it.categoria]||[]).push(it));
+  h+=`<div class="card"><div class="sec-head"><div class="sec-title">Inventario (${inventario.length})</div>${adm?`<button class="btn btn-pri" onclick="editItem('')">+ Equipo</button>`:""}</div>
+  ${Object.entries(byCat).map(([cat,items])=>`<div class="cat-div">${esc(cat)}</div>${items.map(it=>`<div class="inv-item"><span class="eq-tag ${eqCls(cat)}">${esc(it.nombre)}</span><span style="font-size:12px;color:var(--ink3);flex:1;min-width:140px">${esc(it.descripcion||"")}</span><span class="mono" style="color:var(--ink3);font-size:11px">${esc(it.serie||"sin serial")}${it.serialUN?" · UN "+esc(it.serialUN):""}</span><span class="badge ${eClr[it.estado]||"b-sand"}">${esc(it.estado)}</span>${(!it.serie||it.obs)?`<span title="${esc(it.obs||"Falta serial")}" class="badge b-butter">pendiente</span>`:""}${adm?`<button class="btn-sm" onclick="editItem('${it.id}')">Editar</button>`:""}</div>`).join("")}`).join("")}</div>`;
+  h+=`<div class="card"><div class="sec-head"><div class="sec-title">Categorías</div></div><div>${categorias.map(c=>`<span class="eq-tag ${eqCls(c)}">${esc(c)}</span>`).join("")}</div>${adm?`<div style="display:flex;gap:8px;margin-top:10px"><input class="sw-inp" id="nc-nom" placeholder="Nueva categoría" style="max-width:260px"><button class="btn btn-sec" onclick="addCat()">Agregar</button></div>`:""}</div>`;
+  root.innerHTML=h;
+}
+function editPersona(i){
+  const p=i>=0?personas[i]:{nombre:"",email:"",entrega:0,aprueba:0,activo:true};
+  F=null;
+  showForm(i>=0?"Editar persona":"Nueva persona",`<div class="form-grid"><div class="fg"><label>Nombre (como aparece en misiones)</label><input id="p-nom" value="${esc(p.nombre)}"></div><div class="fg"><label>Correo institucional</label><input id="p-email" value="${esc(p.email)}" placeholder="nombre@un.org"></div><div class="fg"><label>Orden en la escala de entrega (0 = no entrega)</label><input id="p-ent" type="number" min="0" value="${+p.entrega||0}"></div><div class="fg"><label>Orden para aprobar (0 = no aprueba)</label><input id="p-apr" type="number" min="0" value="${+p.aprueba||0}"></div></div><label class="chkl"><input type="checkbox" id="p-act" ${p.activo?"checked":""}><span>Activo (puede entrar a la app)</span></label>${isOwner(p.email)?`<div class="alert alert-info">Esta persona administra el sistema: siempre puede entrar y aprobar, aunque cambies sus valores aquí.</div>`:""}`,
+  `${i>=0&&!isOwner(p.email)?`<button class="btn btn-warn" style="margin-right:auto" onclick="delPersona(${i})">Eliminar</button>`:""}<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" onclick="savePersona(${i})">Guardar</button>`);
+}
+async function savePersona(i){
+  const p={nombre:document.getElementById("p-nom").value.trim(),email:lc(document.getElementById("p-email").value),entrega:+document.getElementById("p-ent").value||0,aprueba:+document.getElementById("p-apr").value||0,activo:document.getElementById("p-act").checked};
+  if(!p.nombre||!p.email.includes("@")){toast("Nombre y correo son obligatorios.","err");return;}
+  if(personas.some((x,j)=>j!==i&&lc(x.email)===p.email)){toast("Ese correo ya existe.","err");return;}
+  const old=i>=0?personas[i]:null;
+  const list=[...personas];if(i>=0)list[i]=p;else list.push(p);
+  try{
+    await FB.saveAcceso(accesoFrom(list));
+    if(old&&old.nombre!==p.nombre){misiones.forEach(m=>{m.colabs=(m.colabs||[]).map(c=>c===old.nombre?p.nombre:c);});await saveData(["misiones"]);}
+    closeModal();toast("Persona guardada.");
+  }catch(e){toast(fbErr(e),"err");}
+}
+async function delPersona(i){
+  const p=personas[i];
+  if(actas.some(a=>lc(a.firmante?.email)===lc(p.email))){toast("Esta persona tiene actas firmadas: mejor desmárcala como activa.","err");return;}
+  if(!confirm(`¿Eliminar a ${p.nombre}?`))return;
+  try{await FB.saveAcceso(accesoFrom(personas.filter((_,j)=>j!==i)));closeModal();}catch(e){toast(fbErr(e),"err");}
+}
+function editItem(id){
+  const it=id?invById(id):{id:"",nombre:"",categoria:categorias[0]||"",descripcion:"",serie:"",serialUN:"",estado:"bueno",detalle:"",incluye:"",obs:""};
+  F=null;
+  showForm(id?"Editar equipo":"Nuevo equipo",`<div class="form-grid">
+    <div class="fg"><label>Nombre corto (único)</label><input id="it-nom" value="${esc(it.nombre)}" placeholder="Ej. Sony 3"></div>
+    <div class="fg"><label>Categoría</label><select id="it-cat">${categorias.map(c=>`<option ${c===it.categoria?"selected":""}>${esc(c)}</option>`).join("")}</select></div>
+    <div class="fg" style="grid-column:1/-1"><label>Descripción / modelo</label><input id="it-desc" value="${esc(it.descripcion)}"></div>
+    <div class="fg"><label>N° de serie</label><input id="it-ser" value="${esc(it.serie)}"></div>
+    <div class="fg"><label>Serial UN (sticker)</label><input id="it-un" value="${esc(it.serialUN)}"></div>
+    <div class="fg"><label>Estado</label><select id="it-est">${ESTADOS.map(e=>`<option ${e===it.estado?"selected":""}>${e}</option>`).join("")}</select></div>
+    <div class="fg"></div>
+    <div class="fg" style="grid-column:1/-1"><label>Estado detallado (lo que verá quien lo reciba)</label><textarea id="it-det">${esc(it.detalle)}</textarea></div>
+    <div class="fg" style="grid-column:1/-1"><label>Incluye (accesorios del kit)</label><input id="it-inc" value="${esc(it.incluye)}"></div>
+    <div class="fg" style="grid-column:1/-1"><label>Observaciones internas</label><input id="it-obs" value="${esc(it.obs)}"></div></div>
+    <p class="form-hint">Los cambios hechos aquí no alteran las actas ya firmadas: cada acta guarda el estado que vio quien firmó.</p>`,
+    `${id?`<button class="btn btn-warn" style="margin-right:auto" onclick="delItem('${id}')">Eliminar</button>`:""}<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" onclick="saveItem('${id}')">Guardar</button>`,true);
+}
+function saveItem(id){
+  const v=k=>document.getElementById(k).value.trim();
+  const d={nombre:v("it-nom"),categoria:v("it-cat"),descripcion:v("it-desc"),serie:v("it-ser"),serialUN:v("it-un"),estado:v("it-est"),detalle:v("it-det"),incluye:v("it-inc"),obs:v("it-obs")};
+  if(!d.nombre||!d.categoria){toast("Nombre y categoría son obligatorios.","err");return;}
+  if(inventario.some(x=>x.nombre===d.nombre&&x.id!==id)){toast("Ya existe un equipo con ese nombre.","err");return;}
+  const keys=["inventario"];
+  if(id){const it=invById(id);if(it.nombre!==d.nombre){misiones.forEach(m=>{m.equipo=(m.equipo||[]).map(e=>e===it.nombre?d.nombre:e);});keys.push("misiones");}Object.assign(it,d);}
+  else inventario.push({id:uid(),...d});
+  saveData(keys);closeModal();render();
+}
+function delItem(id){
+  const it=invById(id);
+  if(actas.some(a=>(a.items||[]).some(i=>i.id===id))){toast("Este equipo tiene actas: cámbialo a estado “baja” en lugar de eliminarlo.","err");return;}
+  if(misiones.some(m=>m.ff>=today()&&(m.equipo||[]).includes(it.nombre))&&!confirm(`${it.nombre} está reservado en misiones futuras. ¿Eliminar de todas formas?`))return;
+  if(!confirm(`¿Eliminar ${it.nombre}?`))return;
+  inventario=inventario.filter(i=>i.id!==id);saveData(["inventario"]);closeModal();render();
+}
+function addCat(){const n=document.getElementById("nc-nom").value.trim();if(!n||categorias.includes(n))return;categorias.push(n);saveData(["categorias"]);render();}
+function importInv2026(){
+  if(!confirm(`Se cargarán ${INV2026.length} equipos del inventario 2026. Los que ya existen (por nombre) conservan su identificador y se completan sus datos. ¿Continuar?`))return;
+  const out=[...inventario];
+  for(const n of INV2026){
+    const ex=out.find(i=>i.nombre===n.nombre);
+    if(ex)Object.assign(ex,{...n,id:ex.id});else out.push({...n});
+  }
+  out.forEach(i=>{if(i.categoria==="Micrófonos")i.categoria="Sonido";if(i.categoria==="Trípodes")i.categoria="Trípodes y soportes";});
+  inventario=out;categorias=[...new Set([...CATS_2026,...categorias.filter(c=>c!=="Micrófonos"&&c!=="Trípodes")])];invVersion=INV_VERSION;
+  saveData(["inventario","categorias","invVersion"]);render();toast("Inventario 2026 cargado.");
+}
+
+/* ════════════════════ RENDER ════════════════════ */
+function render(){
+  if(!ME)return;
+  updateBadge();
+  const r={mis:renderMis,panel:renderPanel,misiones:renderMisiones,inventario:renderInv,calendario:renderCalendar,historial:renderHistory,registro:renderRegistro,gestion:renderGestion}[CUR_PAGE];
+  try{r&&r();}catch(e){console.error(e);}
+}
+
+/* ════════════════════ MODO DEMO ════════════════════ */
+function setupDemo(){
+  const KEY="unodc_demo_v2";
+  const h0=today();
+  const seedMis=[
+    {id:"dm1",lugar:"Tumaco",fi:addDays(h0,-1),hs:"06:00",ff:addDays(h0,2),hl:"20:00",proyecto:"CCP",colabs:["John Vásquez"],equipo:["70-200mm","50mm","SD 128GB·2","Batería Sony 2"],notas:""},
+    {id:"dm2",lugar:"Quibdó",fi:addDays(h0,1),hs:"07:00",ff:addDays(h0,3),hl:"19:00",proyecto:"ICBF",colabs:["Diego Cuervo"],equipo:["Trípode 1","Sennheiser 1"],notas:""},
+    {id:"dm3",lugar:"Pasto",fi:addDays(h0,-3),hs:"06:00",ff:addDays(h0,-1),hl:"21:00",proyecto:"MI",colabs:["Diego Ardila"],equipo:["Sony 1","24-70mm","Hollyland 3","SD 128GB·1"],notas:""},
+    {id:"dm4",lugar:"Leticia",fi:addDays(h0,0),hs:"14:00",ff:addDays(h0,4),hl:"20:00",proyecto:"Trata",colabs:["Katherine Montoya"],equipo:["Sony 1","24-70mm","Hollyland 3"],notas:""},
+    {id:"dm5",lugar:"Cali",fi:addDays(h0,5),hs:"06:00",ff:addDays(h0,7),hl:"20:00",proyecto:"SIMCI",colabs:["Nicolás Castiblanco","Sebastián González"],equipo:["Sony 2","Ronin SC2","Hollyland 1"],notas:""}
+  ];
+  const H=3600e3,T=Date.now();
+  const P=e=>({email:e,nombre:DEF_PERSONAS.find(p=>p.email===e).nombre});
+  const I=n=>{const it=INV2026.find(i=>i.nombre===n);return{id:it.id,nombre:n,estado:"ok",nota:"",registro:it.detalle};};
+  const seedActas=[
+    {id:"demoA1x7Q2",tipo:"salida",firmante:P("john.vasquezzuluaga@un.org"),contraparte:P("juan.castiblancoramirez@un.org"),items:[I("70-200mm"),I("50mm"),I("SD 128GB·2"),I("Batería Sony 2")],mision:{id:"dm1",lugar:"Tumaco",fi:addDays(h0,-1),ff:addDays(h0,2)},prevista:nextBusinessDay(addDays(h0,2)),declaracion:DECL_SALIDA,creado:T-30*H},
+    {id:"demoA2k9P4",tipo:"confirmacion",ref:"demoA1x7Q2",resultado:"conforme",nota:"",firmante:P("juan.castiblancoramirez@un.org"),creado:T-29.8*H},
+    {id:"demoA3m2R8",tipo:"salida",firmante:P("diego.ardila@un.org"),contraparte:P("john.vasquezzuluaga@un.org"),items:[I("Sony 1"),I("24-70mm"),I("Hollyland 3"),I("SD 128GB·1")],mision:{id:"dm3",lugar:"Pasto",fi:addDays(h0,-3),ff:addDays(h0,-1)},prevista:addDays(h0,0),declaracion:DECL_SALIDA,creado:T-80*H},
+    {id:"demoA4c5T1",tipo:"confirmacion",ref:"demoA3m2R8",resultado:"conforme",nota:"",firmante:P("john.vasquezzuluaga@un.org"),creado:T-79.5*H},
+    {id:"demoA5w3Z6",tipo:"traspaso",firmante:P("laura.montoyaarana@un.org"),de:P("diego.ardila@un.org"),contraparte:P("diego.ardila@un.org"),items:[I("Sony 1"),I("24-70mm"),{...I("Hollyland 3"),estado:"novedad",nota:"Falta el cortaviento (perro) de uno de los emisores."}],actasPrevias:["demoA3m2R8"],mision:{id:"dm4",lugar:"Leticia",fi:h0,ff:addDays(h0,4)},prevista:nextBusinessDay(addDays(h0,4)),declaracion:DECL_TRAS,creado:T-2*H},
+    {id:"demoA6d8S3",tipo:"salida",firmante:P("diego.cuervo@un.org"),contraparte:P("juan.castiblancoramirez@un.org"),items:[I("Trípode 1"),I("Sennheiser 1")],mision:{id:"dm2",lugar:"Quibdó",fi:addDays(h0,1),ff:addDays(h0,3)},prevista:nextBusinessDay(addDays(h0,3)),declaracion:DECL_SALIDA,creado:T-0.5*H}
+  ];
+  let st;try{st=JSON.parse(localStorage.getItem(KEY)||"null");}catch(e){st=null;}
+  if(!st)st={principal:{misiones:seedMis,inventario:INV2026,categorias:CATS_2026,invVersion:INV_VERSION},acceso:accesoFrom(DEF_PERSONAS),actas:seedActas};
+  const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}};
+  let H_={};
+  const QS=new URLSearchParams(location.search);
+  let asEmail=QS.get("como")||(()=>{try{return localStorage.getItem(KEY+"_as")||DEF_PERSONAS[0].email;}catch(e){return DEF_PERSONAS[0].email;}})();
+  const pag=QS.get("pagina"),abrir=QS.get("abrir");
+  if(pag||abrir)setTimeout(()=>{if(pag&&PAGE_TITLES[pag])goTo(pag);if(abrir){({salida:formSalida,devolucion:formDevolucion,traspaso:formTraspaso,novedad:formNovedad,conteo:formConteo})[abrir]?.();}},400);
+  window.FB={
+    mode:"demo",
+    onAuth:cb=>cb({email:asEmail,verified:true}),
+    listen:h=>{H_=h;setTimeout(()=>{h.acceso(st.acceso);h.principal(st.principal);h.actas(st.actas);},0);},
+    savePrincipal:async p=>{Object.assign(st.principal,JSON.parse(JSON.stringify(p)));persist();H_.principal&&H_.principal(st.principal);},
+    saveAcceso:async d=>{st.acceso=d;persist();H_.acceso&&H_.acceso(st.acceso);},
+    addActa:async d=>{const id="demo"+Math.random().toString(36).slice(2,8);st.actas.push({...d,id,creado:Date.now()});persist();H_.actas&&H_.actas([...st.actas]);return id;},
+    signOut:async()=>{},
+    ts:v=>typeof v==="number"?v:0
+  };
+  const bar=document.getElementById("demo-bar");bar.style.display=QS.has("limpio")?"none":"flex";
+  if(QS.has("limpio")){const o=window._setSyncStatus;window._setSyncStatus=s=>o(s==="local"?"live":s);}
+  bar.innerHTML=`<strong>Modo demostración.</strong> Nada se guarda en la nube. Ver como: <select onchange="try{localStorage.setItem('${KEY}_as',this.value)}catch(e){};location.reload()">${DEF_PERSONAS.map(p=>`<option value="${p.email}" ${p.email===asEmail?"selected":""}>${p.nombre}</option>`).join("")}</select><button class="btn-sm" onclick="if(confirm('¿Reiniciar los datos de la demostración?')){try{localStorage.removeItem('${KEY}')}catch(e){};location.reload()}">Reiniciar demo</button>`;
+}
+
+/* ════════════════════ INICIO ════════════════════ */
+function boot(){
+  if(boot.done)return;boot.done=true;
+  document.getElementById("today-lbl").textContent=todayFmt();
+  if(new URLSearchParams(location.search).has("demo"))setupDemo();
+  if(!window.FB){showLogin("error",{t:"No se pudo cargar la conexión con Firebase. Revisa tu internet y recarga."});return;}
+  FB.onAuth(u=>{
+    if(!u){if(!STARTED)showLogin("entrar");else location.reload();return;}
+    if(!u.verified){showLogin("verificar",{email:u.email});return;}
+    startApp(u);
+  });
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  if(new URLSearchParams(location.search).has("demo")||window._fbLoaded)boot();
+  else{window.addEventListener("fb-loaded",boot,{once:true});setTimeout(()=>{if(!boot.done)boot();},8000);}
 });
 </script>
 </body>
