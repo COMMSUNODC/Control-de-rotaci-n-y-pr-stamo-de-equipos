@@ -106,6 +106,9 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .filter-tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
 .sec-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.eq-aviso{min-width:210px;margin-top:6px;padding:6px 8px;border-radius:6px;background:var(--butter-l,#fdf6dc);border:1px solid var(--butter,#f0dfa0);font-size:12px;line-height:1.45;color:var(--ink2)}
+.eq-aviso strong{display:block;color:var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.eq-aviso-h{color:var(--ink3);font-size:11px;margin-top:3px}
 .tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--sand);background:var(--white)}
 table.mt{width:100%;border-collapse:collapse;font-size:13px}
 table.mt th{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 14px;border-bottom:1.5px solid var(--sand);background:var(--cream);text-align:left;white-space:nowrap}
@@ -300,6 +303,7 @@ table.mt tr.click{cursor:pointer}
     <div id="page-inventario" class="page">
       <div class="sec-head"><div class="sec-title">Estado del inventario</div><div id="inv-actions"></div></div>
       <div class="filter-tabs" id="inv-tabs"></div>
+      <input class="sw-inp" id="inv-q" style="margin-bottom:1rem" placeholder="Buscar equipo (nombre, marca, serial)…" autocomplete="off" oninput="invQ=norm(this.value);renderInv()">
       <div id="inv-board"></div>
     </div>
     <div id="page-registro" class="page">
@@ -508,6 +512,8 @@ let LOADED={acceso:false,principal:false,actas:false};
 
 /* Roles */
 const lc=s=>String(s||"").trim().toLowerCase();
+/* Búsqueda: sin importar tildes ni mayúsculas */
+const norm=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
 const personaBy=email=>personas.find(p=>lc(p.email)===lc(email));
 const nombreDe=email=>personaBy(email)?.nombre||email;
 const isOwner=e=>OWNERS.includes(lc(e));
@@ -738,7 +744,7 @@ function setupDrop(inpId,dropId,getItems){
   const inp=document.getElementById(inpId),drop=document.getElementById(dropId);
   if(!inp||!drop)return;
   function populate(){
-    const items=getItems(inp.value.toLowerCase());
+    const items=getItems(norm(inp.value));
     drop.innerHTML=items.length?items.map(it=>`<div class="di${it.off?" off":""}" onmousedown="event.preventDefault()">${it.html}</div>`).join(""):`<div class="di-empty">No encontrado</div>`;
     drop.querySelectorAll(".di").forEach((el,i)=>{if(items[i]&&!items[i].off)el.addEventListener("click",()=>{items[i].onSelect();closeDrop(drop);inp.value="";setTimeout(()=>inp.focus(),10);});});
   }
@@ -859,7 +865,7 @@ function formSalida(prefMisionId){
 }
 function pickerItems(q,mode){
   const cust=custodia();
-  return inventario.filter(it=>activoInv(it)&&!F.items.some(x=>x.id===it.id)&&(it.nombre+" "+(it.descripcion||"")+" "+(it.categoria||"")).toLowerCase().includes(q))
+  return inventario.filter(it=>activoInv(it)&&!F.items.some(x=>x.id===it.id)&&norm(it.nombre+" "+(it.descripcion||"")+" "+(it.categoria||"")).includes(q))
     .sort((a,b)=>(a.categoria||"").localeCompare(b.categoria||"")||a.nombre.localeCompare(b.nombre))
     .map(it=>{
       const c=cust[it.id];
@@ -1198,7 +1204,7 @@ function renderRegistro(){
   if(!f.dataset.ready){
     f.innerHTML=`<select class="sw-inp" style="width:auto" onchange="REG.tipo=this.value;renderRegistro()"><option value="">Todos los tipos</option>${Object.entries(TIPO_LBL).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select>
     <select class="sw-inp" style="width:auto" id="reg-per" onchange="REG.persona=this.value;renderRegistro()"></select>
-    <input class="sw-inp" style="width:auto;flex:1;min-width:160px" placeholder="Buscar equipo o número…" oninput="REG.q=this.value.toLowerCase();renderRegistro()">`;
+    <input class="sw-inp" style="width:auto;flex:1;min-width:160px" placeholder="Buscar equipo o número…" oninput="REG.q=norm(this.value);renderRegistro()">`;
     f.dataset.ready="1";
   }
   const per=document.getElementById("reg-per");const cur=REG.persona;
@@ -1206,7 +1212,7 @@ function renderRegistro(){
   let list=[...actas].sort((a,b)=>tsA(b)-tsA(a));
   if(REG.tipo)list=list.filter(a=>a.tipo===REG.tipo);
   if(REG.persona)list=list.filter(a=>lc(a.firmante?.email)===REG.persona||lc(a.de?.email)===REG.persona||lc(a.contraparte?.email)===REG.persona);
-  if(REG.q)list=list.filter(a=>folio(a).toLowerCase().includes(REG.q)||(a.items||[]).some(i=>i.nombre.toLowerCase().includes(REG.q))||(a.mision?.lugar||"").toLowerCase().includes(REG.q));
+  if(REG.q)list=list.filter(a=>norm(folio(a)).includes(REG.q)||(a.items||[]).some(i=>norm(i.nombre).includes(REG.q))||norm(a.mision?.lugar).includes(REG.q));
   const t=document.getElementById("reg-tbl");
   if(!list.length){t.innerHTML=`<tbody><tr><td style="color:var(--ink3)">No hay actas${actas.length?" con estos filtros":" todavía"}.</td></tr></tbody>`;return;}
   t.innerHTML=`<thead><tr><th>Fecha</th><th>Acta</th><th>Tipo</th><th>Firmó</th><th>Equipos</th><th>Estado</th></tr></thead><tbody>${list.map(a=>{const[e,c]=estadoActa(a);return`<tr class="click" onclick="verActa('${a.id}')"><td class="mono" style="white-space:nowrap">${fmtDT(tsA(a))}</td><td class="mono">#${esc(folio(a))}</td><td><span class="badge ${TIPO_CLR[a.tipo]}">${TIPO_LBL[a.tipo]}</span></td><td>${esc(a.firmante?.nombre)}${a.de?`<div style="font-size:11px;color:var(--ink3)">de ${esc(a.de.nombre)}</div>`:""}</td><td style="max-width:280px">${(a.items||[]).map(i=>`<span class="eq-tag ${eqCls(invById(i.id)?.categoria)}">${esc(i.nombre)}</span>`).join("")||(a.ref?`<span style="font-size:12px;color:var(--ink3)">sobre #${esc(folio(actaById(a.ref)))}</span>`:"")}</td><td><span class="badge ${c}">${esc(e)}</span></td></tr>`;}).join("")}</tbody>`;
@@ -1267,29 +1273,40 @@ function setHistFilter(f){histFilter=f;renderHistory();}
 /* ════════════════════ MISIONES ════════════════════ */
 function overlapDt(a,b){return dtStr(a.fi,a.hs)<dtStr(b.ff,b.hl||"23:59")&&dtStr(a.ff,a.hl||"23:59")>dtStr(b.fi,b.hs);}
 function itemAvailDt(n,fi,hs,ff,hl,skip){const ts=dtStr(fi,hs),te=dtStr(ff,hl||"23:59");const u=misiones.filter(m=>m.id!==skip&&(m.equipo||[]).includes(n)&&ts<dtStr(m.ff,m.hl||"23:59")&&te>dtStr(m.fi,m.hs));return{libre:!u.length,donde:u.map(x=>x.lugar)};}
-function autoNotas(m){
-  const out=[];
-  for(const item of m.equipo||[]){
-    const prev=misiones.filter(x=>x.id!==m.id&&(x.equipo||[]).includes(item)&&dtStr(x.ff,x.hl||"23:59")<=dtStr(m.fi,m.hs||"23:59")).sort((a,b)=>dtStr(b.ff,b.hl||"23:59").localeCompare(dtStr(a.ff,a.hl||"23:59")));
-    if(prev.length){const from=prev[0];const fromName=from.colabs.length===1?from.colabs[0]:from.lugar;const toName=m.colabs.length===1?m.colabs[0]:m.lugar;if(fromName!==toName)out.push(`${item}: ${fromName} → ${toName}`);}
+/* Aviso "Antes de salir": qué equipo reservado NO está en el armario y quién lo tiene.
+   Solo para misiones que aún no terminan. Agrupa por persona o misión de origen. */
+function avisoEquipo(m,cust){
+  if(!m||m.ff<today())return"";
+  cust=cust||custodia();
+  const grupos=new Map(),add=(k,n)=>{if(!grupos.has(k))grupos.set(k,[]);grupos.get(k).push(n);};
+  for(const n of m.equipo||[]){
+    const inv=invByName(n),c=inv&&cust[inv.id];
+    if(c){
+      if(c.st==="devolucion")add("Devuelto, falta la revisión del/la encargado/a",n);
+      else if(!(m.colabs||[]).includes(c.nombre))add(`Lo tiene ${c.nombre}`,n);
+      continue;
+    }
+    const prev=misiones.filter(x=>x.id!==m.id&&x.ff>=today()&&(x.equipo||[]).includes(n)&&dtStr(x.ff,x.hl||"23:59")<=dtStr(m.fi,m.hs||"00:00")).sort((a,b)=>dtStr(b.ff,b.hl||"23:59").localeCompare(dtStr(a.ff,a.hl||"23:59")))[0];
+    if(prev)add(`Vuelve de ${prev.lugar} el ${fmt(prev.ff)}${prev.hl?" a las "+fmtT(prev.hl):""}`,n);
   }
-  return out.join(" · ");
+  if(!grupos.size)return"";
+  return`<div class="eq-aviso"><strong>Antes de salir:</strong>${[...grupos].map(([k,ns])=>`<div>${esc(ns.join(", "))}: ${esc(k.charAt(0).toLowerCase()+k.slice(1))}.</div>`).join("")}<div class="eq-aviso-h">Recíbelo con un traspaso o cuando vuelva al armario.</div></div>`;
 }
 function getConflicts(){const out=[];for(let i=0;i<misiones.length;i++)for(let j=i+1;j<misiones.length;j++){const a=misiones[i],b=misiones[j];if(!overlapDt(a,b))continue;const s=(a.equipo||[]).filter(e=>(b.equipo||[]).includes(e));if(s.length)out.push({a,b,shared:s});}return out;}
 function renderMisiones(){
-  const cfxIds=new Set(getConflicts().flatMap(c=>[c.a.id,c.b.id]));
+  const cfxIds=new Set(getConflicts().flatMap(c=>[c.a.id,c.b.id]));const cust=custodia();
   const cutoff=today().slice(0,7)+"-01";
   const active=misiones.filter(m=>m.ff>=cutoff),archived=misiones.length-active.length;
   document.getElementById("arc-note").innerHTML=archived?`<div class="alert alert-info" style="margin-bottom:1rem">${archived} misión${archived!==1?"es":""} archivada${archived!==1?"s":""} en el Historial.</div>`:"";
   const sorted=[...active].sort((a,b)=>a.fi.localeCompare(b.fi));
   document.getElementById("mission-tbl").innerHTML=`<thead><tr><th>Lugar / Colaborador(es)</th><th>Salida</th><th>Llegada</th><th>Proyecto</th><th>Equipo asignado</th><th>Notas</th><th></th></tr></thead><tbody>`+
-  (sorted.length?sorted.map(m=>{const auto=autoNotas(m),man=m.notas||"";return`<tr>
+  (sorted.length?sorted.map(m=>{const aviso=avisoEquipo(m,cust),man=m.notas||"";return`<tr>
     <td><div style="font-weight:600">${esc(m.lugar)}</div><div style="font-size:12px;color:var(--ink3)">${esc((m.colabs||[]).join(", "))}</div>${cfxIds.has(m.id)?`<span class="badge b-rose" style="font-size:10px;margin-top:4px">conflicto</span>`:""}</td>
     <td class="mono" style="white-space:nowrap">${fmt(m.fi)}<br><strong>${fmtT(m.hs)||"—"}</strong></td>
     <td class="mono" style="white-space:nowrap">${fmt(m.ff)}<br><strong>${fmtT(m.hl)||"—"}</strong></td>
     <td>${m.proyecto&&m.proyecto!=="—"?`<span class="badge b-sand">${esc(m.proyecto)}</span>`:""}</td>
-    <td style="max-width:280px">${(m.equipo||[]).length?m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${esc(e)}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}</td>
-    <td style="font-size:12px;color:var(--ink2);max-width:200px">${auto?`<span style="color:var(--ink3)">${esc(auto)}</span>${man?"<br>":""}`:""}${esc(man)}</td>
+    <td style="max-width:280px">${(m.equipo||[]).length?m.equipo.map(e=>`<span class="eq-tag ${eqCat(e)}">${esc(e)}</span>`).join(""):`<span style="font-size:12px;color:var(--ink3)">Solo equipo personal</span>`}${aviso}</td>
+    <td style="font-size:12px;color:var(--ink2);max-width:200px">${esc(man)}</td>
     <td style="white-space:nowrap">${(m.colabs||[]).includes(ME?.nombre)&&(m.equipo||[]).length&&m.ff>=today()?`<button class="btn-sm" onclick="formSalida('${m.id}')">Retirar</button> `:""}<button class="btn-sm" onclick="openModalId('${m.id}')">Editar</button> <button class="btn-del" onclick="delMision('${m.id}')">&#10005;</button></td>
   </tr>`;}).join(""):`<tr><td colspan="7" style="color:var(--ink3)">No hay misiones este mes.</td></tr>`)+"</tbody>";
 }
@@ -1300,10 +1317,10 @@ function openModal(m){
   fColabs=[...(f.colabs||[])];fEquipo=[...(f.equipo||[])];
   showForm(editId?"Editar misión":"Nueva misión",buildModalBody(f),`<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" onclick="saveForm()">Guardar misión</button>`);
   renderFColabs();renderFEquipo();
-  setupDrop("fc-search","fc-drop",q=>colaboradores.filter(c=>c.toLowerCase().includes(q)&&!fColabs.includes(c)).map(c=>({html:`<span>${esc(c)}</span>`,onSelect:()=>{fColabs.push(c);renderFColabs();}})));
+  setupDrop("fc-search","fc-drop",q=>colaboradores.filter(c=>norm(c).includes(q)&&!fColabs.includes(c)).map(c=>({html:`<span>${esc(c)}</span>`,onSelect:()=>{fColabs.push(c);renderFColabs();}})));
   setupDrop("fe-search","fe-drop",q=>{
     const{fi,hs,ff,hl}=gfd();
-    return inventario.filter(it=>activoInv(it)&&it.nombre.toLowerCase().includes(q)&&!fEquipo.includes(it.nombre)).map(it=>{
+    return inventario.filter(it=>activoInv(it)&&norm(it.nombre+" "+(it.descripcion||"")).includes(q)&&!fEquipo.includes(it.nombre)).map(it=>{
       let badge="";
       if(it.estado==="dañado")badge=`<span class="badge b-rose" style="font-size:10px">Dañado</span>`;
       else if(fi&&ff){const av=itemAvailDt(it.nombre,fi,hs,ff,hl,editId);if(av.libre){const ix=misiones.filter(m=>m.id!==editId&&(m.equipo||[]).includes(it.nombre)&&m.ff===fi&&m.hl&&hs&&m.hl<=hs);badge=ix.length?`<span class="badge b-sky" style="font-size:10px">Intercambio ${ix[0].hl}</span>`:`<span class="badge b-sage" style="font-size:10px">Libre</span>`;}else badge=`<span class="badge b-rose" style="font-size:10px">Ocupado — ${esc(av.donde.join(", "))}</span>`;}
@@ -1367,7 +1384,7 @@ function renderPanel(){
 }
 
 /* ════════════════════ INVENTARIO ════════════════════ */
-let invFilter="";
+let invFilter="",invQ="";
 function renderInv(){
   const cust=custodia();const now=today()+"T"+new Date().toTimeString().slice(0,5);
   document.getElementById("inv-actions").innerHTML=ME&&isValidador(ME.email)?`<button class="btn btn-sec" onclick="formConteo()">Conteo de armario</button>`:"";
@@ -1378,6 +1395,7 @@ function renderInv(){
   for(const it of inventario){
     if(invFilter==="__fuera"&&!cust[it.id])continue;
     if(invFilter&&invFilter!=="__fuera"&&it.categoria!==invFilter)continue;
+    if(invQ&&!norm([it.nombre,it.descripcion,it.categoria,it.serie,it.serialUN].join(" ")).includes(invQ))continue;
     (byCat[it.categoria]=byCat[it.categoria]||[]).push(it);
   }
   let html=lastC?`<p class="form-hint">Último conteo de armario: ${fmtDT(tsA(lastC))} por ${esc(lastC.firmante.nombre)}${(lastC.faltantes||[]).length?` · <span style="color:var(--rose-d)">${lastC.faltantes.length} faltante(s)</span>`:" · sin faltantes"}.</p>`:(ME&&isValidador(ME.email)?`<p class="form-hint">Aún no se ha hecho ningún conteo de armario.</p>`:"");
