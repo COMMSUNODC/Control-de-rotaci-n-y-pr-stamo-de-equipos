@@ -187,7 +187,7 @@ table.mt tr.click{cursor:pointer}
 .seg button+button{border-left:1.5px solid var(--sand)}
 .seg button.on-ok{background:var(--sage-l);color:var(--sage-d)}
 .seg button.on-nov{background:var(--rose-l);color:var(--rose-d)}
-.decl{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;background:var(--sky-l);border:1.5px solid var(--sky);border-radius:var(--rs);padding:12px 14px;margin-top:6px;color:var(--sky-d);cursor:pointer}
+.decl{display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.5;background:var(--sky-l);border:1.5px solid var(--sky);border-radius:var(--rs);padding:10px 14px;margin-top:6px;color:var(--sky-d)}
 .decl input{margin-top:3px;width:17px;height:17px;flex-shrink:0}
 .chkl{display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:6px 0;cursor:pointer}
 .chkl input{margin-top:2px;width:16px;height:16px;flex-shrink:0}
@@ -596,12 +596,14 @@ function pendientes(){
   const val=isValidador(me),apr=isAprobador(me);
   for(const a of actas){
     const propio=lc(a.firmante?.email)===me;
+    /* Salidas y devoluciones: solo le aparecen a la persona elegida (estaba presente).
+       Al resto de la escala no se le muestran en "Pendiente de tu parte", pero pueden atenderlas desde el acta si hace falta. */
     if(a.tipo==="salida"&&val&&!propio&&!respuestas(a.id,"confirmacion").length)
-      out.push({a,acc:"confirmarSalida",prio:lc(a.contraparte?.email)===me?0:2,txt:`<strong>${esc(a.firmante.nombre)}</strong> retiró ${a.items.length} equipo(s)${lc(a.contraparte?.email)===me?" y te eligió a ti para la entrega":""}. Confirma que se los entregaste.`,btn:"Confirmar entrega"});
+      out.push({a,acc:"confirmarSalida",ajeno:lc(a.contraparte?.email)!==me,prio:lc(a.contraparte?.email)===me?0:2,txt:`<strong>${esc(a.firmante.nombre)}</strong> retiró ${a.items.length} equipo(s)${lc(a.contraparte?.email)===me?" y te eligió a ti para la entrega":""}. Confirma que se los entregaste.`,btn:"Confirmar entrega"});
     if(a.tipo==="traspaso"&&lc(a.de?.email)===me&&!respuestas(a.id,"confirmacion").length)
       out.push({a,acc:"confirmarTraspaso",prio:0,txt:`<strong>${esc(a.firmante.nombre)}</strong> registró que le pasaste ${a.items.length} equipo(s). Confírmalo.`,btn:"Confirmar traspaso"});
     if(a.tipo==="devolucion"&&val&&!propio&&!respuestas(a.id,"revision").length)
-      out.push({a,acc:"revisar",prio:lc(a.contraparte?.email)===me?0:2,txt:`<strong>${esc(a.firmante.nombre)}</strong> devolvió ${a.items.length} equipo(s)${lc(a.contraparte?.email)===me?" y te los entregó a ti":""}. Revísalos y aprueba la devolución.`,btn:"Revisar devolución"});
+      out.push({a,acc:"revisar",ajeno:lc(a.contraparte?.email)!==me,prio:lc(a.contraparte?.email)===me?0:2,txt:`<strong>${esc(a.firmante.nombre)}</strong> devolvió ${a.items.length} equipo(s)${lc(a.contraparte?.email)===me?" y te los entregó a ti":""}. Revísalos y aprueba la devolución.`,btn:"Revisar devolución"});
     if(apr&&!propio&&necesitaResolucion(a)&&!respuestas(a.id,"resolucion").length)
       out.push({a,acc:"resolver",prio:1,txt:a.tipo==="enmienda"?`<strong>${esc(a.firmante.nombre)}</strong> pide corregir el acta #${esc(folio(actaById(a.ref)))}.`:`Hay una novedad sin resolver en el acta de ${esc(TIPO_LBL[a.tipo].toLowerCase())} #${esc(folio(a))} (${esc(a.firmante.nombre)}).`,btn:a.tipo==="enmienda"?"Revisar corrección":"Resolver novedad"});
   }
@@ -645,7 +647,7 @@ async function addActa(data){
 }
 
 /* ════════════════════ LOGIN ════════════════════ */
-const AUTH_MSG={"auth/invalid-credential":"Correo o contraseña incorrectos.","auth/wrong-password":"Correo o contraseña incorrectos.","auth/user-not-found":"No hay cuenta con ese correo. Usa “Primera vez”.","auth/email-already-in-use":"Ese correo ya tiene cuenta. Si no recuerdas la contraseña usa “Olvidé mi contraseña”.","auth/weak-password":"La contraseña debe tener al menos 6 caracteres.","auth/invalid-email":"El correo no es válido.","auth/too-many-requests":"Demasiados intentos. Espera unos minutos.","auth/network-request-failed":"Sin conexión a internet.","auth/operation-not-allowed":"Falta activar el inicio de sesión con correo y contraseña en Firebase (Authentication → Método de acceso)."};
+const AUTH_MSG={"auth/invalid-credential":"Correo o contraseña incorrectos.","auth/wrong-password":"Correo o contraseña incorrectos.","auth/user-not-found":"No hay cuenta con ese correo. Usa “Primera vez”.","auth/email-already-in-use":"Ese correo ya tiene cuenta. Entra con tu contraseña. Si no la recuerdas, avísale a Nicolás.","auth/weak-password":"La contraseña debe tener al menos 6 caracteres.","auth/invalid-email":"El correo no es válido.","auth/too-many-requests":"Demasiados intentos. Espera unos minutos.","auth/network-request-failed":"Sin conexión a internet.","auth/operation-not-allowed":"Falta activar el inicio de sesión con correo y contraseña en Firebase (Authentication → Método de acceso)."};
 const authMsg=e=>AUTH_MSG[e&&e.code]||("Error: "+(e&&e.message||e));
 function showLogin(mode,info){
   const L=document.getElementById("login"),B=document.getElementById("login-body");
@@ -659,7 +661,7 @@ function showLogin(mode,info){
     <button class="btn btn-pri" id="l-go" onclick="doRegister()">Crear mi cuenta</button>
     <div class="login-links"><a onclick="showLogin('entrar')">← Ya tengo cuenta</a></div>`;
   }else if(mode==="olvido"){
-    B.innerHTML=`${msg}<p class="form-hint">Te enviaremos un enlace a tu correo para crear una contraseña nueva.</p>
+    B.innerHTML=`${msg}<div class="alert alert-warn">Este correo casi nunca llega a los buzones @un.org. Si no te llega en unos minutos, avísale a Nicolás: él borra tu cuenta y la vuelves a crear con el mismo correo.</div>
     <div class="fg"><label>Correo institucional</label><input id="l-email" type="email" placeholder="nombre@un.org"></div>
     <button class="btn btn-pri" id="l-go" onclick="doReset()">Enviar enlace</button>
     <div class="login-links"><a onclick="showLogin('entrar')">← Volver</a></div>`;
@@ -772,7 +774,7 @@ function renderMis(){
   const root=document.getElementById("mis-root");if(!root||!ME)return;
   const cust=custodia();
   const mine=misItems(ME.email,cust);
-  const pend=pendientes();
+  const pend=pendientes().filter(p=>!p.ajeno);
   const myActas=actas.filter(a=>lc(a.firmante?.email)===ME.email&&["salida","devolucion","traspaso","novedad","enmienda"].includes(a.tipo)).sort((a,b)=>tsA(b)-tsA(a)).slice(0,6);
   const nombre=(ME.nombre||"").split(" ")[0];
   const porActivar=cuentasPorActivar();
@@ -795,7 +797,7 @@ function renderMis(){
   window._pend=pend;
 }
 function doPend(i){const p=window._pend[i];if(!p)return;({confirmarSalida:formConfirmar,confirmarTraspaso:formConfirmar,revisar:formRevision,resolver:formResolver})[p.acc](p.a.id);}
-function updateBadge(){const n=pendientes().length;const b=document.getElementById("badge-mis");if(b){b.style.display=n?"":"none";b.textContent=n;}}
+function updateBadge(){const n=pendientes().filter(p=>!p.ajeno).length;const b=document.getElementById("badge-mis");if(b){b.style.display=n?"":"none";b.textContent=n;}}
 
 /* ════════════════════ FORMULARIOS DE ACTAS ════════════════════ */
 function showForm(title,body,foot,wide){
@@ -820,11 +822,12 @@ function setChk(i,v){F.items[i].estado=v;if(v==="ok")F.items[i].nota="";refreshI
 function rmFItem(i){F.items.splice(i,1);refreshItems();}
 function refreshItems(){const el=document.getElementById("f-items");if(el)el.innerHTML=chkRows(F.editable!==false,F.removable);const c=document.getElementById("f-count");if(c)c.textContent=F.items.length?`(${F.items.length})`:"";}
 function itemState(inv){return{id:inv.id,nombre:inv.nombre,estado:"ok",nota:"",registro:estadoVigente(inv)};}
-function escalaOptions(exclude,selected){
+function escalaOptions(exclude,selected,placeholder){
   const list=escala().filter(p=>lc(p.email)!==lc(exclude));
-  return list.map(p=>`<option value="${esc(p.email)}" ${lc(p.email)===lc(selected)?"selected":""}>${p.entrega}. ${esc(p.nombre)}</option>`).join("");
+  return(placeholder?`<option value="">${esc(placeholder)}</option>`:"")+list.map(p=>`<option value="${esc(p.email)}" ${lc(p.email)===lc(selected)?"selected":""}>${p.entrega}. ${esc(p.nombre)}</option>`).join("");
 }
-function declBox(id,text){return`<label class="decl"><input type="checkbox" id="${id}"><span>${esc(text)}</span></label>`;}
+/* La declaración se acepta al tocar el botón de firma: no hace falta una casilla aparte */
+function declBox(btn,text){return`<div class="decl"><span>Al tocar <strong>${esc(btn)}</strong> declaras: “${esc(text)}”</span></div>`;}
 function validateItems(){
   if(!F.items.length){toast("Agrega al menos un equipo.","err");return false;}
   const sinNota=F.items.find(i=>i.estado==="novedad"&&!String(i.nota||"").trim());
@@ -844,7 +847,6 @@ function formSalida(prefMisionId){
   const mm=misionesMias();
   const mId=prefMisionId!==undefined?prefMisionId:(mm[0]?.id||"");
   F={tipo:"salida",items:[],removable:true,misionId:mId};
-  const firstVal=escala().find(p=>lc(p.email)!==ME.email);
   showForm("Retirar equipo",`
     <div class="fg" style="margin-bottom:12px"><label>¿Para qué misión?</label>
       <select id="f-mision" onchange="onSalidaMision()"><option value="">Sin misión: uso en oficina u otro</option>${mm.map(m=>`<option value="${m.id}" ${m.id===mId?"selected":""}>${esc(m.lugar)} · ${fmt(m.fi)} → ${fmt(m.ff)}</option>`).join("")}</select></div>
@@ -852,13 +854,13 @@ function formSalida(prefMisionId){
     <div id="f-mnote"></div>
     <div class="fg" style="margin-bottom:8px"><label>Equipos <span id="f-count"></span></label>
       <div class="sw"><input class="sw-inp" id="fx-search" placeholder="+ Agregar equipo (busca por nombre)…" autocomplete="off"><div class="sdrop" id="fx-drop"></div></div></div>
-    <p class="form-hint" style="margin:6px 0 10px">Revisa cada equipo contra su estado registrado. Si todo está igual, no tienes que hacer nada más. Si algo cambió, toca “Novedad” y escríbelo.</p>
+    <p class="form-hint" style="margin:6px 0 10px">Revisa cada equipo con el equipo en la mano, frente al armario abierto. Si está igual a lo registrado, no hagas nada. Si algo cambió, toca “Novedad” y escríbelo.</p>
     <div id="f-items"></div>
     <div class="form-grid" style="margin-top:14px">
-      <div class="fg"><label>¿Quién te entrega?</label><select id="f-val">${escalaOptions(ME.email,firstVal?.email)}</select></div>
+      <div class="fg"><label>¿Quién te entrega?</label><select id="f-val">${escalaOptions(ME.email,"","Elige a quien está contigo…")}</select></div>
       <div class="fg"><label>Devolución prevista</label><input type="date" id="f-prev" value="${today()}"></div>
     </div>
-    ${declBox("f-decl",DECL_SALIDA)}`,
+    ${declBox("Firmar y recibir",DECL_SALIDA)}`,
     `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" id="f-go" onclick="submitSalida()">Firmar y recibir</button>`,true);
   setupDrop("fx-search","fx-drop",q=>pickerItems(q,"salida"));
   onSalidaMision();
@@ -902,7 +904,6 @@ function submitSalida(){
   if(!m&&!motivo){toast("Escribe el motivo o elige una misión.","err");return;}
   const val=document.getElementById("f-val").value;
   if(!val){toast("Elige quién te entrega.","err");return;}
-  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
   const cust=custodia();const taken=F.items.find(i=>cust[i.id]);
   if(taken){toast(`${taken.nombre} ya está a cargo de ${cust[taken.id].nombre}.`,"err");return;}
   submitWith("f-go",()=>addActa({tipo:"salida",items:itemsOut(),mision:m?{id:m.id,lugar:m.lugar,fi:m.fi,ff:m.ff}:null,motivo:m?"":motivo,contraparte:{email:val,nombre:nombreDe(val)},prevista:document.getElementById("f-prev").value||"",declaracion:DECL_SALIDA}));
@@ -913,7 +914,6 @@ function formDevolucion(){
   const mine=misItems(ME.email).filter(m=>m.st==="fuera");
   if(!mine.length){toast("No tienes equipo pendiente por devolver.");return;}
   F={tipo:"devolucion",items:mine.map(m=>({...itemState(m.inv||{id:m.id,nombre:m.id}),sel:true})),removable:true};
-  const firstVal=escala().find(p=>lc(p.email)!==ME.email);
   showForm("Devolver equipo",`
     <p class="form-hint">Están todos los equipos a tu cargo. Quita (✕) los que todavía no devuelves. Toca “Novedad” si algo volvió distinto a como lo recibiste.</p>
     <div class="lbl" style="margin-bottom:6px">Equipos que devuelvo <span id="f-count"></span></div>
@@ -921,18 +921,18 @@ function formDevolucion(){
     <div class="lbl" style="margin:14px 0 4px">Lista de devolución</div>
     ${CHECK_DEV.map(([k,t])=>`<label class="chkl"><input type="checkbox" id="f-ck-${k}"><span>${esc(t)}</span></label>`).join("")}
     <div class="form-grid" style="margin-top:12px">
-      <div class="fg"><label>¿A quién se lo entregas?</label><select id="f-val">${escalaOptions(ME.email,firstVal?.email)}</select></div>
+      <div class="fg"><label>¿A quién se lo entregas?</label><select id="f-val">${escalaOptions(ME.email,"","Elige a quien está contigo…")}</select></div>
       <div class="fg"><label>Comentario (opcional)</label><input id="f-notas" placeholder="Algo que deba saber quien recibe"></div>
     </div>
-    ${declBox("f-decl",DECL_DEV)}`,
+    ${declBox("Firmar devolución",DECL_DEV)}`,
     `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-ok" id="f-go" onclick="submitDevolucion()">Firmar devolución</button>`,true);
   refreshItems();
 }
 function submitDevolucion(){
   if(!validateItems())return;
-  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
   const checklist={};CHECK_DEV.forEach(([k])=>checklist[k]=!!document.getElementById("f-ck-"+k).checked);
   const val=document.getElementById("f-val").value;
+  if(!val){toast("Elige a quién se lo entregas.","err");return;}
   submitWith("f-go",()=>addActa({tipo:"devolucion",items:itemsOut(),checklist,contraparte:{email:val,nombre:nombreDe(val)},notas:document.getElementById("f-notas").value.trim(),declaracion:DECL_DEV}));
 }
 
@@ -940,7 +940,7 @@ function submitDevolucion(){
 function formTraspaso(){
   const cust=custodia();
   const holders={};
-  for(const[id,c]of Object.entries(cust))if(lc(c.email)!==ME.email&&c.st==="fuera"){(holders[lc(c.email)]=holders[lc(c.email)]||{nombre:c.nombre,email:lc(c.email),items:[]}).items.push(id);}
+  for(const[id,c]of Object.entries(cust))if(lc(c.email)!==ME.email&&c.st==="fuera"){const h=(holders[lc(c.email)]=holders[lc(c.email)]||{nombre:c.nombre,email:lc(c.email),items:[],prevista:""});h.items.push(id);if(c.prevista>h.prevista)h.prevista=c.prevista;}
   const hs=Object.values(holders);
   if(!hs.length){toast("Nadie tiene equipo a su cargo en este momento.");return;}
   F={tipo:"traspaso",items:[],removable:true,holders};
@@ -955,7 +955,7 @@ function formTraspaso(){
       <div class="fg"><label>Devolución prevista</label><input type="date" id="f-prev" value="${today()}"></div>
     </div>
     <div class="alert alert-info" style="margin-top:4px">La persona que te entrega debe confirmar el traspaso en su app. Así su responsabilidad termina y empieza la tuya.</div>
-    ${declBox("f-decl",DECL_TRAS)}`,
+    ${declBox("Firmar y recibir",DECL_TRAS)}`,
     `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-pri" id="f-go" onclick="submitTraspaso()">Firmar y recibir</button>`,true);
   refreshItems();
 }
@@ -963,6 +963,8 @@ function onTraspasoDe(){
   const e=document.getElementById("f-de").value;F.items=[];
   const h=F.holders[e];const box=document.getElementById("f-de-items");
   if(!h){box.innerHTML="";refreshItems();return;}
+  /* Sin misión elegida, hereda la devolución prevista de quien entrega */
+  if(!document.getElementById("f-mision").value&&h.prevista)document.getElementById("f-prev").value=h.prevista<today()?today():h.prevista;
   box.innerHTML=`<div class="lbl" style="margin-bottom:6px">Toca los que recibes</div><div style="margin-bottom:6px">${h.items.map(id=>{const inv=invById(id);return`<button type="button" class="chip" style="cursor:pointer" id="tr-${id}" onclick="toggleTr('${id}')">${esc(inv?.nombre||id)}</button>`;}).join("")}</div><button class="btn-sm" onclick="h_all()">Recibo todos</button>`;
   refreshItems();
 }
@@ -975,7 +977,6 @@ function submitTraspaso(){
   const de=document.getElementById("f-de").value;
   if(!de){toast("Elige quién te entrega.","err");return;}
   if(!validateItems())return;
-  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
   const m=misiones.find(x=>x.id===document.getElementById("f-mision").value);
   const cust=custodia();
   const prev=[...new Set(F.items.map(i=>cust[i.id]?.actaId).filter(Boolean))];
@@ -998,7 +999,7 @@ function formNovedad(){
     </div>
     <div class="alert alert-warn" id="nv-robo" style="display:none">En caso de robo pon la denuncia ante la Policía y guarda el número: el seguro lo exige.</div>
     <div class="fg" style="margin-bottom:12px"><label>Cuéntalo: qué pasó, cómo y dónde</label><textarea id="nv-desc" placeholder="Ej. Durante la grabación en Tumaco el trípode se cayó por el viento y se rompió la zapata."></textarea></div>
-    ${declBox("f-decl","Declaro que lo que reporto es verdad.")}`,
+    ${declBox("Firmar reporte","Lo que reporto es verdad.")}`,
     `<button class="btn btn-sec" onclick="closeModal()">Cancelar</button><button class="btn btn-warn" id="f-go" onclick="submitNovedad()">Firmar reporte</button>`);
 }
 function submitNovedad(){
@@ -1006,7 +1007,6 @@ function submitNovedad(){
   const desc=document.getElementById("nv-desc").value.trim();
   if(!ids.length){toast("Elige al menos un equipo.","err");return;}
   if(!desc){toast("Describe lo que pasó.","err");return;}
-  if(!document.getElementById("f-decl").checked){toast("Marca la declaración para firmar.","err");return;}
   const clase=document.getElementById("nv-clase").value;
   submitWith("f-go",()=>addActa({tipo:"novedad",clase,cuando:document.getElementById("nv-cuando").value,descripcion:desc,items:ids.map(id=>{const inv=invById(id);return{id,nombre:inv?.nombre||id,estado:"novedad",nota:`${clase}: ${desc}`,registro:estadoVigente(inv)};})}));
 }
